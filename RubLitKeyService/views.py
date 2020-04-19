@@ -7,4 +7,4 @@ def home (request) :
     
     model=Drivers.objects.all() 
     context={'model':model}
-    return render(request, "ShowData.Html", context)
+    return render(request, "ShowData.Html", context) 
