@@ -1,0 +1,24 @@
+{% extends 'MasterPage.html'%}
+
+{% block body %}
+<h3>{{model.Name}}</h1>
+<p>
+     <a href={{model.link}} >{{model.text}}</a>   
+      
+</p>
+<hr>
+<form     action="add">
+num 1:<input    type="text" name="num1">
+num 2:<input    type="text" name="num2">
+<input type="submit">
+</form>
+
+<form action="Save" method="post">
+
+     {% csrf_token %}
+     
+     num post 1:<input    type="text" name="num1">
+     num post 2:<input    type="text" name="num2">
+     <input type="submit">
+</form>
+{% endblock %}

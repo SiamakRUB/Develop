@@ -1,0 +1,13 @@
+{% extends 'MasterPage.html'%}
+
+{% block body %}
+<div class="grid-container"></div>
+    {% for item in model %}
+    <div class="grid-item">  {{item.firstname}} </div> 
+    <div class="grid-item">    {{item.email}}   </div> 
+    <div class="grid-item">    {{item.lastname}}</div> 
+    <div class="grid-item">    {{item.username}}</div> 
+    <div class="grid-item">     {{item.address}}</div> 
+    {% endfor %}
+</div>
+{% endblock %}
