@@ -1,0 +1,120 @@
+/*
+#1 color = #3c54ab;
+#2 color = #4096ec;
+*/
+
+a:hover,
+a:focus {
+    color: #3c54ab;
+}
+
+.circled {
+	background: #3c54ab;
+}
+
+.con1 > div, .con2 > div, .con3 > div { 
+	background-color: #3c54ab;
+}
+
+.scrollup:hover {
+	background: #3c54ab;
+}
+
+
+/* service */
+
+.service-icon span {
+	color: #3c54ab;
+}
+
+
+
+/* button */
+.btn-skin {
+  background-color: #3c54ab;
+  border-color: #3c54ab;
+}
+
+
+/* top */
+.top-area {
+	background: #4096ec;
+}
+
+/* menu */
+
+.navbar-custom ul.nav ul.dropdown-menu li a:hover {
+	color: #4096ec;
+}
+.navbar-custom.top-nav-collapse .nav li a:hover,
+.navbar-custom .nav li a:hover,
+.navbar-custom .nav li.active a,.navbar-custom.top-nav-collapse .nav li.active a  {
+    color: #4096ec;
+}
+
+
+.owl-theme .owl-controls .owl-page.active span,
+.owl-theme .owl-controls.clickable .owl-page:hover span {
+    background-color: #3c54ab;
+}
+
+
+.bg-skin {
+	background: #3c54ab;
+}
+
+.highlight-color {
+	background-color: #3c54ab;
+}
+.color {
+	color: #3c54ab;
+}
+
+/* pricing box  */
+.pricing-content.featured h2,.pricing-content.featured .price-bottom {
+	background-color:#4096ec;
+}
+.pricing-content.featured h3 {
+	background:#3c54ab;
+}
+
+
+
+/* team */
+.cbp-l-grid-team-name {
+    color: #4096ec;
+}
+
+.cbp-l-filters-button .cbp-filter-counter {
+	background-color: #3c54ab;
+}
+
+.cbp-l-filters-alignLeft .cbp-filter-item-active {
+    /* @editable properties */
+    background-color: #3c54ab;
+    border:1px solid #3c54ab;
+}
+
+.cbp-l-filters-dropdownWrap {
+    background: #3c54ab;
+}
+.cbp-l-filters-button .cbp-filter-item.cbp-filter-item-active {
+    /* @editable properties */
+    background-color: #3c54ab;
+    border-color: #3c54ab;
+}
+.cbp-l-caption-buttonLeft,
+.cbp-l-caption-buttonRight {
+    /* @editable properties */
+    background-color: #3c54ab;
+}
+
+.cbp-l-caption-buttonLeft:hover,
+.cbp-l-caption-buttonRight:hover {
+    /* @editable properties */
+    background-color: #4096ec;
+}
+
+.form-control:focus {
+  border-color: #4096ec;
+}
