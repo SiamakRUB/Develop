@@ -15,3 +15,4 @@ def Index (request) :
     
     context={'model':"HomePage"}
     return render(request, "Index.Html", context)
+ 

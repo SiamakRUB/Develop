@@ -124,7 +124,7 @@ modal element will be visible */
               <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                   <ul class="nav navbar-nav">
                       <li class="active"><a href="#">Home</a></li>
-                      <li><a href="/home/search" target="_blank">Search</a></li>
+                      <li><a href="{% url 'MainSearch' %}" target="_blank">Search</a></li>
                       <li><a href="#service">Service</a></li>
                       <li><a href="#doctor">Our team</a></li>
                       <li><a href="#facilities">Documentation</a></li>
@@ -247,7 +247,8 @@ modal element will be visible */
   <script src="/static/js/nivo-lightbox.min.js"></script>
   <script src="/static/js/custom.js"></script>
   <script src="/static/js/sitefunctions.js"></script> 
-
+  {% block Script%}
+  {% endblock%}
   <!-- <script src="{% static '/js/custom.js' %}"  type="script"></script> -->
   <!-- <script src="{% static 'js/jquery.min.js' %}"  type="script"></script> -->
   <!-- <script src="/static/js/jquery.min.js"></script>
