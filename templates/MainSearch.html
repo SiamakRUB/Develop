@@ -1,14 +1,11 @@
 {% extends 'MasterPage.html'%}
 {% load static  %}
-<!-- <link rel="stylesheet" type="text/css" href="~/assets/extra-libs/multicheck/multicheck.css"> -->
-<!-- <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"> -->
-<!-- <link href="~/css/local-search.css" rel="stylesheet" /> -->
-<!-- <link href="~/Content/Chart.min.css" rel="stylesheet" /> -->
+ 
 
-<link href="{% static 'assets/css/extra-libs/multicheck/multicheck.css' %}" rel="stylesheet" type="text/css">
-<link href="{% static 'assets/css/libs/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" rel="stylesheet" type="text/css">
-<link href="{% static 'assets/css/local-search.css' %}" rel="stylesheet" type="text/css">
-<link href="{% static 'assets/css/Chart.min.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/extra-libs/multicheck/multicheck.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/libs/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/local-search.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/Chart.min.css' %}" rel="stylesheet" type="text/css">
  
 
 {% block Container %}
@@ -30,7 +27,7 @@
                          <div class="panel-heading" role="tab" id="heading1">
                              <h4 class="panel-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1"> Word </a> </h4>
                          </div>
-                         <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+                         <div id="collapse1" class="panel-collapse  " role="tabpanel" aria-labelledby="heading1">
                              <div class="panel-body">
                                  <div class="form-group row">
                                      <label for="lname" class="col-sm-3 text-left control-label col-form-label">Ref. Word </label>
@@ -163,7 +160,7 @@
                          <div class="panel-heading" role="tab" id="heading2">
                              <h4 class="panel-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2"> Errors </a> </h4>
                          </div>
-                         <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+                         <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
                              <div class="panel-body">
                                       
                                  <div class="form-group row">
@@ -232,7 +229,7 @@
                          <div class="panel-heading" role="tab" id="heading3">
                              <h4 class="panel-title"> <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3"> Student </a> </h4>
                          </div>
-                         <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+                         <div id="collapse3" class="panel-collapse  " role="tabpanel" aria-labelledby="heading3">
                              <div class="panel-body">
                                  <div class="form-group row">
                                      <label for="lname" class="col-sm-3 text-right control-label col-form-label">Student Id</label>
@@ -1038,24 +1035,19 @@
          </div>
      </div>
  </div>
- {% block Script%}
- <script src="{% static 'assets/css/extra-libs/multicheck/datatable-checkbox-init.js' %}"  type="script"></script>
- <script src="{% static 'assets/css/extra-libs/multicheck/jquery.multicheck.js' %}"  type="script"></script>
- <script src="{% static 'assets/css/extra-libs/DataTables/datatables.min.js' %}"  type="script"></script>
+
+ <script src="{% static 'css/extra-libs/multicheck/datatable-checkbox-init.js' %}"   ></script>
+ <script src="{% static 'css/extra-libs/multicheck/jquery.multicheck.js' %}"   ></script>
+ <script src="{% static 'css/extra-libs/DataTables/datatables.min.js' %}"   ></script>
 
 
- <script src="{% static 'assets/js/chart.js' %}"  type="script"></script>
- <script src="{% static 'assets/js/local-site.js' %}"  type="script"></script>
+ <script src="{% static 'js/chart.js' %}"   ></script>
+ <script src="{% static 'js/local-site.js' %}"   ></script>
+ <script src="{% static 'js/word-local.js' %}"   ></script>
+
  
- <!-- <script src="../../assets/css/extra-libs/multicheck/datatable-checkbox-init.js"></script> -->
- <!-- <script src="../../assets/extra-libs/multicheck/jquery.multicheck.js"></script> -->
- <!-- <script src="~/assets/extra-libs/DataTables/datatables.min.js"></script> -->
-
-
-
- <!-- <script src="~/scripts/chart.js"></script>
-    <script src="~/js/local-site.js"></script> -->
  <script>
+  
      var slider = document.getElementById("myRange");
      var slider1 = document.getElementById("myRange1");
      var sliderfreq1 = document.getElementById("fmyRange1");
@@ -1086,5 +1078,4 @@
      }
 
 </script>
- {% endblock%}
  {% endblock %}
