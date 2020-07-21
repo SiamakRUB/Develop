@@ -8,5 +8,4 @@ class MenuItem:
     cssClass: str
     
 
-    
     #IsSave: models.BooleanField(default=False)

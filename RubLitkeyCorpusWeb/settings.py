@@ -137,7 +137,7 @@ STATIC_ROOT=os.path.join(BASE_DIR,'assets')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'RTFleetDef02',
+        'NAME': 'litkey',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

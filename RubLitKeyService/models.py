@@ -5,387 +5,268 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
 
-class Migrationhistory(models.Model):
-    migrationid = models.CharField(db_column='MigrationId', primary_key=True, max_length=150)  # Field name made lowercase.
-    contextkey = models.CharField(db_column='ContextKey', max_length=300)  # Field name made lowercase.
-    model = models.TextField(db_column='Model')  # Field name made lowercase.
-    productversion = models.CharField(db_column='ProductVersion', max_length=32)  # Field name made lowercase.
+class AuthGroup(models.Model):
+    name = models.CharField(unique=True, max_length=150)
 
     class Meta:
         managed = False
-        db_table = '__migrationhistory'
+        db_table = 'auth_group'
 
 
-class Appclients(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    title = models.CharField(db_column='Title', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    apptypeid = models.ForeignKey('Apptypes', models.DO_NOTHING, db_column='AppTypeId')  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-    clientid = models.CharField(db_column='ClientId', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    clientsecret = models.CharField(db_column='ClientSecret', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    isinactive = models.IntegerField(db_column='IsInactive')  # Field name made lowercase.
+class AuthGroupPermissions(models.Model):
+    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'appclients'
+        db_table = 'auth_group_permissions'
+        unique_together = (('group', 'permission'),)
 
 
-class Apptypes(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    code = models.CharField(db_column='Code', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    title = models.CharField(db_column='Title', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
+class AuthPermission(models.Model):
+    name = models.CharField(max_length=255)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
+    codename = models.CharField(max_length=100)
 
     class Meta:
         managed = False
-        db_table = 'apptypes'
+        db_table = 'auth_permission'
+        unique_together = (('content_type', 'codename'),)
 
 
-class Aviusers(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    username = models.CharField(db_column='UserName', max_length=128)  # Field name made lowercase.
-    firstname = models.CharField(db_column='Firstname', max_length=128)  # Field name made lowercase.
-    lastname = models.CharField(db_column='Lastname', max_length=128)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', max_length=128)  # Field name made lowercase.
-    passwordhashed = models.CharField(db_column='PasswordHashed', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    language = models.CharField(db_column='Language', max_length=3, blank=True, null=True)  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-    authorizedapps = models.IntegerField(db_column='AuthorizedApps')  # Field name made lowercase.
-    isazureadenabled = models.IntegerField(db_column='IsAzureADEnabled')  # Field name made lowercase.
-    azurename = models.TextField(db_column='AzureName', blank=True, null=True)  # Field name made lowercase.
-    azuresubject = models.TextField(db_column='AzureSubject', blank=True, null=True)  # Field name made lowercase.
-    azureusername = models.TextField(db_column='AzureUsername', blank=True, null=True)  # Field name made lowercase.
+class AuthUser(models.Model):
+    password = models.CharField(max_length=128)
+    last_login = models.DateTimeField(blank=True, null=True)
+    is_superuser = models.IntegerField()
+    username = models.CharField(unique=True, max_length=150)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=150)
+    email = models.CharField(max_length=254)
+    is_staff = models.IntegerField()
+    is_active = models.IntegerField()
+    date_joined = models.DateTimeField()
 
     class Meta:
         managed = False
-        db_table = 'aviusers'
+        db_table = 'auth_user'
 
 
-class Billaccountbases(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    driverid = models.ForeignKey('Drivers', models.DO_NOTHING, db_column='DriverId', blank=True, null=True)  # Field name made lowercase.
-    permitholderid = models.ForeignKey('Permitholders', models.DO_NOTHING, db_column='PermitHolderId', blank=True, null=True)  # Field name made lowercase.
-    discriminator = models.CharField(db_column='Discriminator', max_length=128)  # Field name made lowercase.
+class AuthUserGroups(models.Model):
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'billaccountbases'
+        db_table = 'auth_user_groups'
+        unique_together = (('user', 'group'),)
 
 
-class Billtransacts(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    billaccountid = models.ForeignKey(Billaccountbases, models.DO_NOTHING, db_column='BillAccountId')  # Field name made lowercase.
-    amount = models.DecimalField(db_column='Amount', max_digits=18, decimal_places=2)  # Field name made lowercase.
-    issued = models.DateTimeField(db_column='Issued')  # Field name made lowercase.
-    transacttype = models.IntegerField(db_column='TransactType')  # Field name made lowercase.
-    description = models.TextField(db_column='Description', blank=True, null=True)  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-    paymenttype = models.IntegerField(db_column='PaymentType', blank=True, null=True)  # Field name made lowercase.
-    feetypeid = models.ForeignKey('Feetypes', models.DO_NOTHING, db_column='FeeTypeId')  # Field name made lowercase.
-    feecomplexlog_code = models.CharField(db_column='FeeComplexLog_Code', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    feecomplexlog_title = models.CharField(db_column='FeeComplexLog_Title', max_length=256, blank=True, null=True)  # Field name made lowercase.
-    feecomplexlog_fee = models.DecimalField(db_column='FeeComplexLog_Fee', max_digits=18, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-    feecomplexlog_financialcode = models.CharField(db_column='FeeComplexLog_FinancialCode', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    taxpst = models.DecimalField(db_column='TaxPST', max_digits=18, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-    taxhst = models.DecimalField(db_column='TaxHST', max_digits=18, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+class AuthUserUserPermissions(models.Model):
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'billtransacts'
+        db_table = 'auth_user_user_permissions'
+        unique_together = (('user', 'permission'),)
 
 
-class Cvodrivers(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    cvoid = models.ForeignKey('Permitholders', models.DO_NOTHING, db_column='CVOId')  # Field name made lowercase.
-    driverid = models.ForeignKey('Drivers', models.DO_NOTHING, db_column='DriverId')  # Field name made lowercase.
-    issued = models.DateTimeField(db_column='Issued')  # Field name made lowercase.
-    expires = models.DateTimeField(db_column='Expires')  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'cvodrivers'
-
-
-class Drivers(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    adcn = models.CharField(db_column='ADCN', max_length=50)  # Field name made lowercase.
-    lastname = models.CharField(db_column='LastName', max_length=50)  # Field name made lowercase.
-    firstname = models.CharField(db_column='FirstName', max_length=50)  # Field name made lowercase.
-    username = models.CharField(db_column='UserName', max_length=50)  # Field name made lowercase.
-    passwordhashed = models.CharField(db_column='PasswordHashed', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-    email = models.CharField(db_column='Email', max_length=128)  # Field name made lowercase.
-    phone = models.CharField(db_column='Phone', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    messagemedia = models.IntegerField(db_column='MessageMedia')  # Field name made lowercase.
-    address = models.TextField(db_column='Address', blank=True, null=True)  # Field name made lowercase.
-    photouri = models.TextField(db_column='PhotoUri', blank=True, null=True)  # Field name made lowercase.
-    signatureuri = models.TextField(db_column='SignatureUri', blank=True, null=True)  # Field name made lowercase.
+class DjangoAdminLog(models.Model):
+    action_time = models.DateTimeField()
+    object_id = models.TextField(blank=True, null=True)
+    object_repr = models.CharField(max_length=200)
+    action_flag = models.PositiveSmallIntegerField()
+    change_message = models.TextField()
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'drivers'
+        db_table = 'django_admin_log'
 
 
-class Features(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    code = models.CharField(db_column='Code', max_length=10)  # Field name made lowercase.
-    title = models.CharField(db_column='Title', max_length=128)  # Field name made lowercase.
-    colorcode = models.CharField(db_column='ColorCode', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
+class DjangoContentType(models.Model):
+    app_label = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
 
     class Meta:
         managed = False
-        db_table = 'features'
+        db_table = 'django_content_type'
+        unique_together = (('app_label', 'model'),)
 
 
-class Feetypes(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    feecomplex_code = models.CharField(db_column='FeeComplex_Code', max_length=50)  # Field name made lowercase.
-    feecomplex_title = models.CharField(db_column='FeeComplex_Title', max_length=256)  # Field name made lowercase.
-    feecomplex_fee = models.DecimalField(db_column='FeeComplex_Fee', max_digits=18, decimal_places=2)  # Field name made lowercase.
-    feecomplex_financialcode = models.CharField(db_column='FeeComplex_FinancialCode', max_length=128)  # Field name made lowercase.
-    isinactive = models.IntegerField(db_column='IsInactive')  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
+class DjangoMigrations(models.Model):
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    applied = models.DateTimeField()
 
     class Meta:
         managed = False
-        db_table = 'feetypes'
+        db_table = 'django_migrations'
 
 
-class Filerecords(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    name = models.CharField(db_column='Name', max_length=128)  # Field name made lowercase.
-    path = models.CharField(db_column='Path', max_length=1024, blank=True, null=True)  # Field name made lowercase.
-    contenttype = models.CharField(db_column='ContentType', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    size = models.IntegerField(db_column='Size')  # Field name made lowercase.
-    md5 = models.CharField(db_column='MD5', max_length=30, blank=True, null=True)  # Field name made lowercase.
-    description = models.TextField(db_column='Description', blank=True, null=True)  # Field name made lowercase.
-    content = models.TextField(db_column='Content', blank=True, null=True)  # Field name made lowercase.
-    orderof = models.IntegerField(db_column='OrderOf')  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
+class DjangoSession(models.Model):
+    session_key = models.CharField(primary_key=True, max_length=40)
+    session_data = models.TextField()
+    expire_date = models.DateTimeField()
 
     class Meta:
         managed = False
-        db_table = 'filerecords'
+        db_table = 'django_session'
 
 
-class Insurancepolicies(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    permitholderid = models.ForeignKey('Permitholders', models.DO_NOTHING, db_column='PermitHolderId')  # Field name made lowercase.
-    code = models.CharField(db_column='Code', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    company = models.CharField(db_column='Company', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    contact = models.CharField(db_column='Contact', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    phone = models.TextField(db_column='Phone', blank=True, null=True)  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'insurancepolicies'
-
-
-class Permitholders(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    accountnumber = models.CharField(db_column='AccountNumber', max_length=50)  # Field name made lowercase.
-    address = models.CharField(db_column='Address', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    city = models.CharField(db_column='City', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    province = models.CharField(db_column='Province', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    postalcode = models.CharField(db_column='PostalCode', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    phonenumber = models.CharField(db_column='PhoneNumber', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    faxnumber = models.CharField(db_column='FaxNumber', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    comment = models.CharField(db_column='Comment', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', max_length=128)  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-    title = models.CharField(db_column='Title', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    contactname = models.CharField(db_column='ContactName', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    lastname = models.CharField(db_column='LastName', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    firstname = models.CharField(db_column='FirstName', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    driverid = models.ForeignKey(Drivers, models.DO_NOTHING, db_column='DriverId', blank=True, null=True)  # Field name made lowercase.
-    discriminator = models.CharField(db_column='Discriminator', max_length=128)  # Field name made lowercase.
+class Students(models.Model):
+    number = models.CharField(db_column='Number', max_length=255)  # Field name made lowercase.
+    geschl = models.CharField(db_column='Geschl', max_length=255)  # Field name made lowercase.
+    hsprvli = models.CharField(db_column='HSprVLI', max_length=255)  # Field name made lowercase.
+    hsprmli = models.CharField(db_column='HSprMLI', max_length=255)  # Field name made lowercase.
+    hlvli = models.CharField(db_column='HLVLI', max_length=255)  # Field name made lowercase.
+    hlmli = models.CharField(db_column='HLMLI', max_length=255)  # Field name made lowercase.
+    hlkli = models.CharField(db_column='HLKLI', max_length=255)  # Field name made lowercase.
+    multilingual = models.CharField(max_length=255)
+    sprechs = models.CharField(db_column='SprechS', max_length=255)  # Field name made lowercase.
+    less = models.CharField(db_column='LesS', max_length=255)  # Field name made lowercase.
+    dazu = models.CharField(db_column='DaZU', max_length=255)  # Field name made lowercase.
+    daza = models.CharField(db_column='DaZa', max_length=255)  # Field name made lowercase.
+    mu_hsu = models.CharField(db_column='MU/HSU', max_length=255)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    t1 = models.CharField(db_column='T1', max_length=255)  # Field name made lowercase.
+    t2 = models.CharField(db_column='T2', max_length=255)  # Field name made lowercase.
+    t3 = models.CharField(db_column='T3', max_length=255)  # Field name made lowercase.
+    t4 = models.CharField(db_column='T4', max_length=255)  # Field name made lowercase.
+    t5 = models.CharField(db_column='T5', max_length=255)  # Field name made lowercase.
+    t6 = models.CharField(db_column='T6', max_length=255)  # Field name made lowercase.
+    t7 = models.CharField(db_column='T7', max_length=255)  # Field name made lowercase.
+    t8 = models.CharField(db_column='T8', max_length=255)  # Field name made lowercase.
+    t9 = models.CharField(db_column='T9', max_length=255)  # Field name made lowercase.
+    t10 = models.CharField(db_column='T10', max_length=255)  # Field name made lowercase.
+    anzahl = models.IntegerField(db_column='Anzahl')  # Field name made lowercase.
 
     class Meta:
         managed = False
-        db_table = 'permitholders'
+        db_table = 'students'
 
 
-class Permits(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    vehicleid = models.ForeignKey('Vehicles', models.DO_NOTHING, db_column='VehicleId')  # Field name made lowercase.
-    permitholderid = models.ForeignKey(Permitholders, models.DO_NOTHING, db_column='PermitHolderId')  # Field name made lowercase.
-    issued = models.DateTimeField(db_column='Issued')  # Field name made lowercase.
-    expires = models.DateTimeField(db_column='Expires')  # Field name made lowercase.
-    permittype = models.IntegerField(db_column='PermitType')  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'permits'
-
-
-class Recordchangelogs(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    dateof = models.DateTimeField(db_column='DateOf')  # Field name made lowercase.
-    userid = models.BigIntegerField(db_column='UserId', blank=True, null=True)  # Field name made lowercase.
-    action = models.IntegerField(db_column='Action')  # Field name made lowercase.
-    recordtype = models.CharField(db_column='RecordType', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    description = models.TextField(db_column='Description', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'recordchangelogs'
-
-
-class Rteventlogs(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    dateof = models.DateTimeField(db_column='DateOf')  # Field name made lowercase.
-    level = models.IntegerField(db_column='Level')  # Field name made lowercase.
-    source = models.CharField(db_column='Source', max_length=256, blank=True, null=True)  # Field name made lowercase.
-    message = models.TextField(db_column='Message', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'rteventlogs'
-
-
-class Vehicledrivers(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    vehicleid = models.ForeignKey('Vehicles', models.DO_NOTHING, db_column='VehicleId')  # Field name made lowercase.
-    driverid = models.ForeignKey(Drivers, models.DO_NOTHING, db_column='DriverId')  # Field name made lowercase.
-    issued = models.DateTimeField(db_column='Issued')  # Field name made lowercase.
-    expires = models.DateTimeField(db_column='Expires')  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'vehicledrivers'
-
-
-class Vehiclefeatures(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    vehicleid = models.ForeignKey('Vehicles', models.DO_NOTHING, db_column='VehicleId')  # Field name made lowercase.
-    featureid = models.ForeignKey(Features, models.DO_NOTHING, db_column='FeatureId')  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
+class Tbltokenbase(models.Model):
+    id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
+    orig = models.CharField(max_length=255, blank=True, null=True)
+    target = models.CharField(max_length=255, blank=True, null=True)
+    erroneous = models.FloatField(blank=True, null=True)
+    error_level = models.CharField(max_length=255, blank=True, null=True)
+    text_id = models.CharField(max_length=255, blank=True, null=True)
+    grade = models.FloatField(blank=True, null=True)
+    pos = models.CharField(db_column='POS', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    phonemes = models.CharField(max_length=255, blank=True, null=True)
+    phoneme_units = models.CharField(max_length=255, blank=True, null=True)
+    no_phonemes = models.FloatField(blank=True, null=True)
+    graphemes = models.CharField(max_length=255, blank=True, null=True)
+    no_graphemes = models.FloatField(blank=True, null=True)
+    syllable_units = models.CharField(max_length=255, blank=True, null=True)
+    syllable_types = models.CharField(max_length=255, blank=True, null=True)
+    no_syllables = models.FloatField(blank=True, null=True)
+    morpheme_units = models.CharField(max_length=255, blank=True, null=True)
+    morpheme_types = models.CharField(max_length=255, blank=True, null=True)
+    no_morphemes = models.FloatField(blank=True, null=True)
+    graph_comb = models.FloatField(blank=True, null=True)
+    err_graph_comb = models.FloatField(blank=True, null=True)
+    graph_marked = models.FloatField(blank=True, null=True)
+    err_graph_marked = models.FloatField(blank=True, null=True)
+    ie = models.FloatField(blank=True, null=True)
+    err_ie = models.FloatField(blank=True, null=True)
+    schwa_silent = models.FloatField(blank=True, null=True)
+    err_schwa_silent = models.FloatField(blank=True, null=True)
+    doublec_syl = models.FloatField(db_column='doubleC_syl', blank=True, null=True)  # Field name made lowercase.
+    err_doublec_syl = models.FloatField(db_column='err_doubleC_syl', blank=True, null=True)  # Field name made lowercase.
+    doublec_other = models.FloatField(db_column='doubleC_other', blank=True, null=True)  # Field name made lowercase.
+    err_doublec_other = models.FloatField(db_column='err_doubleC_other', blank=True, null=True)  # Field name made lowercase.
+    doublev = models.FloatField(db_column='doubleV', blank=True, null=True)  # Field name made lowercase.
+    err_doublev = models.FloatField(db_column='err_doubleV', blank=True, null=True)  # Field name made lowercase.
+    h_length = models.FloatField(blank=True, null=True)
+    err_h_length = models.FloatField(blank=True, null=True)
+    h_sep = models.FloatField(blank=True, null=True)
+    err_h_sep = models.FloatField(blank=True, null=True)
+    r_voc = models.FloatField(blank=True, null=True)
+    err_r_voc = models.FloatField(blank=True, null=True)
+    devoice_final = models.FloatField(blank=True, null=True)
+    err_devoice_final = models.FloatField(blank=True, null=True)
+    g_spirant = models.FloatField(blank=True, null=True)
+    err_g_spirant = models.FloatField(blank=True, null=True)
+    morph_bound = models.FloatField(blank=True, null=True)
+    err_morph_bound = models.FloatField(blank=True, null=True)
+    err_hyp = models.FloatField(blank=True, null=True)
+    err_other = models.FloatField(blank=True, null=True)
+    chl_type_abs = models.FloatField(blank=True, null=True)
+    chl_type_norm = models.FloatField(blank=True, null=True)
+    chl_bigram_sum = models.FloatField(blank=True, null=True)
+    chl_bigram_min = models.FloatField(blank=True, null=True)
+    chl_nein = models.FloatField(blank=True, null=True)
+    chl_nei_old20 = models.FloatField(blank=True, null=True)
+    chl_lemma = models.CharField(max_length=255, blank=True, null=True)
+    chl_lemma_abs = models.FloatField(blank=True, null=True)
+    chl_lemma_norm = models.FloatField(blank=True, null=True)
+    type_zipf = models.FloatField(blank=True, null=True)
+    lemma_zipf = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'vehiclefeatures'
+        db_table = 'tbltokenbase'
 
 
-class Vehicleidentifiers(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    expired = models.DateTimeField(db_column='Expired')  # Field name made lowercase.
-    inactive = models.IntegerField(db_column='Inactive')  # Field name made lowercase.
-    issued = models.DateTimeField(db_column='Issued')  # Field name made lowercase.
-    key = models.TextField(db_column='Key')  # Field name made lowercase.
-    vehicleid = models.ForeignKey('Vehicles', models.DO_NOTHING, db_column='VehicleId')  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'vehicleidentifiers'
-
-
-class Vehicleinsurances(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    vehicleid = models.ForeignKey('Vehicles', models.DO_NOTHING, db_column='VehicleId')  # Field name made lowercase.
-    issued = models.DateTimeField(db_column='Issued')  # Field name made lowercase.
-    expires = models.DateTimeField(db_column='Expires')  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-    policyid = models.ForeignKey(Insurancepolicies, models.DO_NOTHING, db_column='PolicyId')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'vehicleinsurances'
-
-
-class Vehicles(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    vehicletypeid = models.ForeignKey('Vehicletypes', models.DO_NOTHING, db_column='VehicleTypeId')  # Field name made lowercase.
-    participatingtype = models.IntegerField(db_column='ParticipatingType')  # Field name made lowercase.
-    code = models.CharField(db_column='Code', max_length=20)  # Field name made lowercase.
-    deviceimei = models.CharField(db_column='DeviceIMEI', max_length=15)  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-    make = models.CharField(db_column='Make', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    model = models.CharField(db_column='Model', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    plate = models.CharField(db_column='Plate', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    province = models.CharField(db_column='Province', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    color = models.CharField(db_column='Color', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    year = models.IntegerField(db_column='Year', blank=True, null=True)  # Field name made lowercase.
-    deviceserialnumber = models.CharField(db_column='DeviceSerialNumber', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    avicategory = models.IntegerField(db_column='AVICategory', blank=True, null=True)  # Field name made lowercase.
-    qrcode = models.CharField(db_column='QRCode', max_length=20)  # Field name made lowercase.
-    ministryvin = models.CharField(db_column='MinistryVIN', max_length=50, blank=True, null=True)  # Field name made lowercase.
+class Tbltypebase(models.Model):
+    target = models.CharField(max_length=255, blank=True, null=True)
+    pos = models.CharField(db_column='POS', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    no_tokens = models.FloatField(blank=True, null=True)
+    no_spellings = models.FloatField(blank=True, null=True)
+    perc_erroneous = models.FloatField(blank=True, null=True)
+    no_texts = models.FloatField(blank=True, null=True)
+    phonemes = models.CharField(max_length=255, blank=True, null=True)
+    phoneme_units = models.CharField(max_length=255, blank=True, null=True)
+    no_phonemes = models.FloatField(blank=True, null=True)
+    graphemes = models.CharField(max_length=255, blank=True, null=True)
+    no_graphemes = models.FloatField(blank=True, null=True)
+    syllable_units = models.CharField(max_length=255, blank=True, null=True)
+    syllable_types = models.CharField(max_length=255, blank=True, null=True)
+    no_syllables = models.FloatField(blank=True, null=True)
+    morpheme_units = models.CharField(max_length=255, blank=True, null=True)
+    morpheme_types = models.CharField(max_length=255, blank=True, null=True)
+    no_morphemes = models.FloatField(blank=True, null=True)
+    graph_comb = models.FloatField(blank=True, null=True)
+    graph_marked = models.FloatField(blank=True, null=True)
+    ie = models.FloatField(blank=True, null=True)
+    schwa_silent = models.FloatField(blank=True, null=True)
+    doublec_syl = models.FloatField(db_column='doubleC_syl', blank=True, null=True)  # Field name made lowercase.
+    doublec_other = models.FloatField(db_column='doubleC_other', blank=True, null=True)  # Field name made lowercase.
+    doublev = models.FloatField(db_column='doubleV', blank=True, null=True)  # Field name made lowercase.
+    h_length = models.FloatField(blank=True, null=True)
+    h_sep = models.FloatField(blank=True, null=True)
+    r_voc = models.FloatField(blank=True, null=True)
+    devoice_final = models.FloatField(blank=True, null=True)
+    g_spirant = models.FloatField(blank=True, null=True)
+    morph_bound = models.FloatField(blank=True, null=True)
+    chl_type_abs = models.FloatField(blank=True, null=True)
+    chl_type_norm = models.FloatField(blank=True, null=True)
+    chl_bigram_sum = models.FloatField(blank=True, null=True)
+    chl_bigram_min = models.FloatField(blank=True, null=True)
+    chl_nei_n = models.FloatField(blank=True, null=True)
+    chl_nei_old20 = models.FloatField(blank=True, null=True)
+    chl_lemma = models.CharField(max_length=255, blank=True, null=True)
+    chl_lemma_abs = models.FloatField(blank=True, null=True)
+    chl_lemma_norm = models.FloatField(blank=True, null=True)
+    type_zipf = models.FloatField(blank=True, null=True)
+    lemma_zipf = models.FloatField(blank=True, null=True)
+    id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
-        db_table = 'vehicles'
+        db_table = 'tbltypebase'
 
-
-class Vehicletypes(models.Model):
-    id = models.BigAutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
-    code = models.CharField(db_column='Code', max_length=128)  # Field name made lowercase.
-    title = models.CharField(db_column='Title', max_length=128)  # Field name made lowercase.
-    description = models.CharField(db_column='Description', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordkey = models.CharField(db_column='RecordKey', max_length=128, blank=True, null=True)  # Field name made lowercase.
-    recordcreated = models.DateTimeField(db_column='RecordCreated', blank=True, null=True)  # Field name made lowercase.
-    recordmodified = models.DateTimeField(db_column='RecordModified', blank=True, null=True)  # Field name made lowercase.
-    recorddeleted = models.IntegerField(db_column='RecordDeleted')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'vehicletypes'

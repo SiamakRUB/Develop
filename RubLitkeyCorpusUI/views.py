@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 # from ModelViews.MenuModelView import MenuItem
 from .models import sample
-from .models import drivers
 # Create your views here.
 #  views are equal Controller in MVC
 
@@ -18,8 +17,8 @@ def home (request) :
 def menu (request) :
     return render(request, "Menu.Html",{'name':'  Click to View   '})
     
-def Sample_getItems (request) :
-    model= drivers.objects.all()
+# def Sample_getItems (request) :
+    # model= drivers.objects.all()
 
     # model.FirstName="SampleText"
     # model.LastName="SampleText"
@@ -27,4 +26,4 @@ def Sample_getItems (request) :
     # model.RecordCreated="http://google.com"
     # model.Address="http://google.com"
   
-    return render(request, "ShowData.Html",{'model':model})
+    # return render(request, "ShowData.Html",{'model':model})

@@ -1,7 +1,6 @@
 
 from django.shortcuts import render
 
-from RubLitKeyService.models import Drivers
 
 # Create your views here.
 

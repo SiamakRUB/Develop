@@ -15,10 +15,14 @@
      margin-top:5px
      }
  </style>
+ 
+
  <div class="row" style="margin-top:50px"></div>
  <div class="row" style="margin:20px">
      <div class="col-md-3">
- 
+     
+        <form action="/MainSearch/" method="post">
+            {% csrf_token %}
          <div class="d-flex justify-content-center">
              <div class="wrapper center-block">
  
@@ -41,7 +45,7 @@
  
                                      </div>
                                      <div class="col-sm-5">
-                                         <input type="text" class="form-control" id="myInput" placeholder="word">
+                                         <input type="text" name="Target" class="form-control" id="id_Target" placeholder="word">
  
                                      </div>
                                  </div>
@@ -279,7 +283,7 @@
  
                      <div class="col-sm-5">
  
-                         <div class="text-left refine"> <button  id="btnsearch" class="btn btn-out btn-primary btn-square">Refine Search</button> </div>
+                         <div class="text-left refine"> <button type="submit" name='SearchCommit' id="btnsearch" class="btn btn-out btn-primary btn-square">Refine Search</button> </div>
  
                      </div>
                      <div class="col-sm-7">
@@ -289,6 +293,9 @@
                  </div>
              </div>
          </div>
+         
+            <!-- {{form.as_p}}             -->
+        </form>
      </div>
      <div class="col-md-9">
          <div class="row search-section  "  >
@@ -327,11 +334,14 @@
                                                  </tr>
                                              </thead>
                                              <tbody>
-                                                 <tr>
-                                                     <td>abgeschlossen</td>
-                                                     <td>nn</td>
-                                                     <td>schliess</td>
-                                                     <td>61</td>
+                                                {% for item in wordsModel %}
+                                                    
+                                                <tr>
+                                                    
+                                                     <td>{{ item.target }}</td>
+                                                     <td>{{ item.POS }}</td>
+                                                     <td>{{ item.chl_lemma }}</td>
+                                                     <td>65</td>
                                                      <td>50</td>
                                                      <td>Kof1</td>
                                                      <td>2</td>
@@ -340,9 +350,10 @@
                                                      <td>128</td>
                                                      <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">more</button></td>
                                                      <td><a class="btn btn-info" target="_blank" href="#">Who</a></td>
-                                                     <td><a class="btn btn-info" target="_blank" href="@Url.Action("ErrorRate")">errors </a></td>
+                                                     <td><a class="btn btn-info" target="_blank" href="#">errors </a></td>
                                                      <td><button type="button" class="btn btn-info" id="show-infos">select</button></td>
                                                  </tr>
+                                                 {% endfor %} 
  
                                              </tbody>
                                          </table>
@@ -1035,16 +1046,19 @@
          </div>
      </div>
  </div>
+<!-- <h1>Data fetch</h1>
+{% for item in model %}
+    {{ item.number }}
+    {{ item.geschl }}
+{% endfor %} -->
 
  <script src="{% static 'css/extra-libs/multicheck/datatable-checkbox-init.js' %}"   ></script>
  <script src="{% static 'css/extra-libs/multicheck/jquery.multicheck.js' %}"   ></script>
  <script src="{% static 'css/extra-libs/DataTables/datatables.min.js' %}"   ></script>
 
-
  <script src="{% static 'js/chart.js' %}"   ></script>
  <script src="{% static 'js/local-site.js' %}"   ></script>
  <script src="{% static 'js/word-local.js' %}"   ></script>
-
  
  <script>
   
