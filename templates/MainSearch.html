@@ -14,6 +14,14 @@
     .form-group {
         margin-top: 5px
     }
+    .bootstrap-select .dropdown-toggle .filter-option-inner-inner {
+        /* overflow: hidden; */
+    }
+    .filter-option-inner-inner {
+        color: black;
+        font-size: 7pt;
+        white-space: initial;
+    }
 </style>
 
 
@@ -256,78 +264,73 @@
                         <div class="panel-heading" role="tab" id="heading2">
                             <h4 class="panel-title"> <a class="collapsed" role="button" data-toggle="collapse"
                                     data-parent="#accordion" href="#collapse2" aria-expanded="false"
-                                    aria-controls="collapse2"> Errors </a> </h4>
+                                    aria-controls="collapse2"> ERROR </a> </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
                             <div class="panel-body">
-
                                 <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label"> Word
-                                    </label>
-                                    <div class="col-sm-4">
-                                        <select class="custom-select">
-                                            <option selected>Choos</option>
-                                            <option value="1">start with</option>
-                                            <option value="2">end with</option>
-                                            <option value="2">contains</option>
-                                        </select>
-
-                                    </div>
-                                    <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="myInput" placeholder="word">
-
-                                    </div>
+                                   
+                                        <label style="margin-top:10px;margin-bottom:10px;" >Error Level:</label>
+                                        <select class="selectpicker multi" multiple data-live-search="true">
+                                            <option  value="0" >phonographic mapping</option>
+                                            <option value="1" >syllabic principles</option>
+                                            <option  value="2">morphological principles</option>
+                                            <option  value="3">morpho-syntactic principles</option>
+                                            <option  value="4">punctuation	   </option>
+                                          </select>   
                                 </div>
+                                 
+                            </div>
+                        </div>
+
+                        <label style="margin-top:10px;margin-bottom:10px;" >Key orthographic feature (KOF):</label>
+                        <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
+                            <div class="panel-body">
                                 <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label"
-                                        style="white-space:normal"> error Freq.</label>
-
-                                    <div class="col-sm-6">
-                                        <div class="slidecontainer">
-                                            <input type="range" min="1" max="100" value="1" class="slider"
-                                                id="errfreqmyRange">
-                                            <!-- @*https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_rangeslider*@ -->
-                                            <p>Rate: <span id="errfreqdemo"></span></p>
-
-                                        </div>
-                                        <div class="slidecontainer">
-                                            <input type="range" min="1" max="100" value="100" class="slider"
-                                                id="errfreqmyRange1">
-                                            <p>Rate: <span id="errfreqdemo1"></span></p>
-
-                                        </div>
-                                    </div>
-
+                                   
+                                        <label style="margin-top:10px;margin-bottom:10px;" >KOF :</label>
+                                        <select class="selectpicker multi" multiple data-live-search="true">
+                                            <option  value="0" >grapheme combinations</option>
+                                            <option value="1" >marked graphemes </option>
+                                            <option  value="2">ie</option>
+                                            <option  value="3">silent schwa</option>
+                                            <option  value="5">double consonant spellings	   </option>
+                                            <option  value="6">other double consonants	   </option>
+                                            <option  value="7">double vowels	   </option>
+                                            <option  value="8">vowel-lengthening	   </option>
+                                            <option  value="9">syllable-separating	   </option>
+                                            <option  value="10">vocalic	   </option>
+                                            <option  value="11">final devoicing	   </option>
+                                            <option  value="12">g-spirantization	   </option>
+                                            <option  value="13">morpheme boundary	   </option>
+                                          </select>   
                                 </div>
+                                 
+                            </div>
+                        </div>
+
+                        <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
+                            <div class="panel-body">
                                 <div class="form-group row">
-                                    <label for="lname"
-                                        class="col-sm-3 text-left control-label col-form-label">Kof</label>
-                                    <div class="col-sm-9">
-                                        <select class="custom-select">
-                                            <option selected>choos</option>
-                                            <option selected>All</option>
-                                            <option value="3">Kof 1</option>
-                                            <option value="2">Kof 2</option>
-                                        </select>
-                                    </div>
+                                   
+                                        <label style="margin-top:10px;margin-bottom:10px;" >Error in KOF :</label>
+                                        <select class="selectpicker multi" multiple data-live-search="true">
+                                            <option  value="0" >grapheme combinations</option>
+                                            <option value="1" >marked graphemes </option>
+                                            <option  value="2">ie</option>
+                                            <option  value="3">silent schwa</option>
+                                            <option  value="5">double consonant spellings	   </option>
+                                            <option  value="6">other double consonants	   </option>
+                                            <option  value="7">double vowels	   </option>
+                                            <option  value="8">vowel-lengthening	   </option>
+                                            <option  value="9">syllable-separating	   </option>
+                                            <option  value="10">vocalic	   </option>
+                                            <option  value="11">final devoicing	   </option>
+                                            <option  value="12">g-spirantization	   </option>
+                                            <option  value="13">morpheme boundary	   </option>
+                                          </select>   
                                 </div>
-                                <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label">Error
-                                        Level</label>
-                                    <div class="col-sm-9">
-                                        <select class="custom-select">
-                                            <option selected>choos</option>
-                                            <option selected>All</option>
-                                            <option value="3">PG</option>
-                                            <option value="2">SL</option>
-                                            <option value="1">MO</option>
-                                            <option value="4">SN</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox"
-                                            name="filter[]" value="12" /> <span class="ml-10">DELL</span> </label>
-                                </div>
+                                 
                             </div>
                         </div>
                     </div>
@@ -335,55 +338,11 @@
                         <div class="panel-heading" role="tab" id="heading3">
                             <h4 class="panel-title"> <a class="collapsed" role="button" data-toggle="collapse"
                                     data-parent="#accordion" href="#collapse3" aria-expanded="false"
-                                    aria-controls="collapse3"> Student </a> </h4>
+                                    aria-controls="collapse3"> METADATA </a> </h4>
                         </div>
                         <div id="collapse3" class="panel-collapse  " role="tabpanel" aria-labelledby="heading3">
                             <div class="panel-body">
-                                <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-right control-label col-form-label">Student
-                                        Id</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="fname" placeholder="Student Id">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="fname"
-                                        class="col-sm-3 text-left control-label col-form-label">Language</label>
-                                    <div class="col-sm-9">
-                                        <select class="custom-select">
-                                            <option selected>All</option>
-                                            <option value="1">German</option>
-                                            <option value="2">Multi language</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label">
-                                        Age</label>
-
-                                    <div class="col-sm-6">
-
-                                        <div class="slidecontainer">
-                                            <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
-                                            <p>Rate: <span id="demo"></span></p>
-
-                                        </div>
-                                        <div class="slidecontainer">
-                                            <input type="range" min="1" max="100" value="15" class="slider"
-                                                id="myRange1">
-                                            <p>Rate: <span id="demo1"></span></p>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox"
-                                            name="filter[]" value="12" /> <span class="ml-10">Female</span> </label>
-                                </div>
-                                <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox"
-                                            name="filter[]" value="12" /> <span class="ml-10">Male</span> </label>
-                                </div>
-
+                                 
 
                             </div>
                         </div>
@@ -1233,7 +1192,7 @@
 <script src="{% static 'js/local-site.js' %}"></script>
 <script src="{% static 'js/word-local.js' %}"></script>
 
-<script>
+<!-- <script>
 
     var slider = document.getElementById("myRange");
     var slider1 = document.getElementById("myRange1");
@@ -1264,5 +1223,5 @@
         output1.innerHTML = this.value;
     }
 
-</script>
+</script> -->
 {% endblock %}

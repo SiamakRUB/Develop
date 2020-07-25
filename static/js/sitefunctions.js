@@ -152,8 +152,8 @@ $(function() {
                      $( "#word-OLD20-label" ).val( "$" + $( "#word-OLD20-slider" ).slider( "values", 0 ) +
                         " - $" + $( "#word-OLD20-slider" ).slider( "values", 1 ) );
                 
-  
-                      
+                        $('select.multi').selectpicker();
+                                
    });
 
    
