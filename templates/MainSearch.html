@@ -5,7 +5,7 @@
 <link href="{% static 'css/extra-libs/multicheck/multicheck.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'css/libs/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'css/local-search.css' %}" rel="stylesheet" type="text/css">
-<link href="{% static 'css/Chart.min.css' %}" rel="stylesheet" type="text/css">
+<!-- <link href="{% static 'css/Chart.min.css' %}" rel="stylesheet" type="text/css"> -->
 
 
 {% block Container %}
@@ -14,9 +14,11 @@
     .form-group {
         margin-top: 5px
     }
+
     .bootstrap-select .dropdown-toggle .filter-option-inner-inner {
         /* overflow: hidden; */
     }
+
     .filter-option-inner-inner {
         color: black;
         font-size: 7pt;
@@ -56,14 +58,15 @@
 
                                         </div>
                                         <div class="col-sm-5">
-                                            <input type="text" name="Target" class="form-control" id="id_Target" placeholder="Lemma">
+                                            <input type="text" name="Target" class="form-control" id="id_Target"
+                                                placeholder="Lemma">
 
                                         </div>
 
                                         <div class="col-sm-12 row " style="margin-top:10px">
 
 
-                                    <div id="lemma-freq-slider"></div>
+                                            <div id="lemma-freq-slider"></div>
                                             <p>
                                                 <label for="lemma-freq-label">freq per 1M:</label>
                                                 <input type="text" id="lemma-freq-label"
@@ -99,7 +102,7 @@
                         <div id="collapse1" class="panel-collapse  " role="tabpanel" aria-labelledby="heading1">
                             <div class="panel-body">
                                 <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label">Wordform 
+                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label">Wordform
                                     </label>
                                     <div class="col-sm-4">
                                         <select class="custom-select">
@@ -117,7 +120,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label">Original 
+                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label">Original
                                     </label>
                                     <div class="col-sm-4">
                                         <select class="custom-select">
@@ -134,8 +137,8 @@
 
                                     </div>
                                 </div>
-                                <div class="col-sm-12 row " >
-                                    <label style="margin-top:10px;margin-bottom:10px;" >Internal structure :</label>
+                                <div class="col-sm-12 row ">
+                                    <label style="margin-top:10px;margin-bottom:10px;">Internal structure :</label>
 
 
                                     <div id="word-phonemes-slider"></div>
@@ -167,19 +170,21 @@
                                     </p>
                                 </div>
 
-                               
-                              
+
+
                                 <div class="form-group row">
-                                    <label >Part-of-speech type :</label>
+                                    <label>Part-of-speech type :</label>
                                     <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox"
-                                        name="filter[]" value="12" /> <span class="ml-10">Funktion</span> </label>
+                                                name="filter[]" value="12" /> <span class="ml-10">Funktion</span>
+                                        </label>
                                     </div>
                                     <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox"
                                                 name="filter[]" value="12" /> <span class="ml-10">Lexion</span> </label>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label">Part of speech 
+                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label">Part of
+                                        speech
                                     </label>
                                     <div class="col-sm-4">
                                         <select class="custom-select">
@@ -197,7 +202,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label">Syllable types 
+                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label">Syllable
+                                        types
                                     </label>
                                     <div class="col-sm-4">
                                         <select class="custom-select">
@@ -215,8 +221,8 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12 row " >
-                                    <label style="margin-top:10px;margin-bottom:10px;" >Frequencies :</label>
+                                <div class="col-sm-12 row ">
+                                    <label style="margin-top:10px;margin-bottom:10px;">Frequencies :</label>
 
 
                                     <div id="word-absolute-slider"></div>
@@ -249,14 +255,14 @@
 
                                     <div id="word-OLD20-slider"></div>
                                     <p>
-                                        <label for="word-OLD20-label">OLD20	     :</label>
+                                        <label for="word-OLD20-label">OLD20 :</label>
                                         <input type="text" id="word-OLD20-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
                                     </p>
                                 </div>
                                 <div class="form-group row">
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -269,68 +275,68 @@
                         <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
                             <div class="panel-body">
                                 <div class="form-group row">
-                                   
-                                        <label style="margin-top:10px;margin-bottom:10px;" >Error Level:</label>
-                                        <select class="selectpicker multi" multiple data-live-search="true">
-                                            <option  value="0" >phonographic mapping</option>
-                                            <option value="1" >syllabic principles</option>
-                                            <option  value="2">morphological principles</option>
-                                            <option  value="3">morpho-syntactic principles</option>
-                                            <option  value="4">punctuation	   </option>
-                                          </select>   
+
+                                    <label style="margin-top:10px;margin-bottom:10px;">Error Level:</label>
+                                    <select class="selectpicker multi" multiple data-live-search="true">
+                                        <option value="0">phonographic mapping</option>
+                                        <option value="1">syllabic principles</option>
+                                        <option value="2">morphological principles</option>
+                                        <option value="3">morpho-syntactic principles</option>
+                                        <option value="4">punctuation </option>
+                                    </select>
                                 </div>
-                                 
+
                             </div>
                         </div>
 
-                        <label style="margin-top:10px;margin-bottom:10px;" >Key orthographic feature (KOF):</label>
+                        <label style="margin-top:10px;margin-bottom:10px;">Key orthographic feature (KOF):</label>
                         <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
                             <div class="panel-body">
                                 <div class="form-group row">
-                                   
-                                        <label style="margin-top:10px;margin-bottom:10px;" >KOF :</label>
-                                        <select class="selectpicker multi" multiple data-live-search="true">
-                                            <option  value="0" >grapheme combinations</option>
-                                            <option value="1" >marked graphemes </option>
-                                            <option  value="2">ie</option>
-                                            <option  value="3">silent schwa</option>
-                                            <option  value="5">double consonant spellings	   </option>
-                                            <option  value="6">other double consonants	   </option>
-                                            <option  value="7">double vowels	   </option>
-                                            <option  value="8">vowel-lengthening	   </option>
-                                            <option  value="9">syllable-separating	   </option>
-                                            <option  value="10">vocalic	   </option>
-                                            <option  value="11">final devoicing	   </option>
-                                            <option  value="12">g-spirantization	   </option>
-                                            <option  value="13">morpheme boundary	   </option>
-                                          </select>   
+
+                                    <label style="margin-top:10px;margin-bottom:10px;">KOF :</label>
+                                    <select class="selectpicker multi" multiple data-live-search="true">
+                                        <option value="0">grapheme combinations</option>
+                                        <option value="1">marked graphemes </option>
+                                        <option value="2">ie</option>
+                                        <option value="3">silent schwa</option>
+                                        <option value="5">double consonant spellings </option>
+                                        <option value="6">other double consonants </option>
+                                        <option value="7">double vowels </option>
+                                        <option value="8">vowel-lengthening </option>
+                                        <option value="9">syllable-separating </option>
+                                        <option value="10">vocalic </option>
+                                        <option value="11">final devoicing </option>
+                                        <option value="12">g-spirantization </option>
+                                        <option value="13">morpheme boundary </option>
+                                    </select>
                                 </div>
-                                 
+
                             </div>
                         </div>
 
                         <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
                             <div class="panel-body">
                                 <div class="form-group row">
-                                   
-                                        <label style="margin-top:10px;margin-bottom:10px;" >Error in KOF :</label>
-                                        <select class="selectpicker multi" multiple data-live-search="true">
-                                            <option  value="0" >grapheme combinations</option>
-                                            <option value="1" >marked graphemes </option>
-                                            <option  value="2">ie</option>
-                                            <option  value="3">silent schwa</option>
-                                            <option  value="5">double consonant spellings	   </option>
-                                            <option  value="6">other double consonants	   </option>
-                                            <option  value="7">double vowels	   </option>
-                                            <option  value="8">vowel-lengthening	   </option>
-                                            <option  value="9">syllable-separating	   </option>
-                                            <option  value="10">vocalic	   </option>
-                                            <option  value="11">final devoicing	   </option>
-                                            <option  value="12">g-spirantization	   </option>
-                                            <option  value="13">morpheme boundary	   </option>
-                                          </select>   
+
+                                    <label style="margin-top:10px;margin-bottom:10px;">Error in KOF :</label>
+                                    <select class="selectpicker multi" multiple data-live-search="true">
+                                        <option value="0">grapheme combinations</option>
+                                        <option value="1">marked graphemes </option>
+                                        <option value="2">ie</option>
+                                        <option value="3">silent schwa</option>
+                                        <option value="5">double consonant spellings </option>
+                                        <option value="6">other double consonants </option>
+                                        <option value="7">double vowels </option>
+                                        <option value="8">vowel-lengthening </option>
+                                        <option value="9">syllable-separating </option>
+                                        <option value="10">vocalic </option>
+                                        <option value="11">final devoicing </option>
+                                        <option value="12">g-spirantization </option>
+                                        <option value="13">morpheme boundary </option>
+                                    </select>
                                 </div>
-                                 
+
                             </div>
                         </div>
                     </div>
@@ -342,7 +348,7 @@
                         </div>
                         <div id="collapse3" class="panel-collapse  " role="tabpanel" aria-labelledby="heading3">
                             <div class="panel-body">
-                                 
+
 
                             </div>
                         </div>
@@ -370,178 +376,314 @@
     </div>
     <div class="col-md-9">
         <div class="row search-section  ">
-
             <div class="row">
-                <div class="col-sm-12  ">
+                <div class="col-sm-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Word Structure Table
-                            <a data-toggle="collapse" href="#multiCollapseExample7" role="button" aria-expanded="true"
-                                aria-controls="multiCollapseExample7">
-                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
+                            Standard result
+                            <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+                                aria-controls="multiCollapseExample1">
+                                <span class="fa fa-angle-double-down collapse" style="font-size: 20px;"></span>
                             </a>
                         </div>
                         <div class="panel-body">
-                            <div class="row multi-collapse in" id="multiCollapseExample7" aria-expanded="true">
-                                <div class="card">
-                                    <div class="card-body">
+                            <div class="row multi-collapse in" id="multiCollapseExample1" aria-expanded="true">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <label style="margin-top:10px;margin-bottom:10px;"> number of :</label>
+                                        <ul class="list-inline center-block justify-content-center">
+                                            <li class="list-group-item"> observations :101100 </li>
+                                            <li class="list-group-item">wordforms :1000 </li>
+                                            <li class="list-group-item"> lemmas : 04205</li>
+                                            <li class="list-group-item"> texts : 0144</li>
+                                            <li class="list-group-item"> children :20142</li>
+                                        </ul>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Show and/or group by
+                            <a  data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                <span class="fa fa-angle-double-down collapse" style="font-size: 20px;"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-collapse collapse in" id="collapse1" aria-expanded="true">
+                                <div class="row">
+                                    <div class="col-md-4">
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Word</th>
-                                                    <th>Pos</th>
-                                                    <th>Lemma</th>
-                                                    <th>Frequency</th>
-                                                    <th>Normalized lema Frequency</th>
-
-                                                    <th>Kof</th>
-                                                    <th>Syllables</th>
-                                                    <th>Lemma length</th>
-                                                    <th>Lemma frequency</th>
-                                                    <th>Type frequency</th>
-                                                    <th>#</th>
-                                                    <th>Who</th>
-                                                    <th>Errors</th>
-                                                    <th>Select</th>
+                                                    <th>Lemma-related variables</th>
+                                                    <th>Show </th>
+                                                    <th>Group by</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% for item in wordsModel %}
+                                                <tr>
+                                                    <td>lemma</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>freq per 1M</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>absolute freq</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Zipf score</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- <ul class="list-inline ">
+                                            <li class="list-group-item">
+                                                <p> wordform : </p>  <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox"
+                                                    name="filter[]" value="12" /> <span class="ml-10">Show</span> </label>
+                                                </div>
+                                              
+                                            </li>
+                                            
+                                        </ul> -->
+
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Wordform-related variables</th>
+                                                    <th>Show </th>
+                                                    <th>Group by</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>wordform </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>original</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>number of phonemes</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>number of graphmes</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
 
                                                 <tr>
-
-                                                    <td>{{ item.target }}</td>
-                                                    <td>{{ item.POS }}</td>
-                                                    <td>{{ item.chl_lemma }}</td>
-                                                    <td>65</td>
-                                                    <td>50</td>
-                                                    <td>Kof1</td>
-                                                    <td>2</td>
-                                                    <td>11</td>
-                                                    <td>61</td>
-                                                    <td>128</td>
-                                                    <td><button type="button" class="btn btn-info" data-toggle="modal"
-                                                            data-target="#exampleModal">more</button></td>
-                                                    <td><a class="btn btn-info" target="_blank" href="#">Who</a></td>
-                                                    <td><a class="btn btn-info" target="_blank" href="#">errors </a>
+                                                    <td>number of syllables</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
                                                     </td>
-                                                    <td><button type="button" class="btn btn-info"
-                                                            id="show-infos">select</button></td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
                                                 </tr>
-                                                {% endfor %}
+                                                <tr>
+                                                    <td>number of morphemes</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>part-of-speech type</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>part of speech</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>syllable types</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>absolute freq</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>freq per 1M</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>summed bigram freq</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>number of neighbors</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>OLD20 </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
 
                                             </tbody>
                                         </table>
-                                    </div>
 
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Error-related variables</th>
+                                                    <th>Show </th>
+                                                    <th>Group by</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Error level</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Key orthographic feature</td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                            name="filter[]" value="12" />
+                                                    </td>
+
+                                                </tr>
+                                        
+                                            </tbody>
+                                        </table>
+                                
+
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">More Details</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Word</th>
-                                            <th>Pos</th>
-                                            <th>Lemma</th>
-                                            <th>Frequency</th>
-                                            <th>Normalized lema Frequency</th>
-                                            <th>Kof</th>
-                                            <th>Who</th>
-                                            <th>Errors</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>abgeschlossen</td>
-                                            <td>nn</td>
-                                            <td>schliess</td>
-                                            <td>61</td>
-                                            <td>50</td>
-                                            <td>kof1 </td>
-                                            <td><a class="btn btn-info" target="_blank" href="#">Who</a></td>
-                                            <td><a class="btn btn-info" target="_blank" href="@Url.Action("
-                                                    ErrorRate")">Errors </a></td>
 
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Chart base on Word freq.
-                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true"
-                                aria-controls="multiCollapseExample10">
-                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
-                            </a>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row multi-collapse in" id="multiCollapseExample10" aria-expanded="true">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <canvas id="word-line-chart" width="400" height="400"></canvas>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <canvas id="word-errareachart" width="800" height="450"></canvas>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Chart of Students
-                            <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true"
-                                aria-controls="multiCollapseExample11">
-                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
-                            </a>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row multi-collapse in" id="multiCollapseExample11" aria-expanded="true">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <canvas id="word-chart" width="200" height="200"></canvas>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <canvas id="word-chart1" width="200" height="200"></canvas>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
 
                 <div class="col-sm-12 col-md-12 ">
@@ -559,7 +701,9 @@
                                 <div class="card">
                                     <div class="card-body">
                                     </div>
-                                    <table class="table" id="zero_config">
+                                    
+                                    <!-- <table class="table" id="zero_config"> -->
+                                        <table class="table" id="Word_zero_config">
                                         <thead>
                                             <tr>
                                                 <th>Ref. Word</th>
@@ -570,8 +714,6 @@
                                                 <th>Percent</th>
                                                 <th>Error Level</th>
                                                 <th>Lex/func</th>
-                                                <th>who</th>
-                                                <th>report</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -584,229 +726,13 @@
                                                 <td>45%</td>
                                                 <td>errLevel2 </td>
                                                 <td>lex </td>
-                                                <td><a class="btn btn-info" target="_blank" href="#">who</a></td>
-                                                <td><button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#exampleModal">report</button></td>
                                             </tr>
-                                            <tr>
-                                                <td>abgeschlossen</td>
-                                                <td>abgeschlosen</td>
-                                                <td>75</td>
-                                                <td>54</td>
-                                                <td>20</td>
-                                                <td>42%</td>
-                                                <td>errLevel1 </td>
-                                                <td>func </td>
-                                                <td><a class="btn btn-info" target="_blank" href="#">who</a></td>
-                                                <td><button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#exampleModal">report</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>abgeschlossen</td>
-                                                <td>abgeschllossen</td>
-                                                <td>69</td>
-                                                <td>46</td>
-                                                <td>19</td>
-                                                <td>39%</td>
-                                                <td>errLevel3 </td>
-                                                <td>func </td>
-                                                <td><a class="btn btn-info" target="_blank" href="#">who</a></td>
-                                                <td><button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#exampleModal">report</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>abgeschlossen</td>
-                                                <td>abgschlossen</td>
-                                                <td>62</td>
-                                                <td>51</td>
-                                                <td>11</td>
-                                                <td>45%</td>
-                                                <td>errLevel4 </td>
-                                                <td>lex </td>
-                                                <td><a class="btn btn-info" target="_blank" href="#">who</a></td>
-                                                <td><button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#exampleModal">report</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>abgeschlossen</td>
-                                                <td>abgeschllossend</td>
-                                                <td>55</td>
-                                                <td>50</td>
-                                                <td>23</td>
-                                                <td>45%</td>
-                                                <td>errLevel1 </td>
-                                                <td>lex </td>
-                                                <td><a class="btn btn-info" target="_blank" href="#">who</a></td>
-                                                <td><button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#exampleModal">report</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>abgeschlossen</td>
-                                                <td>abgaeschllossen</td>
-                                                <td>48</td>
-                                                <td>41</td>
-                                                <td>23</td>
-                                                <td>45%</td>
-                                                <td>errLevel1 </td>
-                                                <td>func </td>
-                                                <td><a class="btn btn-info" target="_blank" href="#">who</a></td>
-                                                <td><button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#exampleModal">report</button></td>
-                                            </tr>
+
                                         </tbody>
                                     </table>
-                                    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
-                                        aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-xl">
-                                            <div class="modal-content">
-                                                ...
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Modal -->
-
-                                    <div class="modal fade" id="exampleModal11" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalLabel11" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">More Details</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="row">
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success"
-                                                        data-dismiss="modal">submit</button>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">More Details</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Problem:
-                                                    <textarea id="txtarea1"></textarea>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success"
-                                                        data-dismiss="modal">submit</button>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalLabel1" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">differrent form of
-                                                        error</h5>
-
-                                                </div>
-                                                <div class="modal-body">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Word</th>
-                                                                <th>Frequency</th>
-                                                                <th>Count</th>
-                                                                <th>who</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>schulöfnung</td>
-                                                                <td>20</td>
-                                                                <td>11</td>
-                                                                <td><a class="btn btn-info" target="_blank"
-                                                                        href="#">who</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>schuloffnung</td>
-                                                                <td>3</td>
-                                                                <td>10</td>
-                                                                <td><a class="btn btn-info" target="_blank"
-                                                                        href="#">who</a></td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-info"
-                                                        data-dismiss="modal">close</button>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Chart of Error types
-                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true"
-                                aria-controls="multiCollapseExample10">
-                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
-                            </a>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row multi-collapse in" id="multiCollapseExample10" aria-expanded="true">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <canvas id="selecterr-line-chart" width="400" height="400"></canvas>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <canvas id="select-errareachart" width="800" height="450"></canvas>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Chart of Error Freq
-                            <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true"
-                                aria-controls="multiCollapseExample11">
-                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
-                            </a>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row multi-collapse in" id="multiCollapseExample11" aria-expanded="true">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <canvas id="select-errmyChart" width="200" height="200"></canvas>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <canvas id="select-errmyChart1" width="200" height="200"></canvas>
-                                    </div>
+                                   
+                               
+                                    
                                 </div>
 
                             </div>
@@ -816,10 +742,10 @@
             </div>
             <div class="row">
 
-                <div class="col-sm-12  ">
+                <div class="col-sm-4  ">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Student Table
+                            AGGREGATED RESULTS 
                             <a data-toggle="collapse" href="#multiCollapseExample8" role="button" aria-expanded="true"
                                 aria-controls="multiCollapseExample8">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
@@ -831,354 +757,132 @@
                                 <div class="card">
                                     <div class="card-body">
                                     </div>
-                                    <table class="table" id="zero_config">
+                                    at the level of lemma :
+                                    <table class="table"  id="lemma_config">
                                         <thead>
                                             <tr>
-                                                <th>StudentId</th>
-                                                <th>Age</th>
-                                                <th>Language</th>
-                                                <th>Error Count</th>
-                                                <th>Percent</th>
-                                                <th>Min Error Level</th>
-                                                <th>Max Error Level</th>
+                                                <th>Lemma </th>
+                                                <th>freq1	</th>
+                                                <th>freq2	</th>
+                                             
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>asdf</td>
+                                                <td>9</td>
+                                                <td>9</td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                 
+                                 
+                                   
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4  ">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            AGGREGATED RESULTS 
+                            <a data-toggle="collapse" href="#multiCollapseExample8" role="button" aria-expanded="true"
+                                aria-controls="multiCollapseExample8">
+                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row multi-collapse in" id="multiCollapseExample8" aria-expanded="true">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                    </div>
+                                    at the level of global:
+                                    <table class="table" id="global_config" >
+                                        <thead>
+                                            <tr>
+                                                <th>global 	 </th>
+                                                <th>freq1	</th>
+                                                <th>freq2	</th>
+                                             
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>88</td>
+                                                <td>88</td>
                                                 <td>9</td>
-                                                <td>Deutsch</td>
-                                                <td>75</td>
-                                                <td>45%</td>
-                                                <td>errLevel3 </td>
-                                                <td>errLevel2 </td>
                                             </tr>
-                                            <tr>
-                                                <td>75</td>
-                                                <td>8</td>
-                                                <td>Multi</td>
-                                                <td>35</td>
-                                                <td>39%</td>
-                                                <td>errLevel1 </td>
-                                                <td>errLevel2 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>69</td>
-                                                <td>8</td>
-                                                <td>Multi</td>
-                                                <td>32</td>
-                                                <td>39%</td>
-                                                <td>errLevel4 </td>
-                                                <td>errLevel3 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>62</td>
-                                                <td>11</td>
-                                                <td>Multi</td>
-                                                <td>75</td>
-                                                <td>45%</td>
-                                                <td>errLevel1 </td>
-                                                <td>errLevel4 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>7</td>
-                                                <td>9</td>
-                                                <td>Deutsch</td>
-                                                <td>75</td>
-                                                <td>45%</td>
-                                                <td>errLevel1 </td>
-                                                <td>errLevel1 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>6</td>
-                                                <td>Deutsch</td>
-                                                <td>75</td>
-                                                <td>45%</td>
-                                                <td>errLevel1 </td>
-                                                <td>errLevel1 </td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
-                                    <div class="modal fade" id="exampleModal11" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalLabel11" aria-hidden="true">
-                                        <div class="modal-dialog modal-xl" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">More Details</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-12  ">
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-heading">
-                                                                    Number of error
-                                                                    <a data-toggle="collapse"
-                                                                        href="#multiCollapseExample10" role="button"
-                                                                        aria-expanded="true"
-                                                                        aria-controls="multiCollapseExample10">
-                                                                        <span class="fa fa-angle-double-down "
-                                                                            style="font-size: 20px;"></span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="panel-body">
-                                                                    <div class="row multi-collapse in"
-                                                                        id="multiCollapseExample10"
-                                                                        aria-expanded="true">
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <canvas id="std-line-chart" width="400"
-                                                                                    height="400"></canvas>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <canvas id="std-errareachart"
-                                                                                    width="800" height="450"></canvas>
-
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-12 ">
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-heading">
-                                                                    Chart of selected Students
-                                                                    <a data-toggle="collapse"
-                                                                        href="#multiCollapseExample11" role="button"
-                                                                        aria-expanded="true"
-                                                                        aria-controls="multiCollapseExample11">
-                                                                        <span class="fa fa-angle-double-down "
-                                                                            style="font-size: 20px;"></span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="panel-body">
-                                                                    <div class="row multi-collapse in"
-                                                                        id="multiCollapseExample11"
-                                                                        aria-expanded="true">
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <canvas id="std-myChart" width="200"
-                                                                                    height="200"></canvas>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <canvas id="std-myChart1" width="200"
-                                                                                    height="200"></canvas>
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success"
-                                                        data-dismiss="modal">submit</button>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">More Details</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Problem:
-                                                    <textarea id="txtarea1"></textarea>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success"
-                                                        data-dismiss="modal">submit</button>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalLabel1" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">differrent form of
-                                                        error</h5>
-
-                                                </div>
-                                                <div class="modal-body">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Word</th>
-                                                                <th>Frequency</th>
-                                                                <th>Count</th>
-                                                                <th>who</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>schulöfnung</td>
-                                                                <td>20</td>
-                                                                <td>11</td>
-                                                                <td><a class="btn btn-info" target="_blank"
-                                                                        href="#">who</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>schuloffnung</td>
-                                                                <td>3</td>
-                                                                <td>10</td>
-                                                                <td><a class="btn btn-info" target="_blank"
-                                                                        href="#">who</a></td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-info"
-                                                        data-dismiss="modal">close</button>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                 
+                                 
+                                   
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-        </div>
-
-
-    </div>
-</div>
-<div class="modal fade" id="exampleModal11" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel11"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">More Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 ">
+                <div class="col-sm-4  ">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Chart of Students By selected Error
-                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true"
-                                aria-controls="multiCollapseExample10">
+                            AGGREGATED RESULTS 
+                            <a data-toggle="collapse" href="#multiCollapseExample8" role="button" aria-expanded="true"
+                                aria-controls="multiCollapseExample8">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
                         </div>
                         <div class="panel-body">
-                            <div class="row multi-collapse in" id="multiCollapseExample10" aria-expanded="true">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <!-- <canvas id="lineerr-chart" width="400" height="400"></canvas> -->
-                                    </div>
-                                    <div class="col-md-6">
-                                        <!-- @*<canvas id="errareachart" width="800" height="450"></canvas>*@ -->
+                            <div class="row multi-collapse in" id="multiCollapseExample8" aria-expanded="true">
 
+                                <div class="card">
+                                    <div class="card-body">
                                     </div>
+                                    at the level of texts :
+                                    <table class="table" id="text_config" >
+                                        <thead>
+                                            <tr>
+                                                <th>TextId </th>
+                                                <th>freq1	</th>
+                                                <th>freq2	</th>
+                                             
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>88</td>
+                                                <td>9</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>10</td>
+                                                <td>5</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                 
+                                 
+                                   
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">submit</button>
-
-            </div>
+ 
         </div>
+
+
     </div>
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">More Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Problem:
-                <textarea id="txtarea1"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">submit</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">differrent form of error</h5>
-
-            </div>
-            <div class="modal-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Word</th>
-                            <th>Frequency</th>
-                            <th>Count</th>
-                            <th>who</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>schulöfnung</td>
-                            <td>20</td>
-                            <td>11</td>
-                            <td><a class="btn btn-info" target="_blank" href="#">who</a></td>
-                        </tr>
-                        <tr>
-                            <td>schuloffnung</td>
-                            <td>3</td>
-                            <td>10</td>
-                            <td><a class="btn btn-info" target="_blank" href="#">who</a></td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">close</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- <h1>Data fetch</h1>
+ <!-- <h1>Data fetch</h1>
 {% for item in model %}
     {{ item.number }}
     {{ item.geschl }}
@@ -1188,9 +892,8 @@
 <script src="{% static 'css/extra-libs/multicheck/jquery.multicheck.js' %}"></script>
 <script src="{% static 'css/extra-libs/DataTables/datatables.min.js' %}"></script>
 
-<script src="{% static 'js/chart.js' %}"></script>
-<script src="{% static 'js/local-site.js' %}"></script>
-<script src="{% static 'js/word-local.js' %}"></script>
+<!-- <script src="{% static 'js/chart.js' %}"></script>
+<script src="{% static 'js/local-site.js' %}"></script> -->
 
 <!-- <script>
 

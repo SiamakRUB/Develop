@@ -153,7 +153,25 @@ $(function() {
                         " - $" + $( "#word-OLD20-slider" ).slider( "values", 1 ) );
                 
                         $('select.multi').selectpicker();
+
+                           
+/****************************************
+   *       Basic Table                   *
+   ****************************************/
+$('#Word_zero_config').DataTable();
+$('#lemma_config').DataTable({searching: false});
+$('#global_config').DataTable({searching: false});
+$('#text_config').DataTable({searching: false});
+/****************************************
+   *       Basic Table                   *
+   * $('table').dataTable({searching: false, paging: false, info: false});
+For DataTables <1.10, use:
+
+$('table').dataTable({bFilter: false, bInfo: false});
+or using pure CSS:
+
+.dataTables_filter, .dataTables_info { display: none; }
+   ****************************************/
                                 
    });
 
-   
