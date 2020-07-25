@@ -11,6 +11,13 @@
 {% block Container %}
 
 <style>
+    caption.btn-toolbar.bottom {
+        display: inline;
+    }
+    div.export button {
+        color: black;
+        font-size: 7pt;
+    }
     .form-group {
         margin-top: 5px
     }
@@ -700,8 +707,7 @@
 
                                 <div class="card">
                                     <div class="card-body">
-                                    </div>
-                                    
+                                        <div id="Wordexport" class="export"></div>
                                     <!-- <table class="table" id="zero_config"> -->
                                         <table class="table" id="Word_zero_config">
                                         <thead>
@@ -727,9 +733,20 @@
                                                 <td>errLevel2 </td>
                                                 <td>lex </td>
                                             </tr>
+                                            <tr>
+                                                <td>abgeschlossen</td>
+                                                <td>abgeshlossen</td>
+                                                <td>55</td>
+                                                <td>51</td>
+                                                <td>21</td>
+                                                <td>90%</td>
+                                                <td>aerrLevel2 </td>
+                                                <td>lex </td>
+                                            </tr>
 
                                         </tbody>
                                     </table>
+                                </div>
                                    
                                
                                     
@@ -755,8 +772,8 @@
                             <div class="row multi-collapse in" id="multiCollapseExample8" aria-expanded="true">
 
                                 <div class="card">
-                                    <div class="card-body">
-                                    </div>
+                                    <div id="lemmaexport" class="export"></div>
+
                                     at the level of lemma :
                                     <table class="table"  id="lemma_config">
                                         <thead>
@@ -798,9 +815,10 @@
                             <div class="row multi-collapse in" id="multiCollapseExample8" aria-expanded="true">
 
                                 <div class="card">
-                                    <div class="card-body">
-                                    </div>
+                                  
+                                    <div id="globalexport" class="export"></div>
                                     at the level of global:
+
                                     <table class="table" id="global_config" >
                                         <thead>
                                             <tr>
@@ -841,8 +859,8 @@
                             <div class="row multi-collapse in" id="multiCollapseExample8" aria-expanded="true">
 
                                 <div class="card">
-                                    <div class="card-body">
-                                    </div>
+                                    <div id="textexport" class="export"></div>
+
                                     at the level of texts :
                                     <table class="table" id="text_config" >
                                         <thead>

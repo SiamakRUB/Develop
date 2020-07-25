@@ -158,7 +158,13 @@ $(function() {
 /****************************************
    *       Basic Table                   *
    ****************************************/
-$('#Word_zero_config').DataTable();
+   
+  ExportTable($('#Word_zero_config'),$('#Wordexport'));
+  ExportTable($('#lemma_config'),$('#lemmaexport'));
+  ExportTable($('#global_config'),$('#globalexport'));
+  ExportTable($('#text_config'),$('#textexport'));
+
+   $('#Word_zero_config').DataTable( );
 $('#lemma_config').DataTable({searching: false});
 $('#global_config').DataTable({searching: false});
 $('#text_config').DataTable({searching: false});
@@ -172,6 +178,14 @@ or using pure CSS:
 
 .dataTables_filter, .dataTables_info { display: none; }
    ****************************************/
-                                
-   });
+  function ExportTable(table,divId){
+    var $myTable = table;
+    // Run `tableExport()`
+    $myTable.tableExport({formats: ["xlsx", "csv"],});
+    // Detach the `buttons` html
+    var $buttons = $myTable.find('caption').children().detach();
+    // Append the buttons to an element of your choosing
+    $buttons.appendTo(divId);
+  }                           
+});
 
