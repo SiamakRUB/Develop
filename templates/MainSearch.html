@@ -14,10 +14,12 @@
     caption.btn-toolbar.bottom {
         display: inline;
     }
+
     div.export button {
         color: black;
         font-size: 7pt;
     }
+
     .form-group {
         margin-top: 5px
     }
@@ -56,8 +58,8 @@
                                         <label for="lname" class="col-sm-3 text-left control-label col-form-label">Lemma
                                         </label>
                                         <div class="col-sm-4">
-                                            <select class="custom-select">
-                                                <option value="0" selected>Choos</option>
+                                            <select id="id_LemmaSelect" class="custom-select">
+                                                <option value="0" selected>Select</option>
                                                 <option value="1">starts-with</option>
                                                 <option value="2">includes</option>
                                                 <option value="3">ends-with</option>
@@ -65,33 +67,41 @@
 
                                         </div>
                                         <div class="col-sm-5">
-                                            <input type="text" name="Target" class="form-control" id="id_Target"
+                                            <input type="text" name="Lemma" class="form-control" id="id_Lemma"
                                                 placeholder="Lemma">
 
                                         </div>
 
                                         <div class="col-sm-12 row " style="margin-top:10px">
 
-
-                                            <div id="lemma-freq-slider"></div>
+                                            <div id="lemma-freq-slider" data-max="{{ maxminModel.max_norm }}"
+                                                data-min="{{ maxminModel.min_norm }}"></div>
                                             <p>
                                                 <label for="lemma-freq-label">freq per 1M:</label>
                                                 <input type="text" id="lemma-freq-label"
                                                     style="border:0; color:#b9cd6d; font-weight:bold;">
+                                                    <input type="hidden" id="id_max-lemma-freq" name="user" value="texens" />
+                                                    <input type="hidden" id="id_min-lemma-freq" name="user" value="texens" />
                                             </p>
 
-                                            <div id="lemma-absolute-slider"></div>
+                                            <div id="lemma-absolute-slider" data-max="{{ maxminModel.max_abs }}"
+                                            data-min="{{ maxminModel.min_abs }}"></div>
                                             <p>
-                                                <label for="lemma-absolute-label">freq per 1M:</label>
+                                                <label for="lemma-absolute-label">absolute freq:</label>
                                                 <input type="text" id="lemma-absolute-label"
                                                     style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            </p>
+                                                    <input type="hidden" id="id_max-lemma-absolute" name="user" value="texens" />
+                                                    <input type="hidden" id="id_min-lemma-absolute" name="user" value="texens" />
+                                                </p>
 
-                                            <div id="lemma-Zipf-slider"></div>
+                                            <div id="lemma-Zipf-slider" data-max="{{ maxminModel.max_lemmazipf }}"
+                                            data-min="{{ maxminModel.min_lemmazipf }}"></div>
                                             <p>
-                                                <label for="lemma-Zipf-label">absolute freq :</label>
+                                                <label for="lemma-Zipf-label"> Zipf score:</label>
                                                 <input type="text" id="lemma-Zipf-label"
                                                     style="border:0; color:#b9cd6d; font-weight:bold;">
+                                                    <input type="hidden" id="id_max-lemma-Zipf" name="user" value="texens" />
+                                                    <input type="hidden" id="id_min-lemma-Zipf" name="user" value="texens" />
                                             </p>
                                         </div>
                                     </div>
@@ -112,8 +122,8 @@
                                     <label for="lname" class="col-sm-3 text-left control-label col-form-label">Wordform
                                     </label>
                                     <div class="col-sm-4">
-                                        <select class="custom-select">
-                                            <option value="0" selected>Choos</option>
+                                        <select id="id_TargetSelect" class="custom-select">
+                                            <option value="0" selected>Select</option>
                                             <option value="1">starts-with</option>
                                             <option value="2">includes</option>
                                             <option value="3">ends-with</option>
@@ -130,8 +140,8 @@
                                     <label for="lname" class="col-sm-3 text-left control-label col-form-label">Original
                                     </label>
                                     <div class="col-sm-4">
-                                        <select class="custom-select">
-                                            <option value="0" selected>Choos</option>
+                                        <select  id="id_OrigSelect" class="custom-select">
+                                            <option value="0" selected>Select</option>
                                             <option value="1">starts-with</option>
                                             <option value="2">includes</option>
                                             <option value="3">ends-with</option>
@@ -139,7 +149,7 @@
 
                                     </div>
                                     <div class="col-sm-5">
-                                        <input type="text" name="Target" class="form-control" id="id_Target"
+                                        <input type="text" name="Orig" class="form-control" id="id_Orig"
                                             placeholder="Original">
 
                                     </div>
@@ -148,32 +158,44 @@
                                     <label style="margin-top:10px;margin-bottom:10px;">Internal structure :</label>
 
 
-                                    <div id="word-phonemes-slider"></div>
+                                    <div id="word-phonemes-slider" data-max="{{ maxminModel.max_no_phonemes }}"
+                                    data-min="{{ maxminModel.min_no_phonemes }}"></div>
                                     <p>
                                         <label for="word-phonemes-label">number of phonemes:</label>
                                         <input type="text" id="word-phonemes-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="max-word-phonemes" name="user" value="texens" />
+                                            <input type="hidden" id="min-word-phonemes" name="user" value="texens" />
                                     </p>
 
-                                    <div id="word-graphemes-slider"></div>
+                                    <div id="word-graphemes-slider" data-max="{{ maxminModel.max_no_graphemes }}"
+                                    data-min="{{ maxminModel.min_no_graphemes }}"></div>
                                     <p>
                                         <label for="word-graphemes-label">number of graphemes:</label>
                                         <input type="text" id="word-graphemes-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max-word-graphemes" name="user" value="texens" />
+                                            <input type="hidden" id="id_min-word-graphemes" name="user" value="texens" />
                                     </p>
 
-                                    <div id="word-syllables-slider"></div>
+                                    <div id="word-syllables-slider" data-max="{{ maxminModel.max_no_syllables }}"
+                                    data-min="{{ maxminModel.min_no_graphemes }}"></div>
                                     <p>
                                         <label for="word-syllables-label">number of syllables :</label>
                                         <input type="text" id="word-syllables-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max-word-syllables" name="user" value="texens" />
+                                            <input type="hidden" id="id_min-word-syllables" name="user" value="texens" />
                                     </p>
 
-                                    <div id="word-morphemes-slider"></div>
+                                    <div id="word-morphemes-slider" data-max="{{ maxminModel.max_no_morphemes }}"
+                                    data-min="{{ maxminModel.min_no_morphemes }}"></div>
                                     <p>
                                         <label for="word-morphemes-label">number of morphemes :</label>
                                         <input type="text" id="word-morphemes-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max-word-morphemes" name="user" value="texens" />
+                                            <input type="hidden" id="id_min-word-morphemes" name="user" value="texens" />
                                     </p>
                                 </div>
 
@@ -181,11 +203,11 @@
 
                                 <div class="form-group row">
                                     <label>Part-of-speech type :</label>
-                                    <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox"
+                                    <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                 name="filter[]" value="12" /> <span class="ml-10">Funktion</span>
                                         </label>
                                     </div>
-                                    <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox"
+                                    <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                 name="filter[]" value="12" /> <span class="ml-10">Lexion</span> </label>
                                     </div>
                                 </div>
@@ -194,8 +216,8 @@
                                         speech
                                     </label>
                                     <div class="col-sm-4">
-                                        <select class="custom-select">
-                                            <option value="0" selected>Choos</option>
+                                        <select  id="id_POSSelect" class="custom-select">
+                                            <option value="0" selected>Select</option>
                                             <option value="1">starts-with</option>
                                             <option value="2">includes</option>
                                             <option value="3">ends-with</option>
@@ -203,7 +225,7 @@
 
                                     </div>
                                     <div class="col-sm-5">
-                                        <input type="text" name="Target" class="form-control" id="id_Target"
+                                        <input type="text" name="POS" class="form-control" id="id_POS"
                                             placeholder="POS">
 
                                     </div>
@@ -213,8 +235,8 @@
                                         types
                                     </label>
                                     <div class="col-sm-4">
-                                        <select class="custom-select">
-                                            <option value="0" selected>Choos</option>
+                                        <select id="id_SyllableTypeSelect" class="custom-select">
+                                            <option value="0" selected>Select</option>
                                             <option value="1">starts-with</option>
                                             <option value="2">includes</option>
                                             <option value="3">ends-with</option>
@@ -222,7 +244,7 @@
 
                                     </div>
                                     <div class="col-sm-5">
-                                        <input type="text" name="Target" class="form-control" id="id_Target"
+                                        <input type="text" name="SyllableType" class="form-control" id="id_SyllableType"
                                             placeholder="Syllable types">
 
                                     </div>
@@ -232,39 +254,54 @@
                                     <label style="margin-top:10px;margin-bottom:10px;">Frequencies :</label>
 
 
-                                    <div id="word-absolute-slider"></div>
+                                    <div id="word-absolute-slider" data-max="{{ maxminModel.max_chl_type_abs }}"
+                                    data-min="{{ maxminModel.min_chl_type_abs }}"></div>
                                     <p>
                                         <label for="word-absolute-label">absolute freq:</label>
                                         <input type="text" id="word-absolute-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max-word-absolute" name="user" value="texens" />
+                                            <input type="hidden" id="id_min-word-absolute" name="user" value="texens" />
                                     </p>
 
-                                    <div id="word-freq-slider"></div>
+                                    <div id="word-freq-slider" data-max="{{ maxminModel.max_chl_type_norm }}"
+                                    data-min="{{ maxminModel.min_chl_type_norm }}"></div>
                                     <p>
                                         <label for="word-freq-label">freq per 1M:</label>
                                         <input type="text" id="word-freq-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max-word-freq" name="user" value="texens" />
+                                            <input type="hidden" id="id_min-word-freq" name="user" value="texens" />
                                     </p>
 
-                                    <div id="word-bigram-slider"></div>
+                                    <div id="word-bigram-slider" data-max="{{ maxminModel.max_chl_bigram_sum }}"
+                                    data-min="{{ maxminModel.min_chl_bigram_sum }}"></div>
                                     <p>
                                         <label for="word-bigram-label">summed bigram freq. :</label>
                                         <input type="text" id="word-bigram-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max-word-bigram" name="user" value="texens" />
+                                            <input type="hidden" id="id_min-word-bigram" name="user" value="texens" />
                                     </p>
 
-                                    <div id="word-neighbors-slider"></div>
+                                    <div id="word-neighbors-slider" data-max="{{ maxminModel.max_chl_nei_n }}"
+                                    data-min="{{ maxminModel.min_chl_nei_n }}"></div>
                                     <p>
                                         <label for="word-neighbors-label">number of neighbors :</label>
                                         <input type="text" id="word-neighbors-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max-word-neighbors" name="user" value="texens" />
+                                            <input type="hidden" id="id_min-word-neighbors" name="user" value="texens" />
                                     </p>
 
-                                    <div id="word-OLD20-slider"></div>
+                                    <div id="word-OLD20-slider" data-max="{{ maxminModel.max_chl_nei_OLD20 }}"
+                                    data-min="{{ maxminModel.min_chl_nei_OLD20 }}"></div>
                                     <p>
                                         <label for="word-OLD20-label">OLD20 :</label>
                                         <input type="text" id="word-OLD20-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max-word-OLD20" name="user" value="texens" />
+                                            <input type="hidden" id="id_min-word-OLD20" name="user" value="texens" />
                                     </p>
                                 </div>
                                 <div class="form-group row">
@@ -296,7 +333,7 @@
                             </div>
                         </div>
 
-                        <label style="margin-top:10px;margin-bottom:10px;">Key orthographic feature (KOF):</label>
+                        <!-- <label style="margin-top:10px;margin-bottom:10px;">Key orthographic feature (KOF):</label> -->
                         <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
                             <div class="panel-body">
                                 <div class="form-group row">
@@ -419,7 +456,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Show and/or group by
-                            <a  data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
                                 <span class="fa fa-angle-double-down collapse" style="font-size: 20px;"></span>
                             </a>
                         </div>
@@ -438,41 +475,41 @@
                                             <tbody>
                                                 <tr>
                                                     <td>lemma</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn "
+                                                            name="filter[]" value="12" checked />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>freq per 1M</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>absolute freq</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                                            name="filter[]" value="12" checked/>
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>Zipf score</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                                            name="filter[]" value="12" checked/>
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                                            name="filter[]" value="12" checked/>
                                                     </td>
 
                                                 </tr>
@@ -480,7 +517,7 @@
                                         </table>
                                         <!-- <ul class="list-inline ">
                                             <li class="list-group-item">
-                                                <p> wordform : </p>  <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox"
+                                                <p> wordform : </p>  <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                     name="filter[]" value="12" /> <span class="ml-10">Show</span> </label>
                                                 </div>
                                               
@@ -502,40 +539,40 @@
                                             <tbody>
                                                 <tr>
                                                     <td>wordform </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                                            name="filter[]" value="12" checked/>
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>original</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of phonemes</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                                            name="filter[]" value="12" checked/>
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of graphmes</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
@@ -543,100 +580,100 @@
 
                                                 <tr>
                                                     <td>number of syllables</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of morphemes</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>part-of-speech type</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                                            name="filter[]" value="12" checked/>
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>part of speech</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>syllable types</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>absolute freq</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>freq per 1M</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>summed bigram freq</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                                            name="filter[]" value="12" checked />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                                            name="filter[]" value="12"  />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of neighbors</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>OLD20 </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
@@ -659,31 +696,32 @@
                                             <tbody>
                                                 <tr>
                                                     <td>Error level</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                                            name="filter[]" value="12" checked />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>Key orthographic feature</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox"
+                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
                                                             name="filter[]" value="12" />
                                                     </td>
 
                                                 </tr>
-                                        
+
                                             </tbody>
                                         </table>
-                                
+
 
                                     </div>
                                 </div>
+                                <button type="button" id="btnshowgroup" class="btn btn-info">Apply</button>
 
                             </div>
                         </div>
@@ -708,48 +746,54 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div id="Wordexport" class="export"></div>
-                                    <!-- <table class="table" id="zero_config"> -->
+                                        <!-- <table class="table" id="zero_config"> -->
                                         <table class="table" id="Word_zero_config">
-                                        <thead>
-                                            <tr>
-                                                <th>Ref. Word</th>
-                                                <th>Word</th>
-                                                <th>freq</th>
-                                                <th>Count</th>
-                                                <th>Error Count</th>
-                                                <th>Percent</th>
-                                                <th>Error Level</th>
-                                                <th>Lex/func</th>
+                                            <thead>
+                                                <tr>
+                                                    <th>Ref. Word</th>
+                                                    <th>Word</th>
+                                                    <th>freq</th>
+                                                    <th>Count</th>
+                                                    <th>Error Count</th>
+                                                    <th>Percent</th>
+                                                    <th>Error Level</th>
+                                                    <th>Lex/func</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- {% for item in query_results %}
+                                            <tr> 
+                                                <td>{{ item.field1 }}</td>
+                                                <td>{{ item.fieldN }}</td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>abgeschlossen</td>
-                                                <td>abgeshlossen</td>
-                                                <td>88</td>
-                                                <td>55</td>
-                                                <td>23</td>
-                                                <td>45%</td>
-                                                <td>errLevel2 </td>
-                                                <td>lex </td>
-                                            </tr>
-                                            <tr>
-                                                <td>abgeschlossen</td>
-                                                <td>abgeshlossen</td>
-                                                <td>55</td>
-                                                <td>51</td>
-                                                <td>21</td>
-                                                <td>90%</td>
-                                                <td>aerrLevel2 </td>
-                                                <td>lex </td>
-                                            </tr>
+                                            {% endfor %} -->
+                                                <tr>
+                                                    <td>abgeschlossen</td>
+                                                    <td>abgeshlossen</td>
+                                                    <td>88</td>
+                                                    <td>55</td>
+                                                    <td>23</td>
+                                                    <td>45%</td>
+                                                    <td>errLevel2 </td>
+                                                    <td>lex </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>abgeschlossen</td>
+                                                    <td>abgeshlossen</td>
+                                                    <td>55</td>
+                                                    <td>51</td>
+                                                    <td>21</td>
+                                                    <td>90%</td>
+                                                    <td>aerrLevel2 </td>
+                                                    <td>lex </td>
+                                                </tr>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                                   
-                               
-                                    
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+
                                 </div>
 
                             </div>
@@ -762,7 +806,7 @@
                 <div class="col-sm-4  ">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            AGGREGATED RESULTS 
+                            AGGREGATED RESULTS
                             <a data-toggle="collapse" href="#multiCollapseExample8" role="button" aria-expanded="true"
                                 aria-controls="multiCollapseExample8">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
@@ -775,13 +819,13 @@
                                     <div id="lemmaexport" class="export"></div>
 
                                     at the level of lemma :
-                                    <table class="table"  id="lemma_config">
+                                    <table class="table" id="lemma_config">
                                         <thead>
                                             <tr>
                                                 <th>Lemma </th>
-                                                <th>freq1	</th>
-                                                <th>freq2	</th>
-                                             
+                                                <th>freq1 </th>
+                                                <th>freq2 </th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -790,12 +834,12 @@
                                                 <td>9</td>
                                                 <td>9</td>
                                             </tr>
-                                            
+
                                         </tbody>
                                     </table>
-                                 
-                                 
-                                   
+
+
+
                                 </div>
 
                             </div>
@@ -805,7 +849,7 @@
                 <div class="col-sm-4  ">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            AGGREGATED RESULTS 
+                            AGGREGATED RESULTS
                             <a data-toggle="collapse" href="#multiCollapseExample8" role="button" aria-expanded="true"
                                 aria-controls="multiCollapseExample8">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
@@ -815,17 +859,17 @@
                             <div class="row multi-collapse in" id="multiCollapseExample8" aria-expanded="true">
 
                                 <div class="card">
-                                  
+
                                     <div id="globalexport" class="export"></div>
                                     at the level of global:
 
-                                    <table class="table" id="global_config" >
+                                    <table class="table" id="global_config">
                                         <thead>
                                             <tr>
-                                                <th>global 	 </th>
-                                                <th>freq1	</th>
-                                                <th>freq2	</th>
-                                             
+                                                <th>global </th>
+                                                <th>freq1 </th>
+                                                <th>freq2 </th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -834,12 +878,12 @@
                                                 <td>88</td>
                                                 <td>9</td>
                                             </tr>
-                                            
+
                                         </tbody>
                                     </table>
-                                 
-                                 
-                                   
+
+
+
                                 </div>
 
                             </div>
@@ -849,7 +893,7 @@
                 <div class="col-sm-4  ">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            AGGREGATED RESULTS 
+                            AGGREGATED RESULTS
                             <a data-toggle="collapse" href="#multiCollapseExample8" role="button" aria-expanded="true"
                                 aria-controls="multiCollapseExample8">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
@@ -862,13 +906,13 @@
                                     <div id="textexport" class="export"></div>
 
                                     at the level of texts :
-                                    <table class="table" id="text_config" >
+                                    <table class="table" id="text_config">
                                         <thead>
                                             <tr>
                                                 <th>TextId </th>
-                                                <th>freq1	</th>
-                                                <th>freq2	</th>
-                                             
+                                                <th>freq1 </th>
+                                                <th>freq2 </th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -884,9 +928,9 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                 
-                                 
-                                   
+
+
+
                                 </div>
 
                             </div>
@@ -894,13 +938,13 @@
                     </div>
                 </div>
             </div>
- 
+
         </div>
 
 
     </div>
 </div>
- <!-- <h1>Data fetch</h1>
+<!-- <h1>Data fetch</h1>
 {% for item in model %}
     {{ item.number }}
     {{ item.geschl }}
@@ -914,35 +958,7 @@
 <script src="{% static 'js/local-site.js' %}"></script> -->
 
 <!-- <script>
-
-    var slider = document.getElementById("myRange");
-    var slider1 = document.getElementById("myRange1");
-    var sliderfreq1 = document.getElementById("fmyRange1");
-    var sliderfreq = document.getElementById("fmyRange");
-
-    var output = document.getElementById("demo");
-    var freqoutput = document.getElementById("freqdemo");
-    var output1 = document.getElementById("demo1");
-    var freqoutput1 = document.getElementById("freqdemo1");
-
-    output.innerHTML = slider.value; // Display the default slider value
-    freqoutput.innerHTML = sliderfreq.value; // Display the default slider value
-    output1.innerHTML = slider1.value; // Display the default slider value
-    freqoutput1.innerHTML = sliderfreq1.value; // Display the default slider value
-
-    // Update the current slider value (each time you drag the slider handle)
-    sliderfreq1.oninput = function () {
-        freqoutput1.innerHTML = this.value + '%';
-    }
-    sliderfreq.oninput = function () {
-        freqoutput.innerHTML = this.value + '%';
-    }
-    slider.oninput = function () {
-        output.innerHTML = this.value;
-    }
-    slider1.oninput = function () {
-        output1.innerHTML = this.value;
-    }
+ 
 
 </script> -->
 {% endblock %}
