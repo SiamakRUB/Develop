@@ -58,7 +58,7 @@
                                         <label for="lname" class="col-sm-3 text-left control-label col-form-label">Lemma
                                         </label>
                                         <div class="col-sm-4">
-                                            <select id="id_LemmaSelect" class="custom-select">
+                                            <select id="id_LemmaSelect" name="LemmaSelect" class="custom-select">
                                                 <option value="0" selected>Select</option>
                                                 <option value="1">starts-with</option>
                                                 <option value="2">includes</option>
@@ -80,8 +80,8 @@
                                                 <label for="lemma-freq-label">freq per 1M:</label>
                                                 <input type="text" id="lemma-freq-label"
                                                     style="border:0; color:#b9cd6d; font-weight:bold;">
-                                                    <input type="hidden" id="id_max-lemma-freq" name="user" value="texens" />
-                                                    <input type="hidden" id="id_min-lemma-freq" name="user" value="texens" />
+                                                    <input type="hidden" id="id_max_lemma_freq" name="max_lemma_freq" value="-1" />
+                                                    <input type="hidden" id="id_min_lemma_freq" name="min_lemma_freq" value="-1" />
                                             </p>
 
                                             <div id="lemma-absolute-slider" data-max="{{ maxminModel.max_abs }}"
@@ -90,8 +90,8 @@
                                                 <label for="lemma-absolute-label">absolute freq:</label>
                                                 <input type="text" id="lemma-absolute-label"
                                                     style="border:0; color:#b9cd6d; font-weight:bold;">
-                                                    <input type="hidden" id="id_max-lemma-absolute" name="user" value="texens" />
-                                                    <input type="hidden" id="id_min-lemma-absolute" name="user" value="texens" />
+                                                    <input type="hidden" id="id_max_lemma_absolute" name="max_lemma_absolute" value="-1" />
+                                                    <input type="hidden" id="id_min_lemma_absolute" name="min_lemma_absolute" value="-1" />
                                                 </p>
 
                                             <div id="lemma-Zipf-slider" data-max="{{ maxminModel.max_lemmazipf }}"
@@ -100,8 +100,8 @@
                                                 <label for="lemma-Zipf-label"> Zipf score:</label>
                                                 <input type="text" id="lemma-Zipf-label"
                                                     style="border:0; color:#b9cd6d; font-weight:bold;">
-                                                    <input type="hidden" id="id_max-lemma-Zipf" name="user" value="texens" />
-                                                    <input type="hidden" id="id_min-lemma-Zipf" name="user" value="texens" />
+                                                    <input type="hidden" id="id_max_lemma_Zipf"  name="max_lemma_Zipf" value="-1" />
+                                                    <input type="hidden" id="id_min_lemma_Zipf" name="min_lemma_Zipf" value="-1" />
                                             </p>
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@
                                     <label for="lname" class="col-sm-3 text-left control-label col-form-label">Wordform
                                     </label>
                                     <div class="col-sm-4">
-                                        <select id="id_TargetSelect" class="custom-select">
+                                        <select id="id_TargetSelect" name="TargetSelect" class="custom-select">
                                             <option value="0" selected>Select</option>
                                             <option value="1">starts-with</option>
                                             <option value="2">includes</option>
@@ -140,7 +140,7 @@
                                     <label for="lname" class="col-sm-3 text-left control-label col-form-label">Original
                                     </label>
                                     <div class="col-sm-4">
-                                        <select  id="id_OrigSelect" class="custom-select">
+                                        <select  id="id_OrigSelect" name="OrigSelect" class="custom-select">
                                             <option value="0" selected>Select</option>
                                             <option value="1">starts-with</option>
                                             <option value="2">includes</option>
@@ -164,8 +164,8 @@
                                         <label for="word-phonemes-label">number of phonemes:</label>
                                         <input type="text" id="word-phonemes-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="max-word-phonemes" name="user" value="texens" />
-                                            <input type="hidden" id="min-word-phonemes" name="user" value="texens" />
+                                            <input type="hidden"  id="id_max_word_phonemes" name="max_word_phonemes" value="-1" />
+                                            <input type="hidden" id="id_min_word_phonemes" name="min_word_phonemes" value="-1" />
                                     </p>
 
                                     <div id="word-graphemes-slider" data-max="{{ maxminModel.max_no_graphemes }}"
@@ -174,8 +174,8 @@
                                         <label for="word-graphemes-label">number of graphemes:</label>
                                         <input type="text" id="word-graphemes-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max-word-graphemes" name="user" value="texens" />
-                                            <input type="hidden" id="id_min-word-graphemes" name="user" value="texens" />
+                                            <input type="hidden" id="id_max_word_graphemes" name="max_word_graphemes" value="-1" />
+                                            <input type="hidden" id="id_min_word_graphemes" name="min_word_graphemes" value="-1" />
                                     </p>
 
                                     <div id="word-syllables-slider" data-max="{{ maxminModel.max_no_syllables }}"
@@ -184,8 +184,8 @@
                                         <label for="word-syllables-label">number of syllables :</label>
                                         <input type="text" id="word-syllables-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max-word-syllables" name="user" value="texens" />
-                                            <input type="hidden" id="id_min-word-syllables" name="user" value="texens" />
+                                            <input type="hidden" id="id_max_word_syllables" name="max_word_syllables" value="-1" />
+                                            <input type="hidden" id="id_min_word_syllables" name="min_word_syllables" value="-1" />
                                     </p>
 
                                     <div id="word-morphemes-slider" data-max="{{ maxminModel.max_no_morphemes }}"
@@ -194,8 +194,8 @@
                                         <label for="word-morphemes-label">number of morphemes :</label>
                                         <input type="text" id="word-morphemes-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max-word-morphemes" name="user" value="texens" />
-                                            <input type="hidden" id="id_min-word-morphemes" name="user" value="texens" />
+                                            <input type="hidden" id="id_max_word_morphemes" name="max_word_morphemes" value="-1" />
+                                            <input type="hidden" id="id_min_word_morphemes" name="min_word_morphemes" value="-1" />
                                     </p>
                                 </div>
 
@@ -203,11 +203,11 @@
 
                                 <div class="form-group row">
                                     <label>Part-of-speech type :</label>
-                                    <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                    <div class="checkbox"> <label> <input type="checkbox" id="id_IsFunktion" name="IsFunktion" class="option-input checkbox jqshowcolumn"
                                                 name="filter[]" value="12" /> <span class="ml-10">Funktion</span>
                                         </label>
                                     </div>
-                                    <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                    <div class="checkbox"> <label> <input type="checkbox" id="id_IsLexion" name="IsLexion" class="option-input checkbox jqshowcolumn"
                                                 name="filter[]" value="12" /> <span class="ml-10">Lexion</span> </label>
                                     </div>
                                 </div>
@@ -216,7 +216,7 @@
                                         speech
                                     </label>
                                     <div class="col-sm-4">
-                                        <select  id="id_POSSelect" class="custom-select">
+                                        <select  id="id_POSSelect"  name="POSSelect" class="custom-select">
                                             <option value="0" selected>Select</option>
                                             <option value="1">starts-with</option>
                                             <option value="2">includes</option>
@@ -235,7 +235,7 @@
                                         types
                                     </label>
                                     <div class="col-sm-4">
-                                        <select id="id_SyllableTypeSelect" class="custom-select">
+                                        <select id="id_SyllableTypeSelect"   name="SyllableTypeSelect" class="custom-select">
                                             <option value="0" selected>Select</option>
                                             <option value="1">starts-with</option>
                                             <option value="2">includes</option>
@@ -253,15 +253,14 @@
                                 <div class="col-sm-12 row ">
                                     <label style="margin-top:10px;margin-bottom:10px;">Frequencies :</label>
 
-
                                     <div id="word-absolute-slider" data-max="{{ maxminModel.max_chl_type_abs }}"
                                     data-min="{{ maxminModel.min_chl_type_abs }}"></div>
                                     <p>
                                         <label for="word-absolute-label">absolute freq:</label>
                                         <input type="text" id="word-absolute-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max-word-absolute" name="user" value="texens" />
-                                            <input type="hidden" id="id_min-word-absolute" name="user" value="texens" />
+                                            <input type="hidden" id="id_max_word_absolute" name="max_word_absolute" value="-1" />
+                                            <input type="hidden" id="id_min_word_absolute" name="min_word_absolute" value="-1" />
                                     </p>
 
                                     <div id="word-freq-slider" data-max="{{ maxminModel.max_chl_type_norm }}"
@@ -270,8 +269,8 @@
                                         <label for="word-freq-label">freq per 1M:</label>
                                         <input type="text" id="word-freq-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max-word-freq" name="user" value="texens" />
-                                            <input type="hidden" id="id_min-word-freq" name="user" value="texens" />
+                                            <input type="hidden" id="id_max_word_freq" name="max_word_freq" value="-1" />
+                                            <input type="hidden" id="id_min_word_freq" name="min_word_freq" value="-1" />
                                     </p>
 
                                     <div id="word-bigram-slider" data-max="{{ maxminModel.max_chl_bigram_sum }}"
@@ -280,8 +279,8 @@
                                         <label for="word-bigram-label">summed bigram freq. :</label>
                                         <input type="text" id="word-bigram-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max-word-bigram" name="user" value="texens" />
-                                            <input type="hidden" id="id_min-word-bigram" name="user" value="texens" />
+                                            <input type="hidden" id="id_max_word_bigram" name="max_word_bigram" value="-1" />
+                                            <input type="hidden" id="id_min_word_bigram" name="min_word_bigram" value="-1" />
                                     </p>
 
                                     <div id="word-neighbors-slider" data-max="{{ maxminModel.max_chl_nei_n }}"
@@ -290,8 +289,8 @@
                                         <label for="word-neighbors-label">number of neighbors :</label>
                                         <input type="text" id="word-neighbors-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max-word-neighbors" name="user" value="texens" />
-                                            <input type="hidden" id="id_min-word-neighbors" name="user" value="texens" />
+                                            <input type="hidden" id="id_max_word_neighbors" name="max_word_neighbors" value="-1" />
+                                            <input type="hidden" id="id_min_word_neighbors" name="min_word_neighbors" value="-1" />
                                     </p>
 
                                     <div id="word-OLD20-slider" data-max="{{ maxminModel.max_chl_nei_OLD20 }}"
@@ -300,8 +299,8 @@
                                         <label for="word-OLD20-label">OLD20 :</label>
                                         <input type="text" id="word-OLD20-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max-word-OLD20" name="user" value="texens" />
-                                            <input type="hidden" id="id_min-word-OLD20" name="user" value="texens" />
+                                            <input type="hidden" id="id_max_word_OLD20" name="max_word_OLD20" value="-1" />
+                                            <input type="hidden" id="id_min_word_OLD20" name="min_word_OLD20" value="-1" />
                                     </p>
                                 </div>
                                 <div class="form-group row">
@@ -321,7 +320,8 @@
                                 <div class="form-group row">
 
                                     <label style="margin-top:10px;margin-bottom:10px;">Error Level:</label>
-                                    <select class="selectpicker multi" multiple data-live-search="true">
+                                    <input type="hidden" id="id_ErrorLevelSelected" name="ErrorLevelSelected" value="-1" />
+                                    <select class="selectpicker multi" id="id_ErrorLevel" name="ErrorLevel" multiple data-live-search="true">
                                         <option value="0">phonographic mapping</option>
                                         <option value="1">syllabic principles</option>
                                         <option value="2">morphological principles</option>
@@ -339,7 +339,8 @@
                                 <div class="form-group row">
 
                                     <label style="margin-top:10px;margin-bottom:10px;">KOF :</label>
-                                    <select class="selectpicker multi" multiple data-live-search="true">
+                                    <input type="hidden" name="KOFSelected" id="id_KOFSelected" name="user" value="-1" />
+                                    <select  id="id_KOF" name="KOF" class="selectpicker multi" multiple data-live-search="true">
                                         <option value="0">grapheme combinations</option>
                                         <option value="1">marked graphemes </option>
                                         <option value="2">ie</option>
@@ -362,9 +363,9 @@
                         <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
                             <div class="panel-body">
                                 <div class="form-group row">
-
                                     <label style="margin-top:10px;margin-bottom:10px;">Error in KOF :</label>
-                                    <select class="selectpicker multi" multiple data-live-search="true">
+                                    <input type="hidden" id="id_ErrorKOFSelected" name="ErrorKOFSelected" value="-1" />
+                                    <select id="id_ErrorKOF" class="selectpicker multi" name="ErrorKOF"  multiple data-live-search="true">
                                         <option value="0">grapheme combinations</option>
                                         <option value="1">marked graphemes </option>
                                         <option value="2">ie</option>

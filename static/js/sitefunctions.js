@@ -13,8 +13,8 @@ $(function() {
           values: [minval,maxval],
           slide: function( event, ui ) {
              $( "#lemma-freq-label" ).val(  ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-             $( "#id_min-lemma-freq" ).val( ui.values[ 0 ] );
-             $( "#id_max-lemma-freq" ).val( ui.values[ 1 ] );
+             $( "#id_min_lemma_freq" ).val( ui.values[ 0 ] );
+             $( "#id_max_lemma_freq" ).val( ui.values[ 1 ] );
           }
        });
        $( "#lemma-freq-label" ).val( $( "#lemma-freq-slider" ).slider( "values", 0 ) +
@@ -29,8 +29,8 @@ $(function() {
          values: [minval,maxval],
          slide: function( event, ui ) {
             $( "#lemma-absolute-label" ).val(  ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-            $( "#id_min-lemma-absolute" ).val( ui.values[ 0 ] );
-            $( "#id_max-lemma-absolute" ).val( ui.values[ 1 ] );
+            $( "#id_min_lemma_absolute" ).val( ui.values[ 0 ] );
+            $( "#id_max_lemma_absolute" ).val( ui.values[ 1 ] );
          }
       });
      
@@ -46,8 +46,8 @@ $(function() {
           values: [minval,maxval],
           slide: function( event, ui ) {
              $( "#lemma-Zipf-label" ).val(  "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-             $( "#id_min-lemma-Zipf" ).val( ui.values[ 0 ] );
-             $( "#id_max-lemma-Zipf" ).val( ui.values[ 1 ] );
+             $( "#id_min_lemma_Zipf" ).val( ui.values[ 0 ] );
+             $( "#id_max_lemma_Zipf" ).val( ui.values[ 1 ] );
           }
        });
        $( "#lemma-Zipf-label" ).val(  "" + $( "#lemma-Zipf-slider" ).slider( "values", 0 ) +
@@ -64,13 +64,14 @@ $(function() {
         values: [minval,maxval],
         slide: function( event, ui ) {
            $( "#word-phonemes-label" ).val(  "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-           $( "#id_min-word-phonemes" ).val( ui.values[ 0 ] );
-           $( "#id_max-word-phonemes" ).val( ui.values[ 1 ] );
+           $( "#id_min_word_phonemes" ).val( ui.values[ 0 ] );
+           $( "#id_max_word_phonemes" ).val( ui.values[ 1 ] );
         }
      });
      
      $( "#word-phonemes-label" ).val(  "" + $( "#word-phonemes-slider" ).slider( "values", 0 ) +
         " - " + $( "#word-phonemes-slider" ).slider( "values", 1 ) );
+
         minval=parseFloat($('#word-graphemes-slider').data( "min" )) ;
         maxval=parseFloat($('#word-graphemes-slider').data( "max" ) );
         $( "#word-graphemes-slider" ).slider({
@@ -80,16 +81,16 @@ $(function() {
          values: [minval,maxval],
          slide: function( event, ui ) {
              $( "#word-graphemes-label" ).val(  "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-             $( "#id_min-word-graphemes" ).val( ui.values[ 0 ] );
-             $( "#id_max-word-graphemes" ).val( ui.values[ 1 ] );
+             $( "#id_min_word_graphemes" ).val( ui.values[ 0 ] );
+             $( "#id_max_word_graphemes" ).val( ui.values[ 1 ] );
           }
        });
-       minval=parseFloat($('#word-graphemes-slider').data( "min" )) ;
-       maxval=parseFloat($('#word-graphemes-slider').data( "max" ) );
+     
        $( "#word-graphemes-label" ).val(  "" + $( "#word-graphemes-slider" ).slider( "values", 0 ) +
           " - " + $( "#word-graphemes-slider" ).slider( "values", 1 ) );
 
-
+          minval=parseFloat($('#word-syllables-slider').data( "min" )) ;
+          maxval=parseFloat($('#word-syllables-slider').data( "max" ) );
           $( "#word-syllables-slider" ).slider({
             range:true,
             min: minval,
@@ -97,8 +98,8 @@ $(function() {
          values: [minval,maxval],
          slide: function( event, ui ) {
                $( "#word-syllables-label" ).val(  "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-               $( "#id_min-word-syllables" ).val( ui.values[ 0 ] );
-               $( "#id_max-word-syllables" ).val( ui.values[ 1 ] );
+               $( "#id_min_word_syllables" ).val( ui.values[ 0 ] );
+               $( "#id_max_word_syllables" ).val( ui.values[ 1 ] );
             }
          });
        
@@ -114,8 +115,8 @@ $(function() {
          values: [minval,maxval],
               slide: function( event, ui ) {
                  $( "#word-morphemes-label" ).val(  "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-                 $( "#id_min-word-morphemes" ).val( ui.values[ 0 ] );
-                 $( "#id_max-word-morphemes" ).val( ui.values[ 1 ] );
+                 $( "#id_min_word_morphemes" ).val( ui.values[ 0 ] );
+                 $( "#id_max_word_morphemes" ).val( ui.values[ 1 ] );
               }
            });
            
@@ -132,8 +133,8 @@ $(function() {
          values: [minval,maxval],
                 slide: function( event, ui ) {
                    $( "#word-absolute-label" ).val(  "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-                   $( "#id_min-word-absolute" ).val( ui.values[ 0 ] );
-                   $( "#id_max-word-absolute" ).val( ui.values[ 1 ] );
+                   $( "#id_min_word_absolute" ).val( ui.values[ 0 ] );
+                   $( "#id_max_word_absolute" ).val( ui.values[ 1 ] );
                 }
              });
              $( "#word-absolute-label" ).val(  "" + $( "#word-absolute-slider" ).slider( "values", 0 ) +
@@ -148,8 +149,8 @@ $(function() {
          values: [minval,maxval],
                   slide: function( event, ui ) {
                      $( "#word-freq-label" ).val(  "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-                     $( "#id_min-word-freq" ).val( ui.values[ 0 ] );
-                     $( "#id_max-word-freq" ).val( ui.values[ 1 ] );
+                     $( "#id_min_word_freq" ).val( ui.values[ 0 ] );
+                     $( "#id_max_word_freq" ).val( ui.values[ 1 ] );
                   }
                });
                $( "#word-freq-label" ).val(  "" + $( "#word-freq-slider" ).slider( "values", 0 ) +
@@ -164,8 +165,8 @@ $(function() {
                     values: [minval,maxval],
                     slide: function( event, ui ) {
                        $( "#word-bigram-label" ).val(  "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-                       $( "#id_min-word-bigram" ).val( ui.values[ 0 ] );
-                       $( "#id_max-word-bigram" ).val( ui.values[ 1 ] );
+                       $( "#id_min_word_bigram" ).val( ui.values[ 0 ] );
+                       $( "#id_max_word_bigram" ).val( ui.values[ 1 ] );
                     }
                  });
                  $( "#word-bigram-label" ).val(  "" + $( "#word-bigram-slider" ).slider( "values", 0 ) +
@@ -180,8 +181,8 @@ $(function() {
                      values: [minval,maxval],
                       slide: function( event, ui ) {
                          $( "#word-neighbors-label" ).val(  "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-                         $( "#id_min-word-neighbors" ).val( ui.values[ 0 ] );
-                         $( "#id_max-word-neighbors" ).val( ui.values[ 1 ] );
+                         $( "#id_min_word_neighbors" ).val( ui.values[ 0 ] );
+                         $( "#id_max_word_neighbors" ).val( ui.values[ 1 ] );
                       }
                    });
                    $( "#word-neighbors-label" ).val(  "" + $( "#word-neighbors-slider" ).slider( "values", 0 ) +
@@ -196,14 +197,14 @@ $(function() {
                         values: [minval,maxval],
                         slide: function( event, ui ) {
                            $( "#word-OLD20-label" ).val(  "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-                           $( "#id_min-word-OLD20" ).val( ui.values[ 0 ] );
-                           $( "#id_max-word-OLD20" ).val( ui.values[ 1 ] );
+                           $( "#id_min_word_OLD20" ).val( ui.values[ 0 ] );
+                           $( "#id_max_word_OLD20" ).val( ui.values[ 1 ] );
                         }
                      });
                      $( "#word-OLD20-label" ).val(  "" + $( "#word-OLD20-slider" ).slider( "values", 0 ) +
                         " - " + $( "#word-OLD20-slider" ).slider( "values", 1 ) );
                 
-                        $('select.multi').selectpicker();
+                    
 
                            
 /****************************************
@@ -237,9 +238,8 @@ or using pure CSS:
     var $buttons = $myTable.find('caption').children().detach();
     // Append the buttons to an element of your choosing
     $buttons.appendTo(divId);
-  }                           
-});
-
+  }
+  
 // Checkbox Show Columns
 
 $('input.option-input.checkbox.jqshowcolumn').click(function(e) {
@@ -257,5 +257,22 @@ $('input.option-input.checkbox.jqshowcolumn').click(function(e) {
            alert("successfully added to favorites")
       }
   }); 
+  /****************************************
+Multiselect
+/****************************************/
+
+
+$('select.multi').selectpicker({
+   onChange: function(element, checked) {
+    debugger
+      console.log(selected);
+  }
+});
+$('select.multi').on('change', function(){
+   var selected = $(this).val();
+   alert(selected);
+ });
+});
+                           
 });
 
