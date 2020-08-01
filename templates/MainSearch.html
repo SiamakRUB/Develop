@@ -38,8 +38,9 @@
 
 <div class="row" style="margin-top:50px"></div>
 <div class="row" style="margin:20px">
+    
     <div class="col-md-3">
-
+        
         <form action="/MainSearch/" method="post">
             {% csrf_token %}
             <div class="d-flex justify-content-center">
@@ -67,8 +68,8 @@
 
                                         </div>
                                         <div class="col-sm-5">
-                                            <input type="text" name="Lemma" class="form-control" id="id_Lemma"
-                                                placeholder="Lemma">
+                                            <input type="text" name="Lemma" class="form-control" id="id_Lemma" value=""
+                                             placeholder="Lemma">
 
                                         </div>
 
@@ -438,11 +439,11 @@
                                     <div class="col-md-12">
                                         <label style="margin-top:10px;margin-bottom:10px;"> number of :</label>
                                         <ul class="list-inline center-block justify-content-center">
-                                            <li class="list-group-item"> observations :101100 </li>
-                                            <li class="list-group-item">wordforms :1000 </li>
-                                            <li class="list-group-item"> lemmas : 04205</li>
-                                            <li class="list-group-item"> texts : 0144</li>
-                                            <li class="list-group-item"> children :20142</li>
+                                            <li class="list-group-item"> observations :{{datacount.observations}} </li>
+                                            <li class="list-group-item">wordforms :{{datacount.wordforms}} </li>
+                                            <li class="list-group-item"> lemmas : {{datacount.lemmas}}</li>
+                                            <li class="list-group-item"> texts : {{datacount.texts}}</li>
+                                            <li class="list-group-item"> children :{{datacount.students}}</li>
                                         </ul>
 
 
@@ -751,24 +752,55 @@
                                         <table class="table" id="Word_zero_config">
                                             <thead>
                                                 <tr>
-                                                    <th>Ref. Word</th>
-                                                    <th>Word</th>
-                                                    <th>freq</th>
-                                                    <th>Count</th>
-                                                    <th>Error Count</th>
-                                                    <th>Percent</th>
-                                                    <th>Error Level</th>
-                                                    <th>Lex/func</th>
+                                                    <th>lemma</th>
+                                                    <th>freq per 1M</th>
+                                                    <th>absolute freq</th>
+                                                    <th>Zipf score</th>
+                                                    <th>wordform</th>
+                                                    <th>original</th>
+                                                   <th>number of phonemes	</th>	
+                                                   <th>number of graphmes	</th>	
+                                                   <th>number of syllables	</th>	
+                                                   <th>number of morphemes	</th>	
+                                                   <th>part-of-speech type	</th>	
+                                                   <th>part of speech		</th>
+                                                   <th>syllable types		</th>
+                                                   <th>absolute freq		</th>
+                                                   <th>freq per 1M		</th>
+                                                   <th>summed bigram freq	</th>	
+                                                   <th>number of neighbors	</th>	
+                                                   <th>OLD20</th>
+                                                    <th>Error level		</th>
+                                                       <th> KOF</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <!-- {% for item in query_results %}
+                                                {% for item in result %}
                                             <tr> 
-                                                <td>{{ item.field1 }}</td>
-                                                <td>{{ item.fieldN }}</td>
+                                                <td>{{ item.chl_lemma }}</td>
+                                                <td>{{ item.chl_lemma_norm }}</td>
+                                                <td>{{ item.chl_lemma_abs}}</td>
+                                                <td>{{ item.lemma_zipf }}</td>
+                                                <td>{{ item.target }}</td>
+                                                <td>{{ item.orig }}</td>
+                                                <td>{{ item.no_phonemes }}</td>
+                                                <td>{{ item.no_graphemes }}</td>
+                                                <td>{{ item.no_syllables }}</td>
+                                                <td>{{ item.no_morphemes }}</td>
+                                                <td>{{ item.pos }}</td>
+                                                <td>{{ item.pos }}</td>
+                                                <td>{{ item.syllable_types }}</td>
+                                                <td>{{ item.chl_type_abs }}</td>
+                                                <td>{{ item.chl_type_norm }}</td>
+                                                <td>{{ item.chl_bigram_sum }}</td>
+                                                <td>{{ item.chl_nein }}</td>
+                                                <td>{{ item.chl_nei_old20 }}</td>
+                                                <td>{{ item.error_level }}</td>
+                                                <td>{{ item.morpheme_types}}</td>
+                                                
                                             </tr>
-                                            {% endfor %} -->
-                                                <tr>
+                                            {% endfor %}
+                                                <!-- <tr>
                                                     <td>abgeschlossen</td>
                                                     <td>abgeshlossen</td>
                                                     <td>88</td>
@@ -778,16 +810,7 @@
                                                     <td>errLevel2 </td>
                                                     <td>lex </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>abgeschlossen</td>
-                                                    <td>abgeshlossen</td>
-                                                    <td>55</td>
-                                                    <td>51</td>
-                                                    <td>21</td>
-                                                    <td>90%</td>
-                                                    <td>aerrLevel2 </td>
-                                                    <td>lex </td>
-                                                </tr>
+                                                  -->
 
                                             </tbody>
                                         </table>
@@ -945,6 +968,10 @@
 
     </div>
 </div>
+<!-- {% for instance in fields%}
+    {{instance}}
+{% endfor %} -->
+
 <!-- <h1>Data fetch</h1>
 {% for item in model %}
     {{ item.number }}
