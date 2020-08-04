@@ -47,7 +47,41 @@ class SearchItem(forms.Form):
     KOF= forms.CharField(required=False, label="max_word_phonemes" ,max_length=200)
     ErrorKOFSelected= forms.IntegerField(required=False, label="max_word_phonemes")
     ErrorKOF= forms.CharField(required=False, label="max_word_phonemes" ,max_length=200)
+     
+    max_Err_wordform= forms.FloatField(required=False, label="max_Err_wordform" )
+    min_Err_wordform= forms.FloatField(required=False, label="min_Err_wordform" )
+    
+    max_Err_child= forms.FloatField(required=False, label="max_Err_child" )
+    min_Err_child= forms.FloatField(required=False, label="max_Err_child" )
+    
+    StudentIDSelect= forms.IntegerField(required=False, label="StudentIDSelect")
+    StudentID= forms.CharField(required=False, label="StudentID" ,max_length=200)
+    StudentSex= forms.IntegerField(required=False, label="StudentSex")
+    StudentNativecountry= forms.IntegerField(required=False, label="StudentNativecountry")
+    Multilingual= forms.IntegerField(required=False, label="Multilingual")
+    StudentPreferredReading= forms.IntegerField(required=False, label="StudentPreferredReading")
+    StudentPreferredSpeaking= forms.IntegerField(required=False, label="StudentPreferredSpeaking")
+    StudentTeachingGerman= forms.IntegerField(required=False, label="StudentTeachingGerman")
+    StudentTeachingNative= forms.IntegerField(required=False, label="StudentTeachingNative")
 
+    max_student_writing= forms.FloatField(required=False, label="max_student_writing" )
+    min_student_writing= forms.FloatField(required=False, label="min_student_writing" )
+
+    StudentOriginFather= forms.IntegerField(required=False, label="StudentOriginFather")
+    StudentOriginMother= forms.IntegerField(required=False, label="StudentOriginMother")
+
+    StudentcountryFather= forms.IntegerField(required=False, label="StudentcountryFather")
+    StudentcountryMother= forms.IntegerField(required=False, label="StudentcountryMother")
+    
+    StudentTestTimeSelect= forms.IntegerField(required=False, label="StudentTestTimeSelect")
+    StudentStorySelect= forms.IntegerField(required=False, label="StudentStorySelect")
+    
+    StudentStory= forms.CharField(required=False, label="StudentStory" ,max_length=200)
+
+    StudentTestTimeSelect= forms.IntegerField(required=False, label="StudentTestTimeSelect")
+
+
+    
     # Age: forms.IntegerField(50) 
     # StudentID: 
     # Nationality: str
@@ -98,6 +132,16 @@ class MinMaxSearchValue:
     min_chl_nei_n:float
     max_chl_nei_OLD20:float
     min_chl_nei_OLD20:float
+
+    max_Err_wordform:float
+    min_Err_wordform:float
+
+    max_Err_child:float
+    min_Err_child:float
+
+    max_Err_spelling:float
+    min_Err_spelling:float
+    
 class DataCount:
     observations:float
     students:float
@@ -106,3 +150,10 @@ class DataCount:
     texts :float
     min_abs:float    
     
+class ChartDonat:
+    storycat:str=[]
+    storytokenvalues:str=[]
+    storytypevalues:str=[]
+    agecat:str=[]
+    agetokenvalues:float=[]
+    agetypevalues:float=[]

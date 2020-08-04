@@ -24,6 +24,7 @@ def MainSearch (request) :
     resultmodel=models.Tbltokenbase.objects.filter(id__lte=0)
     q_list_type =[]
     q_list_token=[]
+    q_list_Student=[]
     if  request.method == "POST":
         form = SearchViewModel.SearchItem(request.POST)
         if form.is_valid():
@@ -181,30 +182,179 @@ def MainSearch (request) :
             if min_word_OLD20>0:
                 q_list_token.append( Q(chl_nei_old20__gte=min_word_OLD20))
 
+            # max_Err_wordform= form.cleaned_data['max_Err_wordform']
+            # if max_Err_wordform>0:
+            #     q_list_token.append( Q(perc_erroneous__lte=max_Err_wordform))
+            # min_Err_wordform= form.cleaned_data['max_Err_wordform']
+            # if min_Err_wordform>0:
+            #     q_list_token.append( Q(perc_erroneous__gte=min_Err_wordform))    
+            
+            max_Err_child= form.cleaned_data['max_Err_child']
+            if max_Err_child>0:
+                q_list_token.append( Q(erroneous__lte=max_Err_child))
+            min_Err_child= form.cleaned_data['min_Err_child']
+            if min_Err_child>0:
+                q_list_token.append( Q(erroneous__gte=min_Err_child))  
 
             ErrorLevel= form.cleaned_data['ErrorLevel']
             ErrorLevelSelected= form.cleaned_data['ErrorLevelSelected']
             KOF= form.cleaned_data['KOF']
             ErrorKOFSelected= form.cleaned_data['ErrorKOFSelected']
             ErrorKOF= form.cleaned_data['ErrorKOF']
+
+            StudentSex= form.cleaned_data['StudentSex']
+            if StudentSex>0:
+                switcher = {
+                    1: Q(Geschl='w'),
+                    2: Q(Geschl='m'),
+                    3: Q(Geschl='k.A.')
+                }
+                q_list_Student.append(switcher.get(StudentSex, "Invalid") )  
+
+            StudentNativecountry= form.cleaned_data['StudentNativecountry']
+            if StudentNativecountry>0:
+                switcher = {
+                    1: Q(HLKLI='Deutschland'),
+                    2: Q(HLKLI='nicht Deutschland'),
+                    3: Q(HLKLI='k.A.')
+                }
+                q_list_Student.append(switcher.get(StudentNativecountry, "Invalid") )  
+
+            Multilingual= form.cleaned_data['Multilingual']
+            if Multilingual>0:
+                switcher = {
+                    1: Q(HLKLI='ja'),
+                    2: Q(HLKLI='nein'),
+                    3: Q(HLKLI='k.A.')
+                }
+                q_list_Student.append(switcher.get(Multilingual, "Invalid") )
+            StudentPreferredReading= form.cleaned_data['StudentPreferredReading']
+            if StudentPreferredReading>0:
+                switcher = {
+                    1: Q(SprechS='Deutsch'),
+                    2: ~Q(SprechS='Deutsch'),
+                    3: Q(SprechS='Muttersprache'),
+                    4: Q(SprechS='k.A.')
+                }
+                q_list_Student.append(switcher.get(StudentPreferredReading, "Invalid") )
+
+            StudentPreferredSpeaking= form.cleaned_data['StudentPreferredSpeaking']
+            if StudentPreferredSpeaking>0:
+                switcher = {
+                    1: Q(SprechS='Deutsch'),
+                    2: ~Q(SprechS='Deutsch'),
+                    3: Q(SprechS='k.A.')
+                }
+                q_list_Student.append(switcher.get(StudentPreferredSpeaking, "Invalid") )
+            
+            StudentTeachingGerman= form.cleaned_data['StudentTeachingGerman']
+            if StudentTeachingGerman>0:
+                switcher = {
+                    1: Q(DaZu='ja'),
+                    2: Q(DaZu='nein'),
+                    3: Q(DaZu='k.A.')
+                }
+                q_list_Student.append(switcher.get(StudentTeachingGerman, "Invalid") )  
+            
+            StudentTeachingNative= form.cleaned_data['StudentTeachingNative']
+            if StudentTeachingNative>0:
+                switcher = {
+                    1: Q(mu_hsu='ja'),
+                    2: Q(mu_hsu='nein'),
+                    3: Q(mu_hsu='k.A.')
+                }
+                q_list_Student.append(switcher.get(StudentTeachingNative, "Invalid") )  
+            
+            max_student_writing= form.cleaned_data['max_student_writing']
+            if max_student_writing>0:
+                q_list_Student.append( Q(anzahl__lte=max_student_writing))  
+            
+            min_student_writing= form.cleaned_data['min_student_writing']
+            if min_student_writing>0:
+                q_list_Student.append( Q(anzahl__gte=min_student_writing))  
+
+
+            StudentOriginFather= form.cleaned_data['StudentOriginFather']
+            if StudentOriginFather>0:
+                switcher = {
+                    1: Q(hsprvli='Deutsch'),
+                    2: ~Q(hsprvli='Deutsch'),
+                    3: Q(hsprvli='k.A.')
+                }
+                q_list_Student.append(switcher.get(StudentOriginFather, "Invalid") )    
+            
+            
+            StudentOriginMother= form.cleaned_data['StudentOriginMother']
+            if StudentOriginMother>0:
+                switcher = {
+                    1: Q(hsprmli='Deutsch'),
+                    2: ~Q(hsprmli='Deutsch'),
+                    3: Q(hsprmli='k.A.')
+                }
+                q_list_Student.append(switcher.get(StudentOriginMother, "Invalid") )  
+
+            
+            StudentcountryFather= form.cleaned_data['StudentcountryFather']
+            if StudentcountryFather>0:
+                switcher = {
+                    1: Q(hlvli='Deutschland'),
+                    2: ~Q(hlvli='Deutschland'),
+                    3: Q(hlvli='k.A.')
+                }
+                q_list_Student.append(switcher.get(StudentcountryFather, "Invalid") )  
+
+            
+            StudentcountryMother= form.cleaned_data['StudentcountryMother']
+            if StudentcountryMother>0:
+                switcher = {
+                    1: Q(hlmli='Deutschland'),
+                    2: ~Q(hlmli='Deutschland'),
+                    3: Q(hlmli='k.A.')
+                }
+                q_list_Student.append(switcher.get(StudentcountryMother, "Invalid") ) 
+
+            # StudentTestTimeSelect= form.cleaned_data['StudentTestTimeSelect']
+            # if StudentTestTimeSelect>0:
+            #     q_list_token.append( Q(erroneous__gte=StudentTestTimeSelect))
+            
+            # StudentStorySelect= form.cleaned_data['StudentStorySelect']
+            # if StudentStorySelect>0:
+            #     q_list_token.append( Q(erroneous__gte=StudentStorySelect))
+            
+            # StudentStory= form.cleaned_data['StudentStory']
+            # if StudentStory>0:
+            #     q_list_token.append( Q(erroneous__gte=StudentStory))
+
+            # StudentTestTimeSelect= form.cleaned_data['StudentTestTimeSelect']
+            # if StudentTestTimeSelect>0:
+            #     q_list_token.append( Q(erroneous__gte=StudentTestTimeSelect))
+            DonchartModel= SearchViewModel().DataCount()
+            storylist=models.Tbltokenbase.objects.distinct('story')
+            # DonchartModel.storycat.append()
             resultmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token))
+           
+
+
 
     else:
         form=SearchViewModel.SearchItem()
+
             
            
             
 
  
     minmaxmodel=SearchViewModel.MinMaxSearchValue()
-    max_no_phonemes=models.Tbltokenbase.objects.aggregate(maxph=Max('no_phonemes'))['maxph']
-    min_no_phonemes=models.Tbltokenbase.objects.aggregate(minph=Min('no_phonemes'))['minph']
-    max_norm=models.Tbltypebase.objects.aggregate(norm=Max('chl_lemma_norm'))['norm']
-    min_norm=models.Tbltypebase.objects.aggregate(norm=Min('chl_lemma_norm'))['norm']
-    max_abs=models.Tbltypebase.objects.aggregate(abs=Max('chl_lemma_abs'))['abs']
-    min_abs=models.Tbltypebase.objects.aggregate(abs=Min('chl_lemma_abs'))['abs']
-    max_lemmazipf=models.Tbltypebase.objects.aggregate(abs=Max('lemma_zipf'))['abs']
-    min_lemmazipf=models.Tbltypebase.objects.aggregate(abs=Min('lemma_zipf'))['abs']
+    tbltoken=models.Tbltokenbase.objects
+    tbltype=models.Tbltypebase.objects
+    max_no_phonemes=tbltoken.aggregate(maxph=Max('no_phonemes'))['maxph']
+    min_no_phonemes=tbltoken.aggregate(minph=Min('no_phonemes'))['minph']
+    max_norm=tbltype.aggregate(norm=Max('chl_lemma_norm'))['norm']
+    min_norm=tbltype.aggregate(norm=Min('chl_lemma_norm'))['norm']
+    max_abs=tbltype.aggregate(abs=Max('chl_lemma_abs'))['abs']
+    min_abs=tbltype.aggregate(abs=Min('chl_lemma_abs'))['abs']
+    max_lemmazipf=tbltype.aggregate(abs=Max('lemma_zipf'))['abs']
+    min_lemmazipf=tbltype.aggregate(abs=Min('lemma_zipf'))['abs']
 
     minmaxmodel.max_norm=max_norm
     minmaxmodel.min_norm=min_norm
@@ -216,14 +366,14 @@ def MainSearch (request) :
     minmaxmodel.min_no_phonemes=min_no_phonemes
 
  
-    max_no_graphemes=models.Tbltypebase.objects.aggregate(maxph=Max('no_graphemes'))['maxph']
-    min_no_graphemes=models.Tbltypebase.objects.aggregate(minph=Min('no_graphemes'))['minph']
-    max_no_syllables=models.Tbltypebase.objects.aggregate(norm=Max('no_syllables'))['norm']
-    min_no_syllables=models.Tbltypebase.objects.aggregate(norm=Min('no_syllables'))['norm']
-    max_no_morphemes=models.Tbltypebase.objects.aggregate(abs=Max('no_morphemes'))['abs']
-    min_no_morphemes=models.Tbltypebase.objects.aggregate(abs=Min('no_morphemes'))['abs']
-    max_chl_type_abs=models.Tbltypebase.objects.aggregate(abs=Max('chl_type_abs'))['abs']
-    min_chl_type_abs=models.Tbltypebase.objects.aggregate(abs=Min('chl_type_abs'))['abs']
+    max_no_graphemes=tbltype.aggregate(maxph=Max('no_graphemes'))['maxph']
+    min_no_graphemes=tbltype.aggregate(minph=Min('no_graphemes'))['minph']
+    max_no_syllables=tbltype.aggregate(norm=Max('no_syllables'))['norm']
+    min_no_syllables=tbltype.aggregate(norm=Min('no_syllables'))['norm']
+    max_no_morphemes=tbltype.aggregate(abs=Max('no_morphemes'))['abs']
+    min_no_morphemes=tbltype.aggregate(abs=Min('no_morphemes'))['abs']
+    max_chl_type_abs=tbltype.aggregate(abs=Max('chl_type_abs'))['abs']
+    min_chl_type_abs=tbltype.aggregate(abs=Min('chl_type_abs'))['abs']
     
     minmaxmodel.max_no_graphemes=max_no_graphemes
     minmaxmodel.min_no_graphemes=min_no_graphemes
@@ -234,14 +384,14 @@ def MainSearch (request) :
     minmaxmodel.max_chl_type_abs=max_chl_type_abs
     minmaxmodel.min_chl_type_abs=min_chl_type_abs
 
-    max_chl_type_norm=models.Tbltypebase.objects.aggregate(maxph=Max('chl_type_norm'))['maxph']
-    min_chl_type_norm=models.Tbltypebase.objects.aggregate(minph=Min('chl_type_norm'))['minph']
-    max_chl_bigram_sum=models.Tbltypebase.objects.aggregate(norm=Max('chl_bigram_sum'))['norm']
-    min_chl_bigram_sum=models.Tbltypebase.objects.aggregate(norm=Min('chl_bigram_sum'))['norm']
-    max_chl_nei_n=models.Tbltypebase.objects.aggregate(abs=Max('chl_nei_n'))['abs']
-    min_chl_nei_n=models.Tbltypebase.objects.aggregate(abs=Min('chl_nei_n'))['abs']
-    max_chl_nei_OLD20=models.Tbltokenbase.objects.aggregate(abs=Max('chl_nei_old20'))['abs']
-    min_chl_nei_OLD20=models.Tbltokenbase.objects.aggregate(abs=Min('chl_nei_old20'))['abs']
+    max_chl_type_norm=tbltype.aggregate(maxph=Max('chl_type_norm'))['maxph']
+    min_chl_type_norm=tbltype.aggregate(minph=Min('chl_type_norm'))['minph']
+    max_chl_bigram_sum=tbltype.aggregate(norm=Max('chl_bigram_sum'))['norm']
+    min_chl_bigram_sum=tbltype.aggregate(norm=Min('chl_bigram_sum'))['norm']
+    max_chl_nei_n=tbltype.aggregate(abs=Max('chl_nei_n'))['abs']
+    min_chl_nei_n=tbltype.aggregate(abs=Min('chl_nei_n'))['abs']
+    max_chl_nei_OLD20=tbltoken.aggregate(abs=Max('chl_nei_old20'))['abs']
+    min_chl_nei_OLD20=tbltoken.aggregate(abs=Min('chl_nei_old20'))['abs']
 
     minmaxmodel.max_chl_type_norm=max_chl_type_norm
     minmaxmodel.min_chl_type_norm=min_chl_type_norm
@@ -251,6 +401,19 @@ def MainSearch (request) :
     minmaxmodel.min_chl_nei_n=min_chl_nei_n
     minmaxmodel.max_chl_nei_OLD20=max_chl_nei_OLD20
     minmaxmodel.min_chl_nei_OLD20=min_chl_nei_OLD20
+
+    min_Err_wordform=tbltype.aggregate(abs=Min('perc_erroneous'))['abs']
+    max_Err_wordform=tbltype.aggregate(abs=Max('perc_erroneous'))['abs']
+
+    minmaxmodel.min_Err_wordform=min_Err_wordform
+    minmaxmodel.max_Err_wordform=max_Err_wordform
+    # min_Err_child=tbltoken.filter(target=orig).aggregate(abs=Max('chl_nei_old20'))['abs']
+    # max_Err_child=tbltoken.aggregate(abs=Min('chl_nei_old20'))['abs']
+    min_Err_child=tbltoken.aggregate(abs=Min('erroneous'))['abs']
+    max_Err_child=tbltoken.aggregate(abs=Max('erroneous'))['abs']
+    minmaxmodel.min_Err_child=min_Err_child
+    minmaxmodel.max_Err_child=max_Err_child
+    
     # no_graphemes
     # no_syllables
     # no_morphemes
@@ -260,12 +423,13 @@ def MainSearch (request) :
     # chl_nei.n
     # chl_nei.OLD20
     datacount=SearchViewModel.DataCount()
-    datacount.observations  = models.Tbltokenbase.objects.count()
+    datacount.observations  = tbltoken.count()
     datacount.students  = models.Students.objects.count()
-    datacount.wordforms  = models.Tbltypebase.objects.count()
-    datacount.texts  = models.Tbltokenbase.objects.values('text_id').distinct().count()
-    datacount.lemmas  = models.Tbltokenbase.objects.exclude(chl_lemma__isnull=True).values('chl_lemma').distinct().count()
-    
+    datacount.wordforms  = tbltype.count()
+    datacount.texts  = tbltoken.values('text_id').distinct().count()
+    datacount.lemmas  = tbltoken.exclude(chl_lemma__isnull=True).values('chl_lemma').distinct().count()
+    stdids=models.Students.objects.only('number')
+    #  [1,2,3,4]
  
     
     
@@ -273,7 +437,8 @@ def MainSearch (request) :
     context={'form': form,'result':resultmodel,
     'maxminModel':minmaxmodel,
     'fields' :Tbltokenbase._meta.get_fields(),
-    'datacount':datacount
+    'datacount':datacount,
+    'stdids':stdids,
     }
     return render(request, "MainSearch.Html", context)
 

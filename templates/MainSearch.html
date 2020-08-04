@@ -5,7 +5,7 @@
 <link href="{% static 'css/extra-libs/multicheck/multicheck.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'css/libs/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'css/local-search.css' %}" rel="stylesheet" type="text/css">
-<!-- <link href="{% static 'css/Chart.min.css' %}" rel="stylesheet" type="text/css"> -->
+<link href="{% static 'css/Chart.min.css' %}" rel="stylesheet" type="text/css">
 
 
 {% block Container %}
@@ -74,37 +74,42 @@
                                         </div>
 
                                         <div class="col-sm-12 row " style="margin-top:10px">
+                                            <div class="form-group row slider-control">
 
-                                            <div id="lemma-freq-slider" data-max="{{ maxminModel.max_norm }}"
+                                            <div id="lemma-freq-slider" class="slider-drag" data-max="{{ maxminModel.max_norm }}"
                                                 data-min="{{ maxminModel.min_norm }}"></div>
                                             <p>
                                                 <label for="lemma-freq-label">freq per 1M:</label>
-                                                <input type="text" id="lemma-freq-label"
+                                                <input type="text" class="slider-label" id="lemma-freq-label"
                                                     style="border:0; color:#b9cd6d; font-weight:bold;">
-                                                    <input type="hidden" id="id_max_lemma_freq" name="max_lemma_freq" value="-1" />
-                                                    <input type="hidden" id="id_min_lemma_freq" name="min_lemma_freq" value="-1" />
+                                                    <input type="hidden" id="id_max_lemma_freq" class="slider-maxvalue"  name="max_lemma_freq" value="-1" />
+                                                    <input type="hidden" id="id_min_lemma_freq" class="slider-minvalue"  name="min_lemma_freq" value="-1" />
                                             </p>
-
-                                            <div id="lemma-absolute-slider" data-max="{{ maxminModel.max_abs }}"
+                                            </div>
+                                <div class="form-group row slider-control">
+                                    <div id="lemma-absolute-slider" class="slider-drag" data-max="{{ maxminModel.max_abs }}"
                                             data-min="{{ maxminModel.min_abs }}"></div>
                                             <p>
                                                 <label for="lemma-absolute-label">absolute freq:</label>
-                                                <input type="text" id="lemma-absolute-label"
+                                                <input type="text" class="slider-label" id="lemma-absolute-label"
                                                     style="border:0; color:#b9cd6d; font-weight:bold;">
-                                                    <input type="hidden" id="id_max_lemma_absolute" name="max_lemma_absolute" value="-1" />
-                                                    <input type="hidden" id="id_min_lemma_absolute" name="min_lemma_absolute" value="-1" />
+                                                    <input type="hidden" id="id_max_lemma_absolute" class="slider-maxvalue"  name="max_lemma_absolute" value="-1" />
+                                                    <input type="hidden" id="id_min_lemma_absolute" class="slider-minvalue"  name="min_lemma_absolute" value="-1" />
                                                 </p>
+                                </div>
+                                <div class="form-group row slider-control">
 
-                                            <div id="lemma-Zipf-slider" data-max="{{ maxminModel.max_lemmazipf }}"
+                                            <div id="lemma-Zipf-slider" class="slider-drag" data-max="{{ maxminModel.max_lemmazipf }}"
                                             data-min="{{ maxminModel.min_lemmazipf }}"></div>
                                             <p>
                                                 <label for="lemma-Zipf-label"> Zipf score:</label>
-                                                <input type="text" id="lemma-Zipf-label"
+                                                <input type="text" class="slider-label" id="lemma-Zipf-label"
                                                     style="border:0; color:#b9cd6d; font-weight:bold;">
-                                                    <input type="hidden" id="id_max_lemma_Zipf"  name="max_lemma_Zipf" value="-1" />
-                                                    <input type="hidden" id="id_min_lemma_Zipf" name="min_lemma_Zipf" value="-1" />
-                                            </p>
-                                        </div>
+                                                    <input type="hidden" id="id_max_lemma_Zipf"  class="slider-maxvalue"  name="max_lemma_Zipf" value="-1" />
+                                                    <input type="hidden" id="id_min_lemma_Zipf" class="slider-minvalue"  name="min_lemma_Zipf" value="-1" />
+                                                </p>
+                                                </div>
+                                            </div>
                                     </div>
 
                                 </div>
@@ -159,48 +164,53 @@
                                     <label style="margin-top:10px;margin-bottom:10px;">Internal structure :</label>
 
 
-                                    <div id="word-phonemes-slider" data-max="{{ maxminModel.max_no_phonemes }}"
+                                <div class="form-group row slider-control">
+                                    <div id="word-phonemes-slider" class="slider-drag" data-max="{{ maxminModel.max_no_phonemes }}"
                                     data-min="{{ maxminModel.min_no_phonemes }}"></div>
                                     <p>
                                         <label for="word-phonemes-label">number of phonemes:</label>
-                                        <input type="text" id="word-phonemes-label"
+                                        <input type="text" class="slider-label" id="word-phonemes-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden"  id="id_max_word_phonemes" name="max_word_phonemes" value="-1" />
-                                            <input type="hidden" id="id_min_word_phonemes" name="min_word_phonemes" value="-1" />
+                                            <input type="hidden"  id="id_max_word_phonemes" class="slider-maxvalue"  name="max_word_phonemes" value="-1" />
+                                            <input type="hidden" id="id_min_word_phonemes" class="slider-minvalue"  name="min_word_phonemes" value="-1" />
                                     </p>
-
-                                    <div id="word-graphemes-slider" data-max="{{ maxminModel.max_no_graphemes }}"
+                                </div>
+                                <div class="form-group row slider-control">
+                                    <div id="word-graphemes-slider" class="slider-drag" data-max="{{ maxminModel.max_no_graphemes }}"
                                     data-min="{{ maxminModel.min_no_graphemes }}"></div>
                                     <p>
                                         <label for="word-graphemes-label">number of graphemes:</label>
-                                        <input type="text" id="word-graphemes-label"
+                                        <input type="text" class="slider-label" id="word-graphemes-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_graphemes" name="max_word_graphemes" value="-1" />
-                                            <input type="hidden" id="id_min_word_graphemes" name="min_word_graphemes" value="-1" />
+                                            <input type="hidden" id="id_max_word_graphemes" class="slider-maxvalue"  name="max_word_graphemes" value="-1" />
+                                            <input type="hidden" id="id_min_word_graphemes" class="slider-minvalue"  name="min_word_graphemes" value="-1" />
                                     </p>
-
-                                    <div id="word-syllables-slider" data-max="{{ maxminModel.max_no_syllables }}"
+                                </div>
+                                <div class="form-group row slider-control">
+                                    <div id="word-syllables-slider" class="slider-drag" data-max="{{ maxminModel.max_no_syllables }}"
                                     data-min="{{ maxminModel.min_no_graphemes }}"></div>
                                     <p>
                                         <label for="word-syllables-label">number of syllables :</label>
-                                        <input type="text" id="word-syllables-label"
+                                        <input type="text" class="slider-label" id="word-syllables-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_syllables" name="max_word_syllables" value="-1" />
-                                            <input type="hidden" id="id_min_word_syllables" name="min_word_syllables" value="-1" />
+                                            <input type="hidden" id="id_max_word_syllables" class="slider-maxvalue"  name="max_word_syllables" value="-1" />
+                                            <input type="hidden" id="id_min_word_syllables" class="slider-minvalue"  name="min_word_syllables" value="-1" />
                                     </p>
-
-                                    <div id="word-morphemes-slider" data-max="{{ maxminModel.max_no_morphemes }}"
+                                </div>
+                                <div class="form-group row slider-control">
+                                  
+                                <div id="word-morphemes-slider" class="slider-drag" data-max="{{ maxminModel.max_no_morphemes }}"
                                     data-min="{{ maxminModel.min_no_morphemes }}"></div>
                                     <p>
                                         <label for="word-morphemes-label">number of morphemes :</label>
-                                        <input type="text" id="word-morphemes-label"
+                                        <input type="text" class="slider-label" id="word-morphemes-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_morphemes" name="max_word_morphemes" value="-1" />
-                                            <input type="hidden" id="id_min_word_morphemes" name="min_word_morphemes" value="-1" />
+                                            <input type="hidden" id="id_max_word_morphemes" class="slider-maxvalue"  name="max_word_morphemes" value="-1" />
+                                            <input type="hidden" id="id_min_word_morphemes" class="slider-minvalue"  name="min_word_morphemes" value="-1" />
                                     </p>
                                 </div>
 
-
+                                </div>
 
                                 <div class="form-group row">
                                     <label>Part-of-speech type :</label>
@@ -254,55 +264,65 @@
                                 <div class="col-sm-12 row ">
                                     <label style="margin-top:10px;margin-bottom:10px;">Frequencies :</label>
 
-                                    <div id="word-absolute-slider" data-max="{{ maxminModel.max_chl_type_abs }}"
+                                <div class="form-group row slider-control">
+                                    <div id="word-absolute-slider" class="slider-drag" data-max="{{ maxminModel.max_chl_type_abs }}"
                                     data-min="{{ maxminModel.min_chl_type_abs }}"></div>
                                     <p>
                                         <label for="word-absolute-label">absolute freq:</label>
-                                        <input type="text" id="word-absolute-label"
+                                        <input type="text" class="slider-label" id="word-absolute-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_absolute" name="max_word_absolute" value="-1" />
-                                            <input type="hidden" id="id_min_word_absolute" name="min_word_absolute" value="-1" />
+                                            <input type="hidden" id="id_max_word_absolute" class="slider-maxvalue"  name="max_word_absolute" value="-1" />
+                                            <input type="hidden" id="id_min_word_absolute" class="slider-minvalue"  name="min_word_absolute" value="-1" />
                                     </p>
+                                </div>
+                                <div class="form-group row slider-control">
 
-                                    <div id="word-freq-slider" data-max="{{ maxminModel.max_chl_type_norm }}"
+                                    <div id="word-freq-slider" class="slider-drag" data-max="{{ maxminModel.max_chl_type_norm }}"
                                     data-min="{{ maxminModel.min_chl_type_norm }}"></div>
                                     <p>
                                         <label for="word-freq-label">freq per 1M:</label>
-                                        <input type="text" id="word-freq-label"
+                                        <input type="text" class="slider-label" id="word-freq-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_freq" name="max_word_freq" value="-1" />
-                                            <input type="hidden" id="id_min_word_freq" name="min_word_freq" value="-1" />
+                                            <input type="hidden" id="id_max_word_freq" class="slider-maxvalue"  name="max_word_freq" value="-1" />
+                                            <input type="hidden" id="id_min_word_freq" class="slider-minvalue"  name="min_word_freq" value="-1" />
                                     </p>
-
-                                    <div id="word-bigram-slider" data-max="{{ maxminModel.max_chl_bigram_sum }}"
+                                </div>
+                                <div class="form-group row slider-control">
+                                
+                                    <div id="word-bigram-slider" class="slider-drag" data-max="{{ maxminModel.max_chl_bigram_sum }}"
                                     data-min="{{ maxminModel.min_chl_bigram_sum }}"></div>
                                     <p>
                                         <label for="word-bigram-label">summed bigram freq. :</label>
-                                        <input type="text" id="word-bigram-label"
+                                        <input type="text" class="slider-label" id="word-bigram-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_bigram" name="max_word_bigram" value="-1" />
-                                            <input type="hidden" id="id_min_word_bigram" name="min_word_bigram" value="-1" />
+                                            <input type="hidden" id="id_max_word_bigram" class="slider-maxvalue"  name="max_word_bigram" value="-1" />
+                                            <input type="hidden" id="id_min_word_bigram" class="slider-minvalue"  name="min_word_bigram" value="-1" />
                                     </p>
+                                </div>
+                                <div class="form-group row slider-control">
 
-                                    <div id="word-neighbors-slider" data-max="{{ maxminModel.max_chl_nei_n }}"
+                                    <div id="word-neighbors-slider" class="slider-drag" data-max="{{ maxminModel.max_chl_nei_n }}"
                                     data-min="{{ maxminModel.min_chl_nei_n }}"></div>
                                     <p>
                                         <label for="word-neighbors-label">number of neighbors :</label>
-                                        <input type="text" id="word-neighbors-label"
+                                        <input type="text" class="slider-label" id="word-neighbors-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_neighbors" name="max_word_neighbors" value="-1" />
-                                            <input type="hidden" id="id_min_word_neighbors" name="min_word_neighbors" value="-1" />
+                                            <input type="hidden" id="id_max_word_neighbors" class="slider-maxvalue"  name="max_word_neighbors" value="-1" />
+                                            <input type="hidden" id="id_min_word_neighbors" class="slider-minvalue"  name="min_word_neighbors" value="-1" />
                                     </p>
+                                </div>
+                                <div class="form-group row slider-control">
 
-                                    <div id="word-OLD20-slider" data-max="{{ maxminModel.max_chl_nei_OLD20 }}"
+                                    <div id="word-OLD20-slider" class="slider-drag" data-max="{{ maxminModel.max_chl_nei_OLD20 }}"
                                     data-min="{{ maxminModel.min_chl_nei_OLD20 }}"></div>
                                     <p>
                                         <label for="word-OLD20-label">OLD20 :</label>
-                                        <input type="text" id="word-OLD20-label"
+                                        <input type="text" class="slider-label" id="word-OLD20-label"
                                             style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_OLD20" name="max_word_OLD20" value="-1" />
-                                            <input type="hidden" id="id_min_word_OLD20" name="min_word_OLD20" value="-1" />
+                                            <input type="hidden" id="id_max_word_OLD20" class="slider-maxvalue"  name="max_word_OLD20" value="-1" />
+                                            <input type="hidden" id="id_min_word_OLD20" class="slider-minvalue"  name="min_word_OLD20" value="-1" />
                                     </p>
+                                </div>  
                                 </div>
                                 <div class="form-group row">
                                 </div>
@@ -318,6 +338,29 @@
                         </div>
                         <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
                             <div class="panel-body">
+                                <div class="form-group row slider-control">
+                                    <div id="Err-wordform-slider"  class="slider-drag" data-max="{{ maxminModel.max_Err_wordform }}"
+                                data-min="{{ maxminModel.min_Err_wordform }}"></div>
+                                <p>
+                                    <label for="Err-wordform-label">per wordform :</label>
+                                    <input type="text" class="slider-label" id="Err-wordform-label"
+                                        style="border:0; color:#b9cd6d; font-weight:bold;">
+                                        <input type="hidden" id="id_max_Err_wordform" class="slider-maxvalue"  name="max_Err_wordform" value="-1" />
+                                        <input type="hidden" id="id_min_Err_wordform" class="slider-minvalue"  name="min_Err_wordform" value="-1" />
+                                </p>
+                                </div>
+                                <div class="form-group row slider-control">
+                                    <div id="Err-child-slider"  class="slider-drag" data-max="{{ maxminModel.max_Err_child }}"
+                                data-min="{{ maxminModel.min_Err_child }}"></div>
+                                <p>
+                                    <label for="Err-child-label">per child :</label>
+                                    <input type="text" class="slider-label" id="Err-child-label"
+                                        style="border:0; color:#b9cd6d; font-weight:bold;">
+                                        <input type="hidden" id="id_max_Err_child" class="slider-maxvalue"  name="max_Err_child" value="-1" />
+                                        <input type="hidden" id="id_min_Err_child" class="slider-minvalue"  name="min_Err_child" value="-1" />
+                                </p>
+                                </div>
+                           
                                 <div class="form-group row">
 
                                     <label style="margin-top:10px;margin-bottom:10px;">Error Level:</label>
@@ -394,8 +437,158 @@
                         </div>
                         <div id="collapse3" class="panel-collapse  " role="tabpanel" aria-labelledby="heading3">
                             <div class="panel-body">
+                                <div class="form-group row">
 
+                                    <label style="margin-top:10px;margin-bottom:10px;">Student ID:  </label>
+                                    <input type="hidden" id="id_StudentID" name="StudentID" value="-1" />
+                                    <select class="selectpicker multi" id="id_StudentIDSelect" name="StudentIDSelect" multiple data-live-search="true">
+                                        {% for stdid in stdids%}
+                                        <option value="{{stdid.number}}">{{stdid.number}} </option>
+                                        {% endfor %}
+                                        
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <label style="margin-top:10px;margin-bottom:10px;">Sex :</label>
+                                <select id="id_StudentSex" name="StudentSex" class="custom-select">
+                                    <option value="0" selected>Select</option>
+                                    <option value="1">Female</option>
+                                    <option value="2">Male</option>
+                                    <option value="3">Other</option>
+                                </select>
+                                </div>
+                                <div class="form-group row">
+                                
+                                <label style="margin-top:10px;margin-bottom:10px;">Nativecountry :</label>
+                                <select id="id_StudentNativecountry" name="StudentNativecountry" class="custom-select">
+                                    <option value="0" selected>Select</option>
+                                    <option value="1">Yes</option>
+                                    <option value="2">No</option>
+                                </select>
+                                </div>  
+                                <div class="form-group row">
+                                
+                                <label style="margin-top:10px;margin-bottom:10px;">Multilingual :</label>
+                                <select id="id_Multilingual" name="Multilingual" class="custom-select">
+                                    <option value="0" selected>Select</option>
+                                    <option value="1">Yes</option>
+                                    <option value="2">No</option>
+                                </select>
+                              </div>    
+                              <div class="form-group row">
+                              
+                                <label style="margin-top:10px;margin-bottom:10px;">Preferred language for Reading :</label>
+                                <select id="id_StudentPreferredReading" name="StudentPreferredReading" class="custom-select">
+                                    <option value="0" selected>Select</option>
+                                    <option value="1">German</option>
+                                    <option value="2">Other</option>
+                                </select>
+                              </div>    
+                                <label style="margin-top:10px;margin-bottom:10px;">Preferred language for speaking   :</label>
+                                <select id="id_StudentPreferredSpeaking" name="StudentPreferredSpeaking" class="custom-select">
+                                    <option value="0" selected>Select</option>
+                                    <option value="1">German</option>
+                                    <option value="2">Other</option>
+                                </select>
+                                <div class="form-group row">
+                              
+                                <label style="margin-top:10px;margin-bottom:10px;">Teaching in German as second Language :</label>
+                                <select id="id_StudentTeachingGerman" name="StudentTeachingGerman" class="custom-select">
+                                    <option value="0" selected>Select</option>
+                                    <option value="1">Yes</option>
+                                    <option value="2">No</option>
+                                </select>
+                              </div>
+                              <div class="form-group row">
 
+                                <label style="margin-top:10px;margin-bottom:10px;">Teaching in native language :</label>
+                                <select id="id_StudentTeachingNative" name="StudentTeachingNative" class="custom-select">
+                                    <option value="0" selected>Select</option>
+                                    <option value="1">Yes</option>
+                                    <option value="2">No</option>
+                                </select>
+</div>  
+<div class="form-group row">
+    <label style="margin-top:10px;margin-bottom:10px;">Number of written texts :</label>
+                                <div class="form-group row slider-control">
+                                    <div id="student-writing-slider"  class="slider-drag" data-max="{{ maxminModel.max_student_writing }}"
+                                data-min="{{ maxminModel.min_student_writing }}"></div>
+                                <p>
+                                    <label for="student-writing-label">texts:</label>
+                                    <input type="text" class="slider-label" id="student-writing-label"
+                                        style="border:0; color:#b9cd6d; font-weight:bold;">
+                                        <input type="hidden" id="id_max_student_writing" class="slider-maxvalue"  name="max_student_writing" value="-1" />
+                                        <input type="hidden" id="id_min_student_writing" class="slider-minvalue"  name="min_student_writing" value="-1" />
+                                </p>
+                                </div>
+    </div>
+    <div class="form-group row">
+          
+    <label style="margin-top:10px;margin-bottom:10px;">Language of origin (father):</label>
+                                <select id="id_StudentOriginFather" name="StudentOriginFather" class="custom-select">
+                                    <option value="0" selected>Select</option>
+                                    <option value="1">German</option>
+                                    <option value="2">Other</option>
+                                </select>
+    </div>
+    <div class="form-group row">
+          
+    <label style="margin-top:10px;margin-bottom:10px;">Language of origin (Mother):</label>
+                                <select id="id_StudentOriginMother" name="StudentOriginMother" class="custom-select">
+                                    <option value="0" selected>Select</option>
+                                    <option value="1">German</option>
+                                    <option value="2">Other</option>
+                                </select>
+    </div>
+    <div class="form-group row">
+        <label style="margin-top:10px;margin-bottom:10px;">Native country (father):</label>
+                                <select id="id_StudentcountryFather" name="StudentcountryFather" class="custom-select">
+                                    <option value="0" selected>Select</option>
+                                    <option value="1">German</option>
+                                    <option value="2">Other</option>
+                                </select>
+        </div>
+        <div class="form-group row">
+            <label style="margin-top:10px;margin-bottom:10px;">Native country (Mother):</label>
+                                <select id="id_StudentcountryMother" name="StudentcountryMother" class="custom-select">
+                                    <option value="0" selected>Select</option>
+                                    <option value="1">German</option>
+                                    <option value="2">Other</option>
+                                </select>
+        </div>
+                                <div class="form-group row">
+
+                                    <label style="margin-top:10px;margin-bottom:10px;">Individual testing times:</label>
+                                    <input type="hidden" id="id_StudentTestTime" name="StudentTestTime" value="-1" />
+                                    <select class="selectpicker multi" id="id_StudentTestTimeSelect" name="StudentTestTimeSelect" multiple data-live-search="true">
+                                        <option value="0">200910-II</option>
+                                        <option value="1">200910-II</option>
+                                        <option value="2">201011-I</option>
+                                        <option value="3">201011-II</option>
+                                        <option value="4"> 201011-III</option>
+                                        <option value="5">201011-IV </option>
+                                        <option value="6">201112-I </option>
+                                        <option value="7">201112-III</option>
+                                        <option value="8">201112-IV</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+
+                                    <label style="margin-top:10px;margin-bottom:10px;">Stories:  </label>
+                                    <input type="hidden" id="id_StudentStory" name="StudentStory" value="-1" />
+                                    <select class="selectpicker multi" id="id_StudentStorySelect" name="StudentStorySelect" multiple data-live-search="true">
+                                        <option value="0">Eis</option>
+                                        <option value="1"> Weg_2	</option>
+                                        <option value="2"> Frosch</option>
+                                        <option value="3"> Jenga</option>
+                                        <option value="4"> Staubsauger</option>
+                                        <option value="5"> Weg_3 </option>
+                                        <option value="6"> Schule </option>
+                                        <option value="7"> Fundbuero</option>
+                                        <option value="8">Seilbahn</option>
+                                        <option value="9">Weg_4</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -777,7 +970,7 @@
                                             <tbody>
                                                 {% for item in result %}
                                             <tr> 
-                                                <td>{{ item.chl_lemma }}</td>
+                                                <td>{{ item.chl_lemma }} </td>
                                                 <td>{{ item.chl_lemma_norm }}</td>
                                                 <td>{{ item.chl_lemma_abs}}</td>
                                                 <td>{{ item.lemma_zipf }}</td>
@@ -824,6 +1017,249 @@
                         </div>
                     </div>
                 </div>
+            </div>
+         
+            
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                              number of words per story and age
+                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true" aria-controls="multiCollapseExample10">
+                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row multi-collapse in" id="multiCollapseExample10" aria-expanded="true">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <canvas class="chart-litkey" id="Donat-chart" width="400" height="400" data-color='[
+                                        "rgba(255, 99, 132 )",
+                                        "rgba(54, 162, 235 )",
+                                        "rgba(255, 206, 86 )",
+                                        "rgba(75, 192, 192 )",
+                                        "rgba(126, 255, 60 )",
+                                        "rgba(153, 102, 25 )"
+                                    ]'
+                                    data-type="doughnut"  data-title="Number of words (tokens) per story" data-label='["Eis",
+                                    "Weg_2"
+                                    "Frosch"
+                                    "Jenga"
+                                    "Staubsauger"
+                                    "Weg_3"
+                                    "Schule"
+                                    "Fundbuero"
+                                    "Seilbahn"
+                                    "Weg_4"]'
+                                    data-collection="[12, 9, 3, 8]"></canvas>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <canvas class="chart-litkey" id="Donat-chart" width="400" height="400" data-color='[
+                                        "rgba(255, 99, 132 )",
+                                        "rgba(54, 162, 235 )",
+                                        "rgba(255, 206, 86 )",
+                                        "rgba(75, 192, 192 )",
+                                        "rgba(126, 255, 60 )",
+                                        "rgba(153, 102, 25 )"
+                                    ]'
+                                    data-type="doughnut"  data-title="Number of words" data-label='["7 ", "8-9 ", "10-11", "11-13"]'
+                                    data-collection="[12, 9, 3, 8]"></canvas>
+                                    </div>
+                       
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Average number of all errors per story
+                            <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true" aria-controls="multiCollapseExample11">
+                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row multi-collapse in" id="multiCollapseExample11" aria-expanded="true">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <canvas class="chart-litkey" id="Donat-chart" width="400" height="400" data-color='[
+                                        "rgba(255, 99, 132 )",
+                                        "rgba(54, 162, 235 )",
+                                        "rgba(255, 206, 86 )",
+                                        "rgba(75, 192, 192 )",
+                                        "rgba(126, 255, 60 )",
+                                        "rgba(153, 102, 25 )"
+                                    ]'
+                                    data-type="doughnut"  data-title="Number of words" data-label='["7 ", "8-9 ", "10-11", "11-13"]'
+                                    data-collection="[12, 9, 3, 8]"></canvas>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <canvas class="chart-litkey" id="Donat-chart" width="400" height="400" data-color='[
+                                        "rgba(255, 99, 132 )",
+                                        "rgba(54, 162, 235 )",
+                                        "rgba(255, 206, 86 )",
+                                        "rgba(75, 192, 192 )",
+                                        "rgba(126, 255, 60 )",
+                                        "rgba(153, 102, 25 )"
+                                    ]'
+                                    data-type="doughnut"  data-title="Number of words" data-label='["7 ", "8-9 ", "10-11", "11-13"]'
+                                    data-collection="[12, 9, 3, 8]"></canvas>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Average number of words(Token) per Story
+                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true" aria-controls="multiCollapseExample10">
+                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row multi-collapse in" id="multiCollapseExample10" aria-expanded="true">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400" data-color='[
+                                        "rgba(255, 99, 132 )",
+                                        "rgba(54, 162, 235 )",
+                                        "rgba(255, 206, 86 )"
+                                    ]'
+                                    data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]'
+                                    data-German="[12, 9, 3]" data-Multi="[10, 19, 13]" data-NA="[20, 10, 8]"></canvas>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Average number of words(Type) per Story
+                            <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true" aria-controls="multiCollapseExample11">
+                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row multi-collapse in" id="multiCollapseExample11" aria-expanded="true">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400" data-color='[
+                                        "rgba(255, 99, 132 )",
+                                        "rgba(54, 162, 235 )",
+                                        "rgba(255, 206, 86 )"
+                                    ]'
+                                    data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]'
+                                    data-German="[12, 9, 3]" data-Multi="[10, 19, 13]" data-NA="[20, 10, 8]"></canvas>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Average number of words(Token) per Story
+                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true" aria-controls="multiCollapseExample10">
+                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row multi-collapse in" id="multiCollapseExample10" aria-expanded="true">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400" data-color='[
+                                        "rgba(255, 99, 132 )",
+                                        "rgba(54, 162, 235 )",
+                                        "rgba(255, 206, 86 )"
+                                    ]'
+                                    data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]'
+                                    data-German="[12, 9, 3]" data-Multi="[10, 19, 13]" data-NA="[20, 10, 8]"></canvas>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Average number of words(Type) per Story
+                            <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true" aria-controls="multiCollapseExample11">
+                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row multi-collapse in" id="multiCollapseExample11" aria-expanded="true">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400" data-color='[
+                                        "rgba(255, 99, 132 )",
+                                        "rgba(54, 162, 235 )",
+                                        "rgba(255, 206, 86 )"
+                                    ]'
+                                    data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]'
+                                    data-German="[12, 9, 3]" data-Multi="[10, 19, 13]" data-NA="[20, 10, 8]"></canvas>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Number of words.
+                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true" aria-controls="multiCollapseExample10">
+                                <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row multi-collapse in" id="multiCollapseExample10" aria-expanded="true">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <canvas class="chart-litkey" id="bar-chart" width="400" height="400" data-color='[
+                                        "rgba(255, 99, 132 )",
+                                        "rgba(54, 162, 235 )",
+                                        "rgba(255, 206, 86 )",
+                                        "rgba(75, 192, 192 )",
+                                        "rgba(126, 255, 60 )",
+                                        "rgba(153, 102, 25 )"
+                                    ]'
+                                    data-type="bar"  data-title="Number of words" data-label='["German only ", "multilingual ", "NA"]'
+                                    data-collection="[12, 9, 8]"></canvas>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
             </div>
             <div class="row">
 
@@ -962,7 +1398,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
 
@@ -982,8 +1417,8 @@
 <script src="{% static 'css/extra-libs/multicheck/jquery.multicheck.js' %}"></script>
 <script src="{% static 'css/extra-libs/DataTables/datatables.min.js' %}"></script>
 
-<!-- <script src="{% static 'js/chart.js' %}"></script>
-<script src="{% static 'js/local-site.js' %}"></script> -->
+<script src="{% static 'js/chart.js' %}"></script>
+<!-- <script src="{% static 'js/local-site.js' %}"></script> -->
 
 <!-- <script>
  

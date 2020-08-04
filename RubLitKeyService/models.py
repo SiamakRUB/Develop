@@ -216,6 +216,7 @@ class Tbltokenbase(models.Model):
     chl_lemma_norm = models.FloatField(blank=True, null=True)
     type_zipf = models.FloatField(blank=True, null=True)
     lemma_zipf = models.FloatField(blank=True, null=True)
+    story = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
