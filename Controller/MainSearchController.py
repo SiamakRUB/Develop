@@ -7,9 +7,10 @@ from django.db.models import Min
 from django.db.models import Q
 from functools import reduce
 from RubLitKeyService.models import Tbltokenbase
+from django.db import connection
 import operator
 
-def switchStringSelect(selectedvalue):
+def switchStringSelect(selectedvalue):  
     switcher = {
         1: "startswith",
         2: "contains",
@@ -17,11 +18,26 @@ def switchStringSelect(selectedvalue):
     }
     func= switcher.get(selectedvalue, "Invalid")
     return func()
+def get_Token_Student_sql(textids ):
+    my_string = "','".join(textids) 
+    cursor = connection.cursor()    
+    strcommand="SELECT * FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id where tk.text_id IN ('"+my_string+"')"
+    cursor.execute(strcommand )
+    row = cursor.fetchone()
+    return row
 
 def MainSearch (request) :
-    inp_target="" 
-
+    inp_target=""
+    storytokenvalues=[]
+    storytypevalues=[] 
     resultmodel=models.Tbltokenbase.objects.filter(id__lte=0)
+    DonchartModel= SearchViewModel.ChartDonat()
+    
+    my_string=""
+    strcommand=""
+    textids=[]
+    # x=get_Token_Student_sql(['029-200910-I-Eis', '065-200910-I-Eis','026-201011-II-Jenga', '161-201011-II-Jenga','04-237-3-II-Jenga', '095-201011-IV-Weg', '080-201011-I-Schule', '080-201011-I-Schule', '117-201011-I-Schule','132-201112-I-Schule','150-201011-I-Schule', '07-211-4-I-Schule', '07-329-4-I-Schule', '07-382-4-I-Schule', '07-390-4-I-Schule', '07-476-4-I-Schule', '07-489-4-I-Schule', '07-620-4-I-Schule', '07-622-4-I-Schule','07-622-4-I-Schule'])
+    Token_Student=[]
     q_list_type =[]
     q_list_token=[]
     q_list_Student=[]
@@ -328,33 +344,91 @@ def MainSearch (request) :
             # StudentTestTimeSelect= form.cleaned_data['StudentTestTimeSelect']
             # if StudentTestTimeSelect>0:
             #     q_list_token.append( Q(erroneous__gte=StudentTestTimeSelect))
-            DonchartModel= SearchViewModel().DataCount()
-            storylist=models.Tbltokenbase.objects.distinct('story')
-            # DonchartModel.storycat.append()
+            # DonchartModel.storycat.append() 
+            
             resultmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token))
+
+            testmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token)).values_list("id", flat=True)
+            
+            # testmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token)).values('id') 
+            #textids=list(testmodel) 
+            
+            data = []
+
+            for item in testmodel: #list is your initial datas format as python list
+                data.append(item)
+
+            my_string = ",".join(str(v) for v in data)  
+             
+            strcommand="SELECT * FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id where tk.id IN("+my_string+")"
+            Token_Student=list(models.Tbltokenbase.objects.raw(strcommand))
+
+
+            # Eis=len(resultmodel.filter(story='Eis')) 
+            # Weg_2=len(resultmodel.filter(story='Weg_2'))
+            # Frosch=len(resultmodel.filter(story='Frosch'))
+            # Jenga=len(resultmodel.filter(story='Jenga'))
+            # Staubsauger=len(resultmodel.filter(story='Staubsauger'))
+            # Weg_3=len(resultmodel.filter(story='Weg_3'))
+            # Schule=len(resultmodel.filter(story='Schule'))
+            # Fundbuero=len(resultmodel.filter(story='Fundbuero'))
+            # Seilbahn=len(resultmodel.filter(story='Seilbahn'))
+            # Weg_4=len(resultmodel.filter(story='Weg_4'))
+            # storytokenvalues.append(Eis)
+            # storytokenvalues.append(Weg_2)
+            # storytokenvalues.append(Frosch)
+            # storytokenvalues.append(Jenga)
+            # storytokenvalues.append(Staubsauger)
+            # storytokenvalues.append(Weg_3)
+            # storytokenvalues.append(Schule)
+            # storytokenvalues.append(Fundbuero)
+            # storytokenvalues.append(Seilbahn)
+            # storytokenvalues.append(Weg_4)
+            # DonchartModel.storytokenvalues=storytokenvalues    
            
 
 
 
     else:
         form=SearchViewModel.SearchItem()
+        # Eis=len(models.Tbltokenbase.objects.filter(story='Eis'))
+        # Weg_2=len(models.Tbltokenbase.objects.filter(story='Weg_2'))
+        # Frosch=len(models.Tbltokenbase.objects.filter(story='Frosch'))
+        # Jenga=len(models.Tbltokenbase.objects.filter(story='Jenga'))
+        # Staubsauger=len(models.Tbltokenbase.objects.filter(story='Staubsauger'))
+        # Weg_3=len(models.Tbltokenbase.objects.filter(story='Weg_3'))
+        # Schule=len(models.Tbltokenbase.objects.filter(story='Schule'))
+        # Fundbuero=len(models.Tbltokenbase.objects.filter(story='Fundbuero'))
+        # Seilbahn=len(models.Tbltokenbase.objects.filter(story='Seilbahn'))
+        # Weg_4=len(models.Tbltokenbase.objects.filter(story='Weg_4'))
+        # storytokenvalues.append(Eis)
+        # storytokenvalues.append(Weg_2)
+        # storytokenvalues.append(Frosch)
+        # storytokenvalues.append(Jenga)
+        # storytokenvalues.append(Staubsauger)
+        # storytokenvalues.append(Weg_3)
+        # storytokenvalues.append(Schule)
+        # storytokenvalues.append(Fundbuero)
+        # storytokenvalues.append(Seilbahn)
+        # storytokenvalues.append(Weg_4)
+        # DonchartModel.storytokenvalues=storytokenvalues 
 
             
-           
+       
             
 
  
     minmaxmodel=SearchViewModel.MinMaxSearchValue()
     tbltoken=models.Tbltokenbase.objects
     tbltype=models.Tbltypebase.objects
-    max_no_phonemes=tbltoken.aggregate(maxph=Max('no_phonemes'))['maxph']
-    min_no_phonemes=tbltoken.aggregate(minph=Min('no_phonemes'))['minph']
-    max_norm=tbltype.aggregate(norm=Max('chl_lemma_norm'))['norm']
-    min_norm=tbltype.aggregate(norm=Min('chl_lemma_norm'))['norm']
-    max_abs=tbltype.aggregate(abs=Max('chl_lemma_abs'))['abs']
-    min_abs=tbltype.aggregate(abs=Min('chl_lemma_abs'))['abs']
-    max_lemmazipf=tbltype.aggregate(abs=Max('lemma_zipf'))['abs']
-    min_lemmazipf=tbltype.aggregate(abs=Min('lemma_zipf'))['abs']
+    max_no_phonemes=21#tbltoken.aggregate(maxph=Max('no_phonemes'))['maxph']
+    min_no_phonemes=0#tbltoken.aggregate(minph=Min('no_phonemes'))['minph']
+    max_norm=106056.033#tbltype.aggregate(norm=Max('chl_lemma_norm'))['norm']
+    min_norm=0#tbltype.aggregate(norm=Min('chl_lemma_norm'))['norm']
+    max_abs=782243#tbltype.aggregate(abs=Max('chl_lemma_abs'))['abs']
+    min_abs=0#tbltype.aggregate(abs=Min('chl_lemma_abs'))['abs']
+    max_lemmazipf=8.026#tbltype.aggregate(abs=Max('lemma_zipf'))['abs']
+    min_lemmazipf=0#tbltype.aggregate(abs=Min('lemma_zipf'))['abs']
 
     minmaxmodel.max_norm=max_norm
     minmaxmodel.min_norm=min_norm
@@ -366,14 +440,14 @@ def MainSearch (request) :
     minmaxmodel.min_no_phonemes=min_no_phonemes
 
  
-    max_no_graphemes=tbltype.aggregate(maxph=Max('no_graphemes'))['maxph']
-    min_no_graphemes=tbltype.aggregate(minph=Min('no_graphemes'))['minph']
-    max_no_syllables=tbltype.aggregate(norm=Max('no_syllables'))['norm']
-    min_no_syllables=tbltype.aggregate(norm=Min('no_syllables'))['norm']
-    max_no_morphemes=tbltype.aggregate(abs=Max('no_morphemes'))['abs']
-    min_no_morphemes=tbltype.aggregate(abs=Min('no_morphemes'))['abs']
-    max_chl_type_abs=tbltype.aggregate(abs=Max('chl_type_abs'))['abs']
-    min_chl_type_abs=tbltype.aggregate(abs=Min('chl_type_abs'))['abs']
+    max_no_graphemes=22#tbltype.aggregate(maxph=Max('no_graphemes'))['maxph']
+    min_no_graphemes=1#tbltype.aggregate(minph=Min('no_graphemes'))['minph']
+    max_no_syllables=8#tbltype.aggregate(norm=Max('no_syllables'))['norm']
+    min_no_syllables=0#tbltype.aggregate(norm=Min('no_syllables'))['norm']
+    max_no_morphemes=9#tbltype.aggregate(abs=Max('no_morphemes'))['abs']
+    min_no_morphemes=1#tbltype.aggregate(abs=Min('no_morphemes'))['abs']
+    max_chl_type_abs=212632#tbltype.aggregate(abs=Max('chl_type_abs'))['abs']
+    min_chl_type_abs=0#tbltype.aggregate(abs=Min('chl_type_abs'))['abs']
     
     minmaxmodel.max_no_graphemes=max_no_graphemes
     minmaxmodel.min_no_graphemes=min_no_graphemes
@@ -384,14 +458,14 @@ def MainSearch (request) :
     minmaxmodel.max_chl_type_abs=max_chl_type_abs
     minmaxmodel.min_chl_type_abs=min_chl_type_abs
 
-    max_chl_type_norm=tbltype.aggregate(maxph=Max('chl_type_norm'))['maxph']
-    min_chl_type_norm=tbltype.aggregate(minph=Min('chl_type_norm'))['minph']
-    max_chl_bigram_sum=tbltype.aggregate(norm=Max('chl_bigram_sum'))['norm']
-    min_chl_bigram_sum=tbltype.aggregate(norm=Min('chl_bigram_sum'))['norm']
-    max_chl_nei_n=tbltype.aggregate(abs=Max('chl_nei_n'))['abs']
-    min_chl_nei_n=tbltype.aggregate(abs=Min('chl_nei_n'))['abs']
-    max_chl_nei_OLD20=tbltoken.aggregate(abs=Max('chl_nei_old20'))['abs']
-    min_chl_nei_OLD20=tbltoken.aggregate(abs=Min('chl_nei_old20'))['abs']
+    max_chl_type_norm=28828.518#tbltype.aggregate(maxph=Max('chl_type_norm'))['maxph']
+    min_chl_type_norm=0#tbltype.aggregate(minph=Min('chl_type_norm'))['minph']
+    max_chl_bigram_sum=464498#tbltype.aggregate(norm=Max('chl_bigram_sum'))['norm']
+    min_chl_bigram_sum=0#tbltype.aggregate(norm=Min('chl_bigram_sum'))['norm']
+    max_chl_nei_n=22#tbltype.aggregate(abs=Max('chl_nei_n'))['abs']
+    min_chl_nei_n=0#tbltype.aggregate(abs=Min('chl_nei_n'))['abs']
+    max_chl_nei_OLD20=7.2#tbltoken.aggregate(abs=Max('chl_nei_old20'))['abs']
+    min_chl_nei_OLD20=0#tbltoken.aggregate(abs=Min('chl_nei_old20'))['abs']
 
     minmaxmodel.max_chl_type_norm=max_chl_type_norm
     minmaxmodel.min_chl_type_norm=min_chl_type_norm
@@ -402,26 +476,19 @@ def MainSearch (request) :
     minmaxmodel.max_chl_nei_OLD20=max_chl_nei_OLD20
     minmaxmodel.min_chl_nei_OLD20=min_chl_nei_OLD20
 
-    min_Err_wordform=tbltype.aggregate(abs=Min('perc_erroneous'))['abs']
-    max_Err_wordform=tbltype.aggregate(abs=Max('perc_erroneous'))['abs']
+    min_Err_wordform=0#tbltype.aggregate(abs=Min('perc_erroneous'))['abs']
+    max_Err_wordform=100#tbltype.aggregate(abs=Max('perc_erroneous'))['abs']
 
     minmaxmodel.min_Err_wordform=min_Err_wordform
     minmaxmodel.max_Err_wordform=max_Err_wordform
     # min_Err_child=tbltoken.filter(target=orig).aggregate(abs=Max('chl_nei_old20'))['abs']
     # max_Err_child=tbltoken.aggregate(abs=Min('chl_nei_old20'))['abs']
-    min_Err_child=tbltoken.aggregate(abs=Min('erroneous'))['abs']
-    max_Err_child=tbltoken.aggregate(abs=Max('erroneous'))['abs']
+    min_Err_child=0#tbltoken.aggregate(abs=Min('erroneous'))['abs']
+    max_Err_child=1#tbltoken.aggregate(abs=Max('erroneous'))['abs']
     minmaxmodel.min_Err_child=min_Err_child
     minmaxmodel.max_Err_child=max_Err_child
-    
-    # no_graphemes
-    # no_syllables
-    # no_morphemes
-    # chl_type.abs
-    # chl_type.norm
-    # chl_bigram.sum
-    # chl_nei.n
-    # chl_nei.OLD20
+    minmaxmodel.max_student_writing=10
+    minmaxmodel.min_student_writing=0
     datacount=SearchViewModel.DataCount()
     datacount.observations  = tbltoken.count()
     datacount.students  = models.Students.objects.count()
@@ -429,7 +496,6 @@ def MainSearch (request) :
     datacount.texts  = tbltoken.values('text_id').distinct().count()
     datacount.lemmas  = tbltoken.exclude(chl_lemma__isnull=True).values('chl_lemma').distinct().count()
     stdids=models.Students.objects.only('number')
-    #  [1,2,3,4]
  
     
     
@@ -439,6 +505,10 @@ def MainSearch (request) :
     'fields' :Tbltokenbase._meta.get_fields(),
     'datacount':datacount,
     'stdids':stdids,
+    'DonchartModel':DonchartModel,
+    'textids':Token_Student,
+    'str':my_string,
+    'strcommand':strcommand
     }
     return render(request, "MainSearch.Html", context)
 

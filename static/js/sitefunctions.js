@@ -36,7 +36,8 @@ $(function () {
     ExportTable($('#lemma_config'), $('#lemmaexport'));
     ExportTable($('#global_config'), $('#globalexport'));
     ExportTable($('#text_config'), $('#textexport'));
-
+    
+    // $('#GeneralView').DataTable({ searching: false });
     $('#Word_zero_config').DataTable();
     $('#lemma_config').DataTable({ searching: false });
     $('#global_config').DataTable({ searching: false });
@@ -118,7 +119,13 @@ $(function () {
     });
     $("canvas.chart-litkey-line").each(function () {
         var ctx = $(this);
-        var MONTHS = ['text1-jan', 'text2-Feb', 'text3.Mar', 'text4.Apr', 'text5.May', 'text6.June', 'text7.July'];
+        var MONTHS = ["Eis","Weg_2" ,"Frosch","Jenga",
+        "Staubsauger",
+        "Weg_3",
+        "Schule",
+        "Fundbuero",
+        "Seilbahn",
+        "Weg_4"];
         var dataset = ctx.data("collection");
         var datasetlabel = ctx.data("label");//["7 ", "8-9 ", "10-11", "11-13"]
         var datatitle = ctx.data("title");//Number of words

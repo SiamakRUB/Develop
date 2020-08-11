@@ -141,6 +141,8 @@ class MinMaxSearchValue:
 
     max_Err_spelling:float
     min_Err_spelling:float
+    max_student_writing:float
+    min_student_writing:float
     
 class DataCount:
     observations:float

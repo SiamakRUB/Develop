@@ -14,7 +14,9 @@
     caption.btn-toolbar.bottom {
         display: inline;
     }
-
+    .form-group.row.slider-control {
+        padding: 0 20px;
+    }
     div.export button {
         color: black;
         font-size: 7pt;
@@ -631,14 +633,42 @@
 
                                     <div class="col-md-12">
                                         <label style="margin-top:10px;margin-bottom:10px;"> number of :</label>
-                                        <ul class="list-inline center-block justify-content-center">
+                                        <!-- <ul class="list-inline center-block justify-content-center">
                                             <li class="list-group-item"> observations :{{datacount.observations}} </li>
                                             <li class="list-group-item">wordforms :{{datacount.wordforms}} </li>
                                             <li class="list-group-item"> lemmas : {{datacount.lemmas}}</li>
                                             <li class="list-group-item"> texts : {{datacount.texts}}</li>
                                             <li class="list-group-item"> children :{{datacount.students}}</li>
-                                        </ul>
-
+                                            <li class="list-group-item"> average number of words (target tokens) per child :{{datacount.students}}</li>
+                                            <li class="list-group-item"> average number of words (target types) per child :{{datacount.students}}</li>
+                                        </ul> -->
+                                        <table class="table" id="GeneralView">
+                                            <thead>
+                                                <tr>
+                                                    <th>observations</th>
+                                                    <th>wordforms</th>
+                                                    <th>lemmas</th>
+                                                    <th>texts</th>
+                                                    <th>children</th>
+                                                    <th>average number of words (target tokens) per child</th>
+                                                   <th>average number of words (target types) per child	</th>	
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr> 
+                                                <td>{{datacount.observations}}</td>
+                                                <td>{{datacount.wordforms}}</td>
+                                                <td>{{datacount.lemmas}}</td>
+                                                <td>{{datacount.texts}}</td>
+                                                <td>{{datacount.students}}</td>
+                                                <td>{{datacount.students}}</td>
+                                                <td>{{datacount.students}}</td>
+                                                <td>{{ item.morpheme_types}}</td>
+                                                
+                                            </tr>
+                                         
+                                            </tbody>
+                                        </table>
 
                                     </div>
                                 </div>
@@ -1024,7 +1054,7 @@
                 <div class="col-sm-12 col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                              number of words per story and age
+                              number of words per story
                             <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true" aria-controls="multiCollapseExample10">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
@@ -1038,20 +1068,20 @@
                                         "rgba(54, 162, 235 )",
                                         "rgba(255, 206, 86 )",
                                         "rgba(75, 192, 192 )",
-                                        "rgba(126, 255, 60 )",
-                                        "rgba(153, 102, 25 )"
+                                        "rgba(16, 12, 160 )",
+                                        "rgba(126, 155, 60 )",
+                                        "rgba(12, 25, 60 )",
+                                        "rgba(113, 255, 60 )",
+                                        "rgba(12, 55, 60 )",
+                                        "rgba(15, 10, 15 )"
                                     ]'
-                                    data-type="doughnut"  data-title="Number of words (tokens) per story" data-label='["Eis",
-                                    "Weg_2"
-                                    "Frosch"
-                                    "Jenga"
-                                    "Staubsauger"
-                                    "Weg_3"
-                                    "Schule"
-                                    "Fundbuero"
-                                    "Seilbahn"
-                                    "Weg_4"]'
-                                    data-collection="[12, 9, 3, 8]"></canvas>
+                                    data-type="doughnut"  data-title="Number of words (tokens) per story" data-label='["Eis","Weg_2" ,"Frosch","Jenga",
+                                    "Staubsauger",
+                                    "Weg_3",
+                                    "Schule",
+                                    "Fundbuero",
+                                    "Seilbahn",
+                                    "Weg_4"]' data-collection="{{DonchartModel.storytokenvalues}}"></canvas>
                                     </div>
                                     <div class="col-md-6">
                                         <canvas class="chart-litkey" id="Donat-chart" width="400" height="400" data-color='[
@@ -1059,11 +1089,21 @@
                                         "rgba(54, 162, 235 )",
                                         "rgba(255, 206, 86 )",
                                         "rgba(75, 192, 192 )",
-                                        "rgba(126, 255, 60 )",
-                                        "rgba(153, 102, 25 )"
+                                        "rgba(16, 12, 160 )",
+                                        "rgba(126, 155, 60 )",
+                                        "rgba(12, 25, 60 )",
+                                        "rgba(113, 255, 60 )",
+                                        "rgba(12, 55, 60 )",
+                                        "rgba(15, 10, 15 )"
                                     ]'
-                                    data-type="doughnut"  data-title="Number of words" data-label='["7 ", "8-9 ", "10-11", "11-13"]'
-                                    data-collection="[12, 9, 3, 8]"></canvas>
+                                    data-type="doughnut"  data-title="Number of words" data-label='["Eis","Weg_2" ,"Frosch","Jenga",
+                                    "Staubsauger",
+                                    "Weg_3",
+                                    "Schule",
+                                    "Fundbuero",
+                                    "Seilbahn",
+                                    "Weg_4"]' 
+                                    data-collection="{{DonchartModel.storytokenvalues}}"></canvas>
                                     </div>
                        
                                 </div>
@@ -1075,7 +1115,7 @@
                 <div class="col-sm-12 col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Average number of all errors per story
+                            number of words per age
                             <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true" aria-controls="multiCollapseExample11">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
@@ -1176,7 +1216,7 @@
                 <div class="col-sm-12 col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Average number of words(Token) per Story
+                            Average number of all errors per story
                             <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true" aria-controls="multiCollapseExample10">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
@@ -1203,7 +1243,7 @@
                 <div class="col-sm-12 col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Average number of words(Type) per Story
+                            Average number of part-of-speech type per story
                             <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true" aria-controls="multiCollapseExample11">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
@@ -1244,9 +1284,6 @@
                                         <canvas class="chart-litkey" id="bar-chart" width="400" height="400" data-color='[
                                         "rgba(255, 99, 132 )",
                                         "rgba(54, 162, 235 )",
-                                        "rgba(255, 206, 86 )",
-                                        "rgba(75, 192, 192 )",
-                                        "rgba(126, 255, 60 )",
                                         "rgba(153, 102, 25 )"
                                     ]'
                                     data-type="bar"  data-title="Number of words" data-label='["German only ", "multilingual ", "NA"]'
@@ -1399,29 +1436,13 @@
                 </div>
             </div>
         </div>
-
-
+        
+        
     </div>
 </div>
-<!-- {% for instance in fields%}
-    {{instance}}
-{% endfor %} -->
-
-<!-- <h1>Data fetch</h1>
-{% for item in model %}
-    {{ item.number }}
-    {{ item.geschl }}
-{% endfor %} -->
-
-<script src="{% static 'css/extra-libs/multicheck/datatable-checkbox-init.js' %}"></script>
-<script src="{% static 'css/extra-libs/multicheck/jquery.multicheck.js' %}"></script>
-<script src="{% static 'css/extra-libs/DataTables/datatables.min.js' %}"></script>
-
-<script src="{% static 'js/chart.js' %}"></script>
-<!-- <script src="{% static 'js/local-site.js' %}"></script> -->
-
-<!-- <script>
- 
-
-</script> -->
+{{str}}
+{{strcommand}}
+{% for item in textids %}
+        {{ item.ID  }}
+{% endfor %} 
 {% endblock %}
