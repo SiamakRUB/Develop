@@ -998,7 +998,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% for item in result %}
+                                                {% for item in Token_Student %}
                                             <tr> 
                                                 <td>{{ item.chl_lemma }} </td>
                                                 <td>{{ item.chl_lemma_norm }}</td>
@@ -1023,7 +1023,8 @@
                                                 
                                             </tr>
                                             {% endfor %}
-                                                <!-- <tr>
+                                                <!-- 
+                                                <tr>
                                                     <td>abgeschlossen</td>
                                                     <td>abgeshlossen</td>
                                                     <td>88</td>
@@ -1103,7 +1104,7 @@
                                     "Fundbuero",
                                     "Seilbahn",
                                     "Weg_4"]' 
-                                    data-collection="{{DonchartModel.storytokenvalues}}"></canvas>
+                                    data-collection="{{DonchartModel.storytypevalues}}"></canvas>
                                     </div>
                        
                                 </div>
@@ -1174,7 +1175,8 @@
                                         "rgba(255, 206, 86 )"
                                     ]'
                                     data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]'
-                                    data-German="[12, 9, 3]" data-Multi="[10, 19, 13]" data-NA="[20, 10, 8]"></canvas>
+                                    data-German="{{ChartStoryDeveloped.storytokenvaluesGER}}" data-Multi="{{ChartStoryDeveloped.storytokenvaluesML}}" data-NA="{{ChartStoryDeveloped.storytokenvaluesKA}}" data-category='{{ChartStoryDeveloped.StoryNameToken}}' >
+                                </canvas>
                                     </div>
                                     
                                 </div>
@@ -1201,7 +1203,8 @@
                                         "rgba(255, 206, 86 )"
                                     ]'
                                     data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]'
-                                    data-German="[12, 9, 3]" data-Multi="[10, 19, 13]" data-NA="[20, 10, 8]"></canvas>
+                                    data-German="{{ChartStoryDeveloped.storytypevaluesGER}}" data-Multi="{{ChartStoryDeveloped.storytypevaluesML}}" data-NA="{{ChartStoryDeveloped.storytypevaluesKA}}" data-category='{{ChartStoryDeveloped.StoryNameToken}}' >
+                                </canvas>
                                     </div>
                                     
                                 </div>
@@ -1230,8 +1233,10 @@
                                         "rgba(54, 162, 235 )",
                                         "rgba(255, 206, 86 )"
                                     ]'
-                                    data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]'
-                                    data-German="[12, 9, 3]" data-Multi="[10, 19, 13]" data-NA="[20, 10, 8]"></canvas>
+                                    data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]' 
+                                    data-German="{{ChartStoryDeveloped.storyErrorvaluesGER}}" data-Multi="{{ChartStoryDeveloped.storyErrorvaluesML}}" data-NA="{{ChartStoryDeveloped.storyErrorvaluesKA}}" data-category="{{ChartStoryDeveloped.StoryNameError}}" >
+                                     
+                                </canvas>
                                     </div>
                                     
                                 </div>
@@ -1258,7 +1263,9 @@
                                         "rgba(255, 206, 86 )"
                                     ]'
                                     data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]'
-                                    data-German="[12, 9, 3]" data-Multi="[10, 19, 13]" data-NA="[20, 10, 8]"></canvas>
+                                    data-German="{{ChartStoryDeveloped.storyPosvaluesGER}}" data-Multi="{{ChartStoryDeveloped.storyPosvaluesML}}" data-NA="{{ChartStoryDeveloped.storyPosvaluesKA}}" data-category="{{ChartStoryDeveloped.StoryNamePos}}">
+                                
+                                </canvas>
                                     </div>
                                     
                                 </div>
@@ -1286,8 +1293,8 @@
                                         "rgba(54, 162, 235 )",
                                         "rgba(153, 102, 25 )"
                                     ]'
-                                    data-type="bar"  data-title="Number of words" data-label='["German only ", "multilingual ", "NA"]'
-                                    data-collection="[12, 9, 8]"></canvas>
+                                    data-type="bar"  data-title="Number of words" data-label='[" multilingual", "NA ", "German only"]'
+                                    data-collection="{{ChartBarNumberWord.WordCount}}"></canvas>
                                     </div>
                                     
                                 </div>
@@ -1440,9 +1447,13 @@
         
     </div>
 </div>
-{{str}}
-{{strcommand}}
-{% for item in textids %}
-        {{ item.ID  }}
-{% endfor %} 
+
+{{ChartStoryDeveloped.storytokenvaluesKA}}
+
+
+<!-- {{str}}
+{{strcommand}} -->
+<!-- {% for item in storytokenvalues %}
+        {{ item  }}
+{% endfor %}  -->
 {% endblock %}

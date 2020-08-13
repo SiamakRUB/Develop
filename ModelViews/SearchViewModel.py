@@ -154,8 +154,47 @@ class DataCount:
     
 class ChartDonat:
     storycat:str=[]
+    storytypecat:str=[]
     storytokenvalues:str=[]
     storytypevalues:str=[]
     agecat:str=[]
     agetokenvalues:float=[]
     agetypevalues:float=[]
+    
+class ChartBarNumberWord:
+    Wordcat:int=[]
+    WordCount:int=[]
+     
+
+class ChartStoryDeveloped:
+    storytokenLabelsML:str=[]
+    storytokenvaluesML:str=[]
+    storytypeLabelsML:str=[]
+    storytypevaluesML:str=[]
+    storyErrorvaluesML:str=[]
+    storyErrorLabelsML:str=[]
+    storyPosvaluesML:str=[]
+    storyPosLabelsML:str=[]
+
+    storytokenLabelsGER:str=[]
+    storytokenvaluesGER:str=[]
+    storytypeLabelsGER:str=[]
+    storytypevaluesGER:str=[]
+    storyErrorvaluesGER:str=[]
+    storyErrorLabelsGER:str=[]
+    storyPosvaluesGER:str=[]
+    storyPosLabelsGER:str=[]
+    
+    storytokenLabelsKA:str=[]
+    storytokenvaluesKA:str=[]
+    storytypeLabelsKA:str=[]
+    storytypevaluesKA:str=[]
+    storyErrorvaluesKA:str=[]
+    storyErrorLabelsKA:str=[]
+    storyPosvaluesKA:str=[]
+    storyPosLabelsKA:str=[]
+    StoryNameToken:str=[]
+    StoryNameType:str=[]
+    StoryNamePos:str=[]
+    StoryNameError:str=[]
+    

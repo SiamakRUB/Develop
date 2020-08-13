@@ -119,34 +119,43 @@ $(function () {
     });
     $("canvas.chart-litkey-line").each(function () {
         var ctx = $(this);
-        var MONTHS = ["Eis","Weg_2" ,"Frosch","Jenga",
-        "Staubsauger",
-        "Weg_3",
-        "Schule",
-        "Fundbuero",
-        "Seilbahn",
-        "Weg_4"];
+        // var MONTHS = ["Eis","Weg_2" ,"Frosch","Jenga",
+        // "Staubsauger",
+        // "Weg_3",
+        // "Schule",
+        // "Fundbuero",
+        // "Seilbahn",
+        // "Weg_4"];
+
+       
         var dataset = ctx.data("collection");
+        var datasetcategory = ctx.data("category");
+        var arrayxbase=[];
+        
         var datasetlabel = ctx.data("label");//["7 ", "8-9 ", "10-11", "11-13"]
         var datatitle = ctx.data("title");//Number of words
         var datacolor = ctx.data("color");//Number of words 
         var datatype = ctx.data("type");//Number of words 
+        var datasetML = ctx.data("multi");//Number of words 
+        var datasetGerman = ctx.data("german");//Number of words 
+        var datasetKA = ctx.data("na");//Number of words 
+        var datatype = ctx.data("type");//Number of words 
         var myChart = new Chart(ctx, {
             type: datatype,
             data: {
-                labels: MONTHS,
+                labels: datasetcategory,
                 datasets: [{
-                    data: [86, 91, 106, 106, 107, 91, 85, 85, 52, 124],
+                    data: datasetML,
                     label: "multilingual",
                     borderColor: "#3e95cd",
                     fill: false
                 }, {
-                    data: [107, 104, 103, 89, 95, 78, 89, 56, 41, 46],
+                    data: datasetGerman,
                     label: "German",
                     borderColor: "#ff6384",
                     fill: false
                 }, {
-                    data: [68, 78, 89, 106, 95, 78, 89, 56,103, 89],
+                    data: datasetKA,
                     label: "NA",
                     borderColor: "#f6a828",
                     fill: false

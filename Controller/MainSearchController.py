@@ -25,19 +25,111 @@ def get_Token_Student_sql(textids ):
     cursor.execute(strcommand )
     row = cursor.fetchone()
     return row
+def MaxMinSliderLoad(minmaxmodel):  
+   
+    max_no_phonemes=21#tbltoken.aggregate(maxph=Max('no_phonemes'))['maxph']
+    min_no_phonemes=0#tbltoken.aggregate(minph=Min('no_phonemes'))['minph']
+    max_norm=106056.033#tbltype.aggregate(norm=Max('chl_lemma_norm'))['norm']
+    min_norm=0#tbltype.aggregate(norm=Min('chl_lemma_norm'))['norm']
+    max_abs=782243#tbltype.aggregate(abs=Max('chl_lemma_abs'))['abs']
+    min_abs=0#tbltype.aggregate(abs=Min('chl_lemma_abs'))['abs']
+    max_lemmazipf=8.026#tbltype.aggregate(abs=Max('lemma_zipf'))['abs']
+    min_lemmazipf=0#tbltype.aggregate(abs=Min('lemma_zipf'))['abs']
+
+    minmaxmodel.max_norm=max_norm
+    minmaxmodel.min_norm=min_norm
+    minmaxmodel.max_abs=max_abs
+    minmaxmodel.min_abs=min_abs
+    minmaxmodel.max_lemmazipf=max_lemmazipf
+    minmaxmodel.min_lemmazipf=min_lemmazipf
+    minmaxmodel.max_no_phonemes=max_no_phonemes
+    minmaxmodel.min_no_phonemes=min_no_phonemes
+
+
+    max_no_graphemes=22#tbltype.aggregate(maxph=Max('no_graphemes'))['maxph']
+    min_no_graphemes=1#tbltype.aggregate(minph=Min('no_graphemes'))['minph']
+    max_no_syllables=8#tbltype.aggregate(norm=Max('no_syllables'))['norm']
+    min_no_syllables=0#tbltype.aggregate(norm=Min('no_syllables'))['norm']
+    max_no_morphemes=9#tbltype.aggregate(abs=Max('no_morphemes'))['abs']
+    min_no_morphemes=1#tbltype.aggregate(abs=Min('no_morphemes'))['abs']
+    max_chl_type_abs=212632#tbltype.aggregate(abs=Max('chl_type_abs'))['abs']
+    min_chl_type_abs=0#tbltype.aggregate(abs=Min('chl_type_abs'))['abs']
+    
+    minmaxmodel.max_no_graphemes=max_no_graphemes
+    minmaxmodel.min_no_graphemes=min_no_graphemes
+    minmaxmodel.max_no_syllables=max_no_syllables
+    minmaxmodel.min_no_syllables=min_no_syllables
+    minmaxmodel.max_no_morphemes=max_no_morphemes
+    minmaxmodel.min_no_morphemes=min_no_morphemes
+    minmaxmodel.max_chl_type_abs=max_chl_type_abs
+    minmaxmodel.min_chl_type_abs=min_chl_type_abs
+
+    max_chl_type_norm=28828.518#tbltype.aggregate(maxph=Max('chl_type_norm'))['maxph']
+    min_chl_type_norm=0#tbltype.aggregate(minph=Min('chl_type_norm'))['minph']
+    max_chl_bigram_sum=464498#tbltype.aggregate(norm=Max('chl_bigram_sum'))['norm']
+    min_chl_bigram_sum=0#tbltype.aggregate(norm=Min('chl_bigram_sum'))['norm']
+    max_chl_nei_n=22#tbltype.aggregate(abs=Max('chl_nei_n'))['abs']
+    min_chl_nei_n=0#tbltype.aggregate(abs=Min('chl_nei_n'))['abs']
+    max_chl_nei_OLD20=7.2#tbltoken.aggregate(abs=Max('chl_nei_old20'))['abs']
+    min_chl_nei_OLD20=0#tbltoken.aggregate(abs=Min('chl_nei_old20'))['abs']
+
+    minmaxmodel.max_chl_type_norm=max_chl_type_norm
+    minmaxmodel.min_chl_type_norm=min_chl_type_norm
+    minmaxmodel.max_chl_bigram_sum=max_chl_bigram_sum
+    minmaxmodel.min_chl_bigram_sum=min_chl_bigram_sum
+    minmaxmodel.max_chl_nei_n=max_chl_nei_n
+    minmaxmodel.min_chl_nei_n=min_chl_nei_n
+    minmaxmodel.max_chl_nei_OLD20=max_chl_nei_OLD20
+    minmaxmodel.min_chl_nei_OLD20=min_chl_nei_OLD20
+
+    min_Err_wordform=0#tbltype.aggregate(abs=Min('perc_erroneous'))['abs']
+    max_Err_wordform=100#tbltype.aggregate(abs=Max('perc_erroneous'))['abs']
+
+    minmaxmodel.min_Err_wordform=min_Err_wordform
+    minmaxmodel.max_Err_wordform=max_Err_wordform
+    # min_Err_child=tbltoken.filter(target=orig).aggregate(abs=Max('chl_nei_old20'))['abs']
+    # max_Err_child=tbltoken.aggregate(abs=Min('chl_nei_old20'))['abs']
+    min_Err_child=0#tbltoken.aggregate(abs=Min('erroneous'))['abs']
+    max_Err_child=1#tbltoken.aggregate(abs=Max('erroneous'))['abs']
+    minmaxmodel.min_Err_child=min_Err_child
+    minmaxmodel.max_Err_child=max_Err_child
+    minmaxmodel.max_student_writing=10
+    minmaxmodel.min_student_writing=0
+    return minmaxmodel
 
 def MainSearch (request) :
     inp_target=""
-    storytokenvalues=[]
-    storytypevalues=[] 
+    storyTypevalues=[]
+    storyTypeLabel=[]
+
+
+    storyPosvalues=[] 
+    storyPosLabel=[] 
+
+    storyErrorvalues=[] 
+    storyErrorLabel=[] 
+
+    storyOrigvalues=[] 
+    storyOrigLabel=[] 
+
+
+
+
     resultmodel=models.Tbltokenbase.objects.filter(id__lte=0)
     DonchartModel= SearchViewModel.ChartDonat()
+    ChartBarNumberWord= SearchViewModel.ChartBarNumberWord()
     
+    ChartStoryDeveloped= SearchViewModel.ChartStoryDeveloped()
+    tbltoken=models.Tbltokenbase.objects
+    tbltype=models.Tbltypebase.objects
     my_string=""
     strcommand=""
     textids=[]
     # x=get_Token_Student_sql(['029-200910-I-Eis', '065-200910-I-Eis','026-201011-II-Jenga', '161-201011-II-Jenga','04-237-3-II-Jenga', '095-201011-IV-Weg', '080-201011-I-Schule', '080-201011-I-Schule', '117-201011-I-Schule','132-201112-I-Schule','150-201011-I-Schule', '07-211-4-I-Schule', '07-329-4-I-Schule', '07-382-4-I-Schule', '07-390-4-I-Schule', '07-476-4-I-Schule', '07-489-4-I-Schule', '07-620-4-I-Schule', '07-622-4-I-Schule','07-622-4-I-Schule'])
     Token_Student=[]
+    AverageTokenStoryMultilanguage=[]
+    AverageTokenStoryGerman=[]
+    AverageTokenStoryNA=[]
     q_list_type =[]
     q_list_token=[]
     q_list_Student=[]
@@ -220,114 +312,177 @@ def MainSearch (request) :
 
             StudentSex= form.cleaned_data['StudentSex']
             if StudentSex>0:
+                # switcher = {
+                #     1: Q(Geschl='w'),
+                #     2: Q(Geschl='m'),
+                #     3: Q(Geschl='k.A.')
+                # }
                 switcher = {
-                    1: Q(Geschl='w'),
-                    2: Q(Geschl='m'),
-                    3: Q(Geschl='k.A.')
+                    1: "Geschl='w' " ,
+                    2: "Geschl='m' ",
+                    3: "Geschl='k.A.' "
+
                 }
+                # q_list_Student.append(switcher.get(StudentSex, "Invalid") )  
                 q_list_Student.append(switcher.get(StudentSex, "Invalid") )  
 
             StudentNativecountry= form.cleaned_data['StudentNativecountry']
             if StudentNativecountry>0:
+                # switcher = {
+                #     1: Q(HLKLI='Deutschland'),
+                #     2: Q(HLKLI='nicht Deutschland'),
+                #     3: Q(HLKLI='k.A.')
+                # }
                 switcher = {
-                    1: Q(HLKLI='Deutschland'),
-                    2: Q(HLKLI='nicht Deutschland'),
-                    3: Q(HLKLI='k.A.')
+                    1: "HLKLI='Deutschland' ",
+                    2: "HLKLI='nicht Deutschland' ",
+                    3: "HLKLI='k.A.' "
                 }
-                q_list_Student.append(switcher.get(StudentNativecountry, "Invalid") )  
+                q_list_Student.append(switcher.get(StudentNativecountry, " ") )  
 
             Multilingual= form.cleaned_data['Multilingual']
             if Multilingual>0:
+                # switcher = {
+                #     1: Q(HLKLI='ja'),
+                #     2: Q(HLKLI='nein'),
+                #     3: Q(HLKLI='k.A.')
+                # }
                 switcher = {
-                    1: Q(HLKLI='ja'),
-                    2: Q(HLKLI='nein'),
-                    3: Q(HLKLI='k.A.')
+                    1: " multilingual='ja' ",
+                    2: " multilingual='nein' ",
+                    3: " multilingual='k.A.' "
                 }
-                q_list_Student.append(switcher.get(Multilingual, "Invalid") )
+                q_list_Student.append(switcher.get(Multilingual, " ") )
+
             StudentPreferredReading= form.cleaned_data['StudentPreferredReading']
             if StudentPreferredReading>0:
+                # switcher = {
+                #     1: Q(LesS='Deutsch'),
+                #     2: ~Q(LesS='Deutsch'),
+                #     3: Q(LesS='Muttersprache'),
+                #     4: Q(LesS='k.A.')
+                # }
                 switcher = {
-                    1: Q(SprechS='Deutsch'),
-                    2: ~Q(SprechS='Deutsch'),
-                    3: Q(SprechS='Muttersprache'),
-                    4: Q(SprechS='k.A.')
+                    1: "LesS='Deutsch' ",
+                    2: "LesS<>'Deutsch' ",
+                    3: "LesS='Muttersprache' ",
+                    4: "LesS='k.A.' "
                 }
-                q_list_Student.append(switcher.get(StudentPreferredReading, "Invalid") )
+                q_list_Student.append(switcher.get(StudentPreferredReading, "") )
 
             StudentPreferredSpeaking= form.cleaned_data['StudentPreferredSpeaking']
             if StudentPreferredSpeaking>0:
+                # switcher = {
+                #     1: Q(SprechS='Deutsch'),
+                #     2: ~Q(SprechS='Deutsch'),
+                #     3: Q(SprechS='k.A.')
+                # }
                 switcher = {
-                    1: Q(SprechS='Deutsch'),
-                    2: ~Q(SprechS='Deutsch'),
-                    3: Q(SprechS='k.A.')
+                    1: "SprechS='Deutsch' ",
+                    2: "SprechS<>'Deutsch' ",
+                    3: "SprechS='k.A.' "
                 }
-                q_list_Student.append(switcher.get(StudentPreferredSpeaking, "Invalid") )
+                q_list_Student.append(switcher.get(StudentPreferredSpeaking, "") )
             
             StudentTeachingGerman= form.cleaned_data['StudentTeachingGerman']
             if StudentTeachingGerman>0:
+                # switcher = {
+                #     1: Q(DaZu='ja'),
+                #     2: Q(DaZu='nein'),
+                #     3: Q(DaZu='k.A.')
+                # }
                 switcher = {
-                    1: Q(DaZu='ja'),
-                    2: Q(DaZu='nein'),
-                    3: Q(DaZu='k.A.')
+                    1: "DaZu='ja' ",
+                    2: "DaZu='nein' ",
+                    3: "DaZu='k.A.' "
                 }
-                q_list_Student.append(switcher.get(StudentTeachingGerman, "Invalid") )  
+
+                q_list_Student.append(switcher.get(StudentTeachingGerman, " ") )  
             
             StudentTeachingNative= form.cleaned_data['StudentTeachingNative']
             if StudentTeachingNative>0:
+                # switcher = { 
+                #     1: Q(mu_hsu='ja'),
+                #     2: Q(mu_hsu='nein'),
+                #     3: Q(mu_hsu='k.A.')
+                # }
                 switcher = {
-                    1: Q(mu_hsu='ja'),
-                    2: Q(mu_hsu='nein'),
-                    3: Q(mu_hsu='k.A.')
+                    1:  " MU_HSU ='ja' ",
+                    2:  " MU_HSU ='nein' ",
+                    3:  " MU_HSU ='k.A.' "
                 }
-                q_list_Student.append(switcher.get(StudentTeachingNative, "Invalid") )  
+                q_list_Student.append(switcher.get(StudentTeachingNative, " ") )  
             
             max_student_writing= form.cleaned_data['max_student_writing']
             if max_student_writing>0:
-                q_list_Student.append( Q(anzahl__lte=max_student_writing))  
+                # q_list_Student.append( Q(anzahl__lte=max_student_writing))  
+                q_list_Student.append( " anzahl<={} ".format(max_student_writing))
             
             min_student_writing= form.cleaned_data['min_student_writing']
             if min_student_writing>0:
-                q_list_Student.append( Q(anzahl__gte=min_student_writing))  
+                # q_list_Student.append( Q(anzahl__gte=min_student_writing))  
+                q_list_Student.append( " anzahl>={} ".format(min_student_writing)) 
+
 
 
             StudentOriginFather= form.cleaned_data['StudentOriginFather']
             if StudentOriginFather>0:
+                # switcher = {
+                #     1: Q(hsprvli='Deutsch'),
+                #     2: ~Q(hsprvli='Deutsch'),
+                #     3: Q(hsprvli='k.A.')
+                # }
                 switcher = {
-                    1: Q(hsprvli='Deutsch'),
-                    2: ~Q(hsprvli='Deutsch'),
-                    3: Q(hsprvli='k.A.')
+                    1: "hsprvli='Deutsch' ",
+                    2: "hsprvli<>'Deutsch' ",
+                    3: "hsprvli='k.A.' "
                 }
-                q_list_Student.append(switcher.get(StudentOriginFather, "Invalid") )    
+                q_list_Student.append(switcher.get(StudentOriginFather, " ") )    
             
             
             StudentOriginMother= form.cleaned_data['StudentOriginMother']
             if StudentOriginMother>0:
+                # switcher = {
+                #     1: Q(hsprmli='Deutsch'),
+                #     2: ~Q(hsprmli='Deutsch'),
+                #     3: Q(hsprmli='k.A.')
+                # }
                 switcher = {
-                    1: Q(hsprmli='Deutsch'),
-                    2: ~Q(hsprmli='Deutsch'),
-                    3: Q(hsprmli='k.A.')
+                    1: "hsprmli='Deutsch' ",
+                    2: "hsprmli<>'Deutsch' ",
+                    3: "hsprmli='k.A.' "
                 }
-                q_list_Student.append(switcher.get(StudentOriginMother, "Invalid") )  
+                q_list_Student.append(switcher.get(StudentOriginMother, " ") )  
 
             
             StudentcountryFather= form.cleaned_data['StudentcountryFather']
             if StudentcountryFather>0:
+                # switcher = {
+                #     1: Q(hlvli='Deutschland'),
+                #     2: ~Q(hlvli='Deutschland'),
+                #     3: Q(hlvli='k.A.')
+                # }
                 switcher = {
-                    1: Q(hlvli='Deutschland'),
-                    2: ~Q(hlvli='Deutschland'),
-                    3: Q(hlvli='k.A.')
+                    1: "hlvli='Deutschland' ",
+                    2: "hlvli<>'Deutschland' ",
+                    3: "hlvli='k.A.' "
                 }
-                q_list_Student.append(switcher.get(StudentcountryFather, "Invalid") )  
+                q_list_Student.append(switcher.get(StudentcountryFather, " ") )  
 
             
             StudentcountryMother= form.cleaned_data['StudentcountryMother']
             if StudentcountryMother>0:
+                # switcher = {
+                #     1: Q(hlmli='Deutschland'),
+                #     2: ~Q(hlmli='Deutschland'),
+                #     3: Q(hlmli='k.A.')
+                # }
                 switcher = {
-                    1: Q(hlmli='Deutschland'),
-                    2: ~Q(hlmli='Deutschland'),
-                    3: Q(hlmli='k.A.')
+                    1: "hlmli='Deutschland' ",
+                    2: "hlmli<>'Deutschland' ",
+                    3: "hlmli='k.A.' "
                 }
-                q_list_Student.append(switcher.get(StudentcountryMother, "Invalid") ) 
+                q_list_Student.append(switcher.get(StudentcountryMother, " ") ) 
 
             # StudentTestTimeSelect= form.cleaned_data['StudentTestTimeSelect']
             # if StudentTestTimeSelect>0:
@@ -348,23 +503,199 @@ def MainSearch (request) :
             
             resultmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token))
 
-            testmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token)).values_list("id", flat=True)
+            testmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token)).values_list("id", flat=True) 
             
             # testmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token)).values('id') 
             #textids=list(testmodel) 
             
             data = []
 
-            for item in testmodel: #list is your initial datas format as python list
+            for item in testmodel: #list is your initial datas format as python list 
                 data.append(item)
 
-            my_string = ",".join(str(v) for v in data)  
-             
-            strcommand="SELECT * FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id where tk.id IN("+my_string+")"
+            token_where_string = ",".join(str(v) for v in data)  
+            student_where_string = " and ".join(q_list_Student)  
+            if len(q_list_Student)>0:
+                student_where_string=" and " +student_where_string
+            if len(data)>0:
+                token_where_string=" tk.id IN({}) ".format(token_where_string)
+            else:
+                token_where_string= "  "
+            if len(data)<1 and len(q_list_Student) <1:
+                token_where_string= " tk.id < 1 "
+
+
+            strcommand="""SELECT * FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} 
+             """.format(token_where_string,student_where_string).replace("\n","")
             Token_Student=list(models.Tbltokenbase.objects.raw(strcommand))
+            strcommandML="""  SELECT  count(pos) as poscount,tk.Id , pos, tk.error_level , count(tk.error_level)as errcount, count(orig) origcount, orig, st.multilingual as multilingual, count(target) as targetcount, target,story  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} group by story HAVING st.multilingual='ja' 
+             """.format(token_where_string,student_where_string).replace("\n","")
+            strcommandGerman=""" SELECT  count(pos) as poscount, pos,tk.Id, tk.error_level , count(tk.error_level)as errcount, count(orig) origcount, orig, st.multilingual as multilingual, count(target) as targetcount, target,story  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} group by story HAVING st.multilingual='nein'
+             """.format(token_where_string,student_where_string).replace("\n","")
+            strcommandKA=""" SELECT count(pos) as poscount, pos,tk.Id, tk.error_level , count(tk.error_level)as errcount, count(orig) origcount, orig, st.multilingual as multilingual, count(target) as targetcount, target,story  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} group by story HAVING st.multilingual='k.A.' 
+             """.format(token_where_string,student_where_string).replace("\n","")
+            
+            AverageStoryMultilanguage=list(models.Tbltokenbase.objects.raw(strcommandML))
+            AverageStoryGerman=list(models.Tbltokenbase.objects.raw(strcommandGerman))
+            AverageStoryNA=list(models.Tbltokenbase.objects.raw(strcommandKA))
 
+            # Error Level
+            strcommandErrorKA=""" SELECT count(pos) as poscount, pos,tk.Id, tk.error_level , count(tk.error_level)as errcount, count(orig) origcount, orig, st.multilingual as multilingual, count(target) as targetcount, target,story  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} group by story HAVING st.multilingual='ja' and tk.error_level <>''
+             """.format(token_where_string,student_where_string).replace("\n","")
+            AverageStoryERRML=list(models.Tbltokenbase.objects.raw(strcommandErrorKA))
 
-            # Eis=len(resultmodel.filter(story='Eis')) 
+            strcommandErrorKA=""" SELECT count(pos) as poscount, pos,tk.Id, tk.error_level , count(tk.error_level)as errcount, count(orig) origcount, orig, st.multilingual as multilingual, count(target) as targetcount, target,story  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} group by story HAVING st.multilingual='nein' and tk.error_level <>''
+             """.format(token_where_string,student_where_string).replace("\n","")
+
+            AverageStoryERRGerman=list(models.Tbltokenbase.objects.raw(strcommandErrorKA))
+
+            strcommandErrorKA=""" SELECT count(pos) as poscount, pos,tk.Id, tk.error_level , count(tk.error_level)as errcount, count(orig) origcount, orig, st.multilingual as multilingual, count(target) as targetcount, target,story  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} group by story HAVING st.multilingual='k.A.' and tk.error_level <>''
+             """.format(token_where_string,student_where_string).replace("\n","")
+            AverageStoryERRKA=list(models.Tbltokenbase.objects.raw(strcommandErrorKA))
+            
+            # POS
+            strcommandPosKA=""" SELECT count(pos) as poscount, pos,tk.Id, tk.error_level , count(tk.error_level)as errcount, count(orig) origcount, orig, st.multilingual as multilingual, count(target) as targetcount, target,story  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} group by story HAVING st.multilingual='ja' and tk.pos <>''
+             """.format(token_where_string,student_where_string).replace("\n","")
+            AverageStoryPosML=list(models.Tbltokenbase.objects.raw(strcommandPosKA))
+
+            strcommandPosKA=""" SELECT count(pos) as poscount, pos,tk.Id, tk.error_level , count(tk.error_level)as errcount, count(orig) origcount, orig, st.multilingual as multilingual, count(target) as targetcount, target,story  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} group by story HAVING st.multilingual='nein' and tk.pos <>''
+             """.format(token_where_string,student_where_string).replace("\n","")
+
+            AverageStoryPosGerman=list(models.Tbltokenbase.objects.raw(strcommandPosKA))
+
+            strcommandPosKA=""" SELECT count(pos) as poscount, pos,tk.Id, tk.error_level , count(tk.error_level)as errcount, count(orig) origcount, orig, st.multilingual as multilingual, count(target) as targetcount, target,story  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} group by story HAVING st.multilingual='k.A.' and tk.pos <>''
+             """.format(token_where_string,student_where_string).replace("\n","")
+            AverageStoryPosKA=list(models.Tbltokenbase.objects.raw(strcommandPosKA))
+            
+            
+          
+            ChartStoryDeveloped.storytokenvaluesML=[]
+            ChartStoryDeveloped.storytypevaluesML=[]
+            ChartStoryDeveloped.storyErrorvaluesML=[]
+            ChartStoryDeveloped.storyPosvaluesML=[]
+            ChartStoryDeveloped.StoryNameML=[]
+
+            ChartStoryDeveloped.storytokenvaluesGER=[]
+            ChartStoryDeveloped.storytypevaluesGER=[]
+            ChartStoryDeveloped.storyErrorvaluesGER=[]
+            ChartStoryDeveloped.storyPosvaluesGER=[]
+            ChartStoryDeveloped.StoryNameML=[]
+
+            ChartStoryDeveloped.storytokenvaluesML=[]
+            ChartStoryDeveloped.storytypevaluesML=[]
+            ChartStoryDeveloped.storyErrorvaluesML=[]
+            ChartStoryDeveloped.storyPosvaluesML=[]
+            ChartStoryDeveloped.StoryNameGER=[]
+
+            ChartStoryDeveloped.storytokenvaluesKA=[]
+            ChartStoryDeveloped.storytypevaluesKA=[]
+            ChartStoryDeveloped.storyErrorvaluesKA=[]
+            ChartStoryDeveloped.storyPosvaluesKA=[]
+            ChartStoryDeveloped.StoryNameKA=[]
+
+            for p in AverageStoryMultilanguage:
+                ChartStoryDeveloped.storytokenvaluesML.append(p.origcount)    
+                ChartStoryDeveloped.storytypevaluesML.append(p.targetcount)   
+                ChartStoryDeveloped.StoryNameToken.append(str(p.story))
+
+            for p in AverageStoryGerman:
+                ChartStoryDeveloped.storytokenvaluesGER.append(p.origcount)    
+                ChartStoryDeveloped.storytypevaluesGER.append(p.targetcount)   
+
+            for p in AverageStoryNA:
+                ChartStoryDeveloped.storytokenvaluesKA.append(p.origcount)    
+                ChartStoryDeveloped.storytypevaluesKA.append(p.targetcount)   
+                 
+            #Error Level add data to model
+            for p in AverageStoryERRML:
+                ChartStoryDeveloped.storyErrorvaluesML.append(p.errcount)   
+                ChartStoryDeveloped.StoryNameError.append(str(p.story))    
+                
+            for p in AverageStoryERRGerman:
+                ChartStoryDeveloped.storyErrorvaluesGER.append(p.errcount)   
+            
+            for p in AverageStoryERRKA:
+                ChartStoryDeveloped.storyErrorvaluesKA.append(p.errcount)   
+            #POS add data to model
+                
+            for p in AverageStoryPosML:
+                ChartStoryDeveloped.storyPosvaluesML.append(p.poscount)   
+                ChartStoryDeveloped.StoryNamePos.append(str(p.story))    
+                
+            for p in AverageStoryPosGerman:
+                ChartStoryDeveloped.storyPosvaluesGER.append(p.poscount)   
+            
+            for p in AverageStoryPosKA:
+                ChartStoryDeveloped.storyPosvaluesKA.append(p.poscount)   
+
+            getstrstorycat=""" SELECT tk.Id, story,count(orig) as tokencount  FROM tbltokenbase as tk INNER JOIN
+            students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or 
+            st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} group by story 
+             """.format(token_where_string,student_where_string).replace("\n","")
+            getcountbyStory=list(models.Tbltokenbase.objects.raw(getstrstorycat))
+            for p in getcountbyStory:
+                DonchartModel.agecat.append(str(p.story))   
+                DonchartModel.storytokenvalues.append(p.tokencount)
+
+            getstrstorytype=""" 
+            SELECT tk.Id,target, story,count(target) as targetcount  FROM tbltokenbase as tk INNER JOIN
+            students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or 
+            st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} 
+              group by story
+            """.format(token_where_string,student_where_string).replace("\n","")
+            getcountbyStoryType=list(models.Tbltokenbase.objects.raw(getstrstorytype))
+            for p in getcountbyStoryType:
+                DonchartModel.storytypecat.append(str(p.story))   
+                DonchartModel.storytypevalues.append(p.targetcount)                              
+                
+            StrWordNumber=""" SELECT  tk.Id,   st.multilingual as multilingual, count(multilingual) as spcount FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            where 
+             {}
+             {} group by st.multilingual ORDER by st.multilingual
+             """.format(token_where_string,student_where_string).replace("\n","")
+            ChartWord=list(models.Tbltokenbase.objects.raw(StrWordNumber))
+
+            for p in ChartWord:
+                ChartBarNumberWord.Wordcat.append(str(p.multilingual))   
+                ChartBarNumberWord.WordCount.append(p.spcount)
+                
+            # Eis=len(resultmodel.filter(story='Eis'))   
             # Weg_2=len(resultmodel.filter(story='Weg_2'))
             # Frosch=len(resultmodel.filter(story='Frosch'))
             # Jenga=len(resultmodel.filter(story='Jenga'))
@@ -384,7 +715,7 @@ def MainSearch (request) :
             # storytokenvalues.append(Fundbuero)
             # storytokenvalues.append(Seilbahn)
             # storytokenvalues.append(Weg_4)
-            # DonchartModel.storytokenvalues=storytokenvalues    
+            # DonchartModel.storytokenvalues=getcountbyStory    
            
 
 
@@ -415,80 +746,11 @@ def MainSearch (request) :
 
             
        
-            
-
- 
     minmaxmodel=SearchViewModel.MinMaxSearchValue()
-    tbltoken=models.Tbltokenbase.objects
-    tbltype=models.Tbltypebase.objects
-    max_no_phonemes=21#tbltoken.aggregate(maxph=Max('no_phonemes'))['maxph']
-    min_no_phonemes=0#tbltoken.aggregate(minph=Min('no_phonemes'))['minph']
-    max_norm=106056.033#tbltype.aggregate(norm=Max('chl_lemma_norm'))['norm']
-    min_norm=0#tbltype.aggregate(norm=Min('chl_lemma_norm'))['norm']
-    max_abs=782243#tbltype.aggregate(abs=Max('chl_lemma_abs'))['abs']
-    min_abs=0#tbltype.aggregate(abs=Min('chl_lemma_abs'))['abs']
-    max_lemmazipf=8.026#tbltype.aggregate(abs=Max('lemma_zipf'))['abs']
-    min_lemmazipf=0#tbltype.aggregate(abs=Min('lemma_zipf'))['abs']
-
-    minmaxmodel.max_norm=max_norm
-    minmaxmodel.min_norm=min_norm
-    minmaxmodel.max_abs=max_abs
-    minmaxmodel.min_abs=min_abs
-    minmaxmodel.max_lemmazipf=max_lemmazipf
-    minmaxmodel.min_lemmazipf=min_lemmazipf
-    minmaxmodel.max_no_phonemes=max_no_phonemes
-    minmaxmodel.min_no_phonemes=min_no_phonemes
+    minmaxmodel=MaxMinSliderLoad(minmaxmodel)
 
  
-    max_no_graphemes=22#tbltype.aggregate(maxph=Max('no_graphemes'))['maxph']
-    min_no_graphemes=1#tbltype.aggregate(minph=Min('no_graphemes'))['minph']
-    max_no_syllables=8#tbltype.aggregate(norm=Max('no_syllables'))['norm']
-    min_no_syllables=0#tbltype.aggregate(norm=Min('no_syllables'))['norm']
-    max_no_morphemes=9#tbltype.aggregate(abs=Max('no_morphemes'))['abs']
-    min_no_morphemes=1#tbltype.aggregate(abs=Min('no_morphemes'))['abs']
-    max_chl_type_abs=212632#tbltype.aggregate(abs=Max('chl_type_abs'))['abs']
-    min_chl_type_abs=0#tbltype.aggregate(abs=Min('chl_type_abs'))['abs']
     
-    minmaxmodel.max_no_graphemes=max_no_graphemes
-    minmaxmodel.min_no_graphemes=min_no_graphemes
-    minmaxmodel.max_no_syllables=max_no_syllables
-    minmaxmodel.min_no_syllables=min_no_syllables
-    minmaxmodel.max_no_morphemes=max_no_morphemes
-    minmaxmodel.min_no_morphemes=min_no_morphemes
-    minmaxmodel.max_chl_type_abs=max_chl_type_abs
-    minmaxmodel.min_chl_type_abs=min_chl_type_abs
-
-    max_chl_type_norm=28828.518#tbltype.aggregate(maxph=Max('chl_type_norm'))['maxph']
-    min_chl_type_norm=0#tbltype.aggregate(minph=Min('chl_type_norm'))['minph']
-    max_chl_bigram_sum=464498#tbltype.aggregate(norm=Max('chl_bigram_sum'))['norm']
-    min_chl_bigram_sum=0#tbltype.aggregate(norm=Min('chl_bigram_sum'))['norm']
-    max_chl_nei_n=22#tbltype.aggregate(abs=Max('chl_nei_n'))['abs']
-    min_chl_nei_n=0#tbltype.aggregate(abs=Min('chl_nei_n'))['abs']
-    max_chl_nei_OLD20=7.2#tbltoken.aggregate(abs=Max('chl_nei_old20'))['abs']
-    min_chl_nei_OLD20=0#tbltoken.aggregate(abs=Min('chl_nei_old20'))['abs']
-
-    minmaxmodel.max_chl_type_norm=max_chl_type_norm
-    minmaxmodel.min_chl_type_norm=min_chl_type_norm
-    minmaxmodel.max_chl_bigram_sum=max_chl_bigram_sum
-    minmaxmodel.min_chl_bigram_sum=min_chl_bigram_sum
-    minmaxmodel.max_chl_nei_n=max_chl_nei_n
-    minmaxmodel.min_chl_nei_n=min_chl_nei_n
-    minmaxmodel.max_chl_nei_OLD20=max_chl_nei_OLD20
-    minmaxmodel.min_chl_nei_OLD20=min_chl_nei_OLD20
-
-    min_Err_wordform=0#tbltype.aggregate(abs=Min('perc_erroneous'))['abs']
-    max_Err_wordform=100#tbltype.aggregate(abs=Max('perc_erroneous'))['abs']
-
-    minmaxmodel.min_Err_wordform=min_Err_wordform
-    minmaxmodel.max_Err_wordform=max_Err_wordform
-    # min_Err_child=tbltoken.filter(target=orig).aggregate(abs=Max('chl_nei_old20'))['abs']
-    # max_Err_child=tbltoken.aggregate(abs=Min('chl_nei_old20'))['abs']
-    min_Err_child=0#tbltoken.aggregate(abs=Min('erroneous'))['abs']
-    max_Err_child=1#tbltoken.aggregate(abs=Max('erroneous'))['abs']
-    minmaxmodel.min_Err_child=min_Err_child
-    minmaxmodel.max_Err_child=max_Err_child
-    minmaxmodel.max_student_writing=10
-    minmaxmodel.min_student_writing=0
     datacount=SearchViewModel.DataCount()
     datacount.observations  = tbltoken.count()
     datacount.students  = models.Students.objects.count()
@@ -500,16 +762,19 @@ def MainSearch (request) :
     
     
 
-    context={'form': form,'result':resultmodel,
+    context={'form': form,
+    'result':resultmodel,
     'maxminModel':minmaxmodel,
     'fields' :Tbltokenbase._meta.get_fields(),
     'datacount':datacount,
     'stdids':stdids,
     'DonchartModel':DonchartModel,
-    'textids':Token_Student,
+    'Token_Student':Token_Student,
     'str':my_string,
-    'strcommand':strcommand
+    'strcommand':strcommand,
+    'ChartBarNumberWord':ChartBarNumberWord,
+    'ChartStoryDeveloped':ChartStoryDeveloped
     }
     return render(request, "MainSearch.Html", context)
 
- 
+    
