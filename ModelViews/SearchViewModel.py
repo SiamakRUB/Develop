@@ -158,7 +158,8 @@ class ChartDonat:
     storytokenvalues:str=[]
     storytypevalues:str=[]
     agecat:str=[]
-    agetokenvalues:float=[]
+    labels:str
+    agetokenvalues:int=[]
     agetypevalues:float=[]
     
 class ChartBarNumberWord:
@@ -166,7 +167,19 @@ class ChartBarNumberWord:
     WordCount:int=[]
      
 
+
+
 class ChartStoryDeveloped:
+    def __init__(self):
+        self.storytokenLabelsML = ''
+        self.storytokenvaluesML = ''
+        self.storytypeLabelsML = ''
+        self.storytypevaluesML = ''
+        self.storyErrorvaluesML = ''
+        self.storyErrorLabelsML = ''
+        self.storyPosvaluesML = ''
+        self.storyPosLabelsML = ''
+
     storytokenLabelsML:str=[]
     storytokenvaluesML:str=[]
     storytypeLabelsML:str=[]

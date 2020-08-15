@@ -150,6 +150,8 @@ class Students(models.Model):
     t8 = models.CharField(db_column='T8', max_length=255)  # Field name made lowercase.
     t9 = models.CharField(db_column='T9', max_length=255)  # Field name made lowercase.
     t10 = models.CharField(db_column='T10', max_length=255)  # Field name made lowercase.
+    alt1 = models.FloatField(db_column='alt1')  # Field name made lowercase.
+    alt10 = models.FloatField(db_column='alt10')  # Field name made lowercase.
     anzahl = models.IntegerField(db_column='Anzahl')  # Field name made lowercase.
 
     class Meta:

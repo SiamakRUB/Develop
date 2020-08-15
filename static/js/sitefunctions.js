@@ -97,10 +97,15 @@ $(function () {
     var datatitle = ctx.data("title");//Number of words
     var datacolor = ctx.data("color");//Number of words 
     var datatype = ctx.data("type");//Number of words 
-     
-    $("canvas.chart-litkey").each(function () {
+    $("canvas.chart-litkey-age").each(function () {
         var ctx = $(this);
         var dataset = ctx.data("collection");
+        var labels = ctx.data("label");//["7 ", "8-9 ", "10-11", "11-13"]
+        var datasetcategory ="";
+        // if(labels != ''||labels != null){  
+        // datasetcategory=ctx.data("label").replace('[', '').replace(']','')
+        // var arrayxbase=datasetcategory.split(",");;
+        //      }; 
         var datasetlabel = ctx.data("label");//["7 ", "8-9 ", "10-11", "11-13"]
         var datatitle = ctx.data("title");//Number of words
         var datacolor = ctx.data("color");//Number of words 
@@ -108,7 +113,51 @@ $(function () {
         var myChart = new Chart(ctx, {
             type: datatype,
             data: {
-                labels: datasetlabel,
+                labels: labels,
+                datasets: [{
+                    label: datatitle,
+                    data: dataset,
+                    backgroundColor: datacolor,
+                }]
+            }
+        });
+    });
+    $("canvas.chart-litkey").each(function () {
+        var ctx = $(this);
+        var dataset = ctx.data("collection");
+        var labels = ctx.data("label");//["7 ", "8-9 ", "10-11", "11-13"]
+        var datasetcategory ="";
+        if(labels != ''||labels != null){  
+        datasetcategory=ctx.data("label").replace('[', '').replace(']','')
+        var arrayxbase=datasetcategory.split(",");;
+             }; 
+        var datasetlabel = ctx.data("label");//["7 ", "8-9 ", "10-11", "11-13"]
+        var datatitle = ctx.data("title");//Number of words
+        var datacolor = ctx.data("color");//Number of words 
+        var datatype = ctx.data("type");//Number of words 
+        var myChart = new Chart(ctx, {
+            type: datatype,
+            data: {
+                labels: arrayxbase,
+                datasets: [{
+                    label: datatitle,
+                    data: dataset,
+                    backgroundColor: datacolor,
+                }]
+            }
+        });
+    });
+    $("canvas.chart-litkey-bar").each(function () {
+        var ctx = $(this);
+        var dataset = ctx.data("collection");
+        var labels = ctx.data("label");//["7 ", "8-9 ", "10-11", "11-13"]
+        var datatitle = ctx.data("title");//Number of words
+        var datacolor = ctx.data("color");//Number of words 
+        var datatype = ctx.data("type");//Number of words 
+        var myChart = new Chart(ctx, {
+            type: datatype,
+            data: {
+                labels: labels,
                 datasets: [{
                     label: datatitle,
                     data: dataset,
@@ -129,9 +178,12 @@ $(function () {
 
        
         var dataset = ctx.data("collection");
-        var datasetcategory = ctx.data("category");
-        var arrayxbase=[];
-        
+        var cats=ctx.data("category")
+        var datasetcategory ="";
+        if(cats != ''||cats != null){  
+        datasetcategory=ctx.data("category").replace('[', '').replace(']','')
+        var arrayxbase=datasetcategory.split(",");;
+             };  
         var datasetlabel = ctx.data("label");//["7 ", "8-9 ", "10-11", "11-13"]
         var datatitle = ctx.data("title");//Number of words
         var datacolor = ctx.data("color");//Number of words 
@@ -143,7 +195,7 @@ $(function () {
         var myChart = new Chart(ctx, {
             type: datatype,
             data: {
-                labels: datasetcategory,
+                labels: arrayxbase,
                 datasets: [{
                     data: datasetML,
                     label: "multilingual",

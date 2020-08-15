@@ -14,9 +14,11 @@
     caption.btn-toolbar.bottom {
         display: inline;
     }
+
     .form-group.row.slider-control {
         padding: 0 20px;
     }
+
     div.export button {
         color: black;
         font-size: 7pt;
@@ -40,9 +42,9 @@
 
 <div class="row" style="margin-top:50px"></div>
 <div class="row" style="margin:20px">
-    
+
     <div class="col-md-3">
-        
+
         <form action="/MainSearch/" method="post">
             {% csrf_token %}
             <div class="d-flex justify-content-center">
@@ -71,47 +73,56 @@
                                         </div>
                                         <div class="col-sm-5">
                                             <input type="text" name="Lemma" class="form-control" id="id_Lemma" value=""
-                                             placeholder="Lemma">
+                                                placeholder="Lemma">
 
                                         </div>
 
                                         <div class="col-sm-12 row " style="margin-top:10px">
                                             <div class="form-group row slider-control">
 
-                                            <div id="lemma-freq-slider" class="slider-drag" data-max="{{ maxminModel.max_norm }}"
-                                                data-min="{{ maxminModel.min_norm }}"></div>
-                                            <p>
-                                                <label for="lemma-freq-label">freq per 1M:</label>
-                                                <input type="text" class="slider-label" id="lemma-freq-label"
-                                                    style="border:0; color:#b9cd6d; font-weight:bold;">
-                                                    <input type="hidden" id="id_max_lemma_freq" class="slider-maxvalue"  name="max_lemma_freq" value="-1" />
-                                                    <input type="hidden" id="id_min_lemma_freq" class="slider-minvalue"  name="min_lemma_freq" value="-1" />
-                                            </p>
-                                            </div>
-                                <div class="form-group row slider-control">
-                                    <div id="lemma-absolute-slider" class="slider-drag" data-max="{{ maxminModel.max_abs }}"
-                                            data-min="{{ maxminModel.min_abs }}"></div>
-                                            <p>
-                                                <label for="lemma-absolute-label">absolute freq:</label>
-                                                <input type="text" class="slider-label" id="lemma-absolute-label"
-                                                    style="border:0; color:#b9cd6d; font-weight:bold;">
-                                                    <input type="hidden" id="id_max_lemma_absolute" class="slider-maxvalue"  name="max_lemma_absolute" value="-1" />
-                                                    <input type="hidden" id="id_min_lemma_absolute" class="slider-minvalue"  name="min_lemma_absolute" value="-1" />
+                                                <div id="lemma-freq-slider" class="slider-drag"
+                                                    data-max="{{ maxminModel.max_norm }}"
+                                                    data-min="{{ maxminModel.min_norm }}"></div>
+                                                <p>
+                                                    <label for="lemma-freq-label">freq per 1M:</label>
+                                                    <input type="text" class="slider-label" id="lemma-freq-label"
+                                                        style="border:0; color:#b9cd6d; font-weight:bold;">
+                                                    <input type="hidden" id="id_max_lemma_freq" class="slider-maxvalue"
+                                                        name="max_lemma_freq" value="-1" />
+                                                    <input type="hidden" id="id_min_lemma_freq" class="slider-minvalue"
+                                                        name="min_lemma_freq" value="-1" />
                                                 </p>
-                                </div>
-                                <div class="form-group row slider-control">
+                                            </div>
+                                            <div class="form-group row slider-control">
+                                                <div id="lemma-absolute-slider" class="slider-drag"
+                                                    data-max="{{ maxminModel.max_abs }}"
+                                                    data-min="{{ maxminModel.min_abs }}"></div>
+                                                <p>
+                                                    <label for="lemma-absolute-label">absolute freq:</label>
+                                                    <input type="text" class="slider-label" id="lemma-absolute-label"
+                                                        style="border:0; color:#b9cd6d; font-weight:bold;">
+                                                    <input type="hidden" id="id_max_lemma_absolute"
+                                                        class="slider-maxvalue" name="max_lemma_absolute" value="-1" />
+                                                    <input type="hidden" id="id_min_lemma_absolute"
+                                                        class="slider-minvalue" name="min_lemma_absolute" value="-1" />
+                                                </p>
+                                            </div>
+                                            <div class="form-group row slider-control">
 
-                                            <div id="lemma-Zipf-slider" class="slider-drag" data-max="{{ maxminModel.max_lemmazipf }}"
-                                            data-min="{{ maxminModel.min_lemmazipf }}"></div>
-                                            <p>
-                                                <label for="lemma-Zipf-label"> Zipf score:</label>
-                                                <input type="text" class="slider-label" id="lemma-Zipf-label"
-                                                    style="border:0; color:#b9cd6d; font-weight:bold;">
-                                                    <input type="hidden" id="id_max_lemma_Zipf"  class="slider-maxvalue"  name="max_lemma_Zipf" value="-1" />
-                                                    <input type="hidden" id="id_min_lemma_Zipf" class="slider-minvalue"  name="min_lemma_Zipf" value="-1" />
+                                                <div id="lemma-Zipf-slider" class="slider-drag"
+                                                    data-max="{{ maxminModel.max_lemmazipf }}"
+                                                    data-min="{{ maxminModel.min_lemmazipf }}"></div>
+                                                <p>
+                                                    <label for="lemma-Zipf-label"> Zipf score:</label>
+                                                    <input type="text" class="slider-label" id="lemma-Zipf-label"
+                                                        style="border:0; color:#b9cd6d; font-weight:bold;">
+                                                    <input type="hidden" id="id_max_lemma_Zipf" class="slider-maxvalue"
+                                                        name="max_lemma_Zipf" value="-1" />
+                                                    <input type="hidden" id="id_min_lemma_Zipf" class="slider-minvalue"
+                                                        name="min_lemma_Zipf" value="-1" />
                                                 </p>
-                                                </div>
                                             </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -148,7 +159,7 @@
                                     <label for="lname" class="col-sm-3 text-left control-label col-form-label">Original
                                     </label>
                                     <div class="col-sm-4">
-                                        <select  id="id_OrigSelect" name="OrigSelect" class="custom-select">
+                                        <select id="id_OrigSelect" name="OrigSelect" class="custom-select">
                                             <option value="0" selected>Select</option>
                                             <option value="1">starts-with</option>
                                             <option value="2">includes</option>
@@ -166,61 +177,75 @@
                                     <label style="margin-top:10px;margin-bottom:10px;">Internal structure :</label>
 
 
-                                <div class="form-group row slider-control">
-                                    <div id="word-phonemes-slider" class="slider-drag" data-max="{{ maxminModel.max_no_phonemes }}"
-                                    data-min="{{ maxminModel.min_no_phonemes }}"></div>
-                                    <p>
-                                        <label for="word-phonemes-label">number of phonemes:</label>
-                                        <input type="text" class="slider-label" id="word-phonemes-label"
-                                            style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden"  id="id_max_word_phonemes" class="slider-maxvalue"  name="max_word_phonemes" value="-1" />
-                                            <input type="hidden" id="id_min_word_phonemes" class="slider-minvalue"  name="min_word_phonemes" value="-1" />
-                                    </p>
-                                </div>
-                                <div class="form-group row slider-control">
-                                    <div id="word-graphemes-slider" class="slider-drag" data-max="{{ maxminModel.max_no_graphemes }}"
-                                    data-min="{{ maxminModel.min_no_graphemes }}"></div>
-                                    <p>
-                                        <label for="word-graphemes-label">number of graphemes:</label>
-                                        <input type="text" class="slider-label" id="word-graphemes-label"
-                                            style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_graphemes" class="slider-maxvalue"  name="max_word_graphemes" value="-1" />
-                                            <input type="hidden" id="id_min_word_graphemes" class="slider-minvalue"  name="min_word_graphemes" value="-1" />
-                                    </p>
-                                </div>
-                                <div class="form-group row slider-control">
-                                    <div id="word-syllables-slider" class="slider-drag" data-max="{{ maxminModel.max_no_syllables }}"
-                                    data-min="{{ maxminModel.min_no_graphemes }}"></div>
-                                    <p>
-                                        <label for="word-syllables-label">number of syllables :</label>
-                                        <input type="text" class="slider-label" id="word-syllables-label"
-                                            style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_syllables" class="slider-maxvalue"  name="max_word_syllables" value="-1" />
-                                            <input type="hidden" id="id_min_word_syllables" class="slider-minvalue"  name="min_word_syllables" value="-1" />
-                                    </p>
-                                </div>
-                                <div class="form-group row slider-control">
-                                  
-                                <div id="word-morphemes-slider" class="slider-drag" data-max="{{ maxminModel.max_no_morphemes }}"
-                                    data-min="{{ maxminModel.min_no_morphemes }}"></div>
-                                    <p>
-                                        <label for="word-morphemes-label">number of morphemes :</label>
-                                        <input type="text" class="slider-label" id="word-morphemes-label"
-                                            style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_morphemes" class="slider-maxvalue"  name="max_word_morphemes" value="-1" />
-                                            <input type="hidden" id="id_min_word_morphemes" class="slider-minvalue"  name="min_word_morphemes" value="-1" />
-                                    </p>
-                                </div>
+                                    <div class="form-group row slider-control">
+                                        <div id="word-phonemes-slider" class="slider-drag"
+                                            data-max="{{ maxminModel.max_no_phonemes }}"
+                                            data-min="{{ maxminModel.min_no_phonemes }}"></div>
+                                        <p>
+                                            <label for="word-phonemes-label">number of phonemes:</label>
+                                            <input type="text" class="slider-label" id="word-phonemes-label"
+                                                style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max_word_phonemes" class="slider-maxvalue"
+                                                name="max_word_phonemes" value="-1" />
+                                            <input type="hidden" id="id_min_word_phonemes" class="slider-minvalue"
+                                                name="min_word_phonemes" value="-1" />
+                                        </p>
+                                    </div>
+                                    <div class="form-group row slider-control">
+                                        <div id="word-graphemes-slider" class="slider-drag"
+                                            data-max="{{ maxminModel.max_no_graphemes }}"
+                                            data-min="{{ maxminModel.min_no_graphemes }}"></div>
+                                        <p>
+                                            <label for="word-graphemes-label">number of graphemes:</label>
+                                            <input type="text" class="slider-label" id="word-graphemes-label"
+                                                style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max_word_graphemes" class="slider-maxvalue"
+                                                name="max_word_graphemes" value="-1" />
+                                            <input type="hidden" id="id_min_word_graphemes" class="slider-minvalue"
+                                                name="min_word_graphemes" value="-1" />
+                                        </p>
+                                    </div>
+                                    <div class="form-group row slider-control">
+                                        <div id="word-syllables-slider" class="slider-drag"
+                                            data-max="{{ maxminModel.max_no_syllables }}"
+                                            data-min="{{ maxminModel.min_no_graphemes }}"></div>
+                                        <p>
+                                            <label for="word-syllables-label">number of syllables :</label>
+                                            <input type="text" class="slider-label" id="word-syllables-label"
+                                                style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max_word_syllables" class="slider-maxvalue"
+                                                name="max_word_syllables" value="-1" />
+                                            <input type="hidden" id="id_min_word_syllables" class="slider-minvalue"
+                                                name="min_word_syllables" value="-1" />
+                                        </p>
+                                    </div>
+                                    <div class="form-group row slider-control">
+
+                                        <div id="word-morphemes-slider" class="slider-drag"
+                                            data-max="{{ maxminModel.max_no_morphemes }}"
+                                            data-min="{{ maxminModel.min_no_morphemes }}"></div>
+                                        <p>
+                                            <label for="word-morphemes-label">number of morphemes :</label>
+                                            <input type="text" class="slider-label" id="word-morphemes-label"
+                                                style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max_word_morphemes" class="slider-maxvalue"
+                                                name="max_word_morphemes" value="-1" />
+                                            <input type="hidden" id="id_min_word_morphemes" class="slider-minvalue"
+                                                name="min_word_morphemes" value="-1" />
+                                        </p>
+                                    </div>
 
                                 </div>
 
                                 <div class="form-group row">
                                     <label>Part-of-speech type :</label>
-                                    <div class="checkbox"> <label> <input type="checkbox" id="id_IsFunktion" name="IsFunktion" class="option-input checkbox jqshowcolumn"
+                                    <div class="checkbox"> <label> <input type="checkbox" id="id_IsFunktion"
+                                                name="IsFunktion" class="option-input checkbox jqshowcolumn"
                                                 name="filter[]" value="12" /> <span class="ml-10">Funktion</span>
                                         </label>
                                     </div>
-                                    <div class="checkbox"> <label> <input type="checkbox" id="id_IsLexion" name="IsLexion" class="option-input checkbox jqshowcolumn"
+                                    <div class="checkbox"> <label> <input type="checkbox" id="id_IsLexion"
+                                                name="IsLexion" class="option-input checkbox jqshowcolumn"
                                                 name="filter[]" value="12" /> <span class="ml-10">Lexion</span> </label>
                                     </div>
                                 </div>
@@ -229,7 +254,7 @@
                                         speech
                                     </label>
                                     <div class="col-sm-4">
-                                        <select  id="id_POSSelect"  name="POSSelect" class="custom-select">
+                                        <select id="id_POSSelect" name="POSSelect" class="custom-select">
                                             <option value="0" selected>Select</option>
                                             <option value="1">starts-with</option>
                                             <option value="2">includes</option>
@@ -248,7 +273,8 @@
                                         types
                                     </label>
                                     <div class="col-sm-4">
-                                        <select id="id_SyllableTypeSelect"   name="SyllableTypeSelect" class="custom-select">
+                                        <select id="id_SyllableTypeSelect" name="SyllableTypeSelect"
+                                            class="custom-select">
                                             <option value="0" selected>Select</option>
                                             <option value="1">starts-with</option>
                                             <option value="2">includes</option>
@@ -266,65 +292,80 @@
                                 <div class="col-sm-12 row ">
                                     <label style="margin-top:10px;margin-bottom:10px;">Frequencies :</label>
 
-                                <div class="form-group row slider-control">
-                                    <div id="word-absolute-slider" class="slider-drag" data-max="{{ maxminModel.max_chl_type_abs }}"
-                                    data-min="{{ maxminModel.min_chl_type_abs }}"></div>
-                                    <p>
-                                        <label for="word-absolute-label">absolute freq:</label>
-                                        <input type="text" class="slider-label" id="word-absolute-label"
-                                            style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_absolute" class="slider-maxvalue"  name="max_word_absolute" value="-1" />
-                                            <input type="hidden" id="id_min_word_absolute" class="slider-minvalue"  name="min_word_absolute" value="-1" />
-                                    </p>
-                                </div>
-                                <div class="form-group row slider-control">
+                                    <div class="form-group row slider-control">
+                                        <div id="word-absolute-slider" class="slider-drag"
+                                            data-max="{{ maxminModel.max_chl_type_abs }}"
+                                            data-min="{{ maxminModel.min_chl_type_abs }}"></div>
+                                        <p>
+                                            <label for="word-absolute-label">absolute freq:</label>
+                                            <input type="text" class="slider-label" id="word-absolute-label"
+                                                style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max_word_absolute" class="slider-maxvalue"
+                                                name="max_word_absolute" value="-1" />
+                                            <input type="hidden" id="id_min_word_absolute" class="slider-minvalue"
+                                                name="min_word_absolute" value="-1" />
+                                        </p>
+                                    </div>
+                                    <div class="form-group row slider-control">
 
-                                    <div id="word-freq-slider" class="slider-drag" data-max="{{ maxminModel.max_chl_type_norm }}"
-                                    data-min="{{ maxminModel.min_chl_type_norm }}"></div>
-                                    <p>
-                                        <label for="word-freq-label">freq per 1M:</label>
-                                        <input type="text" class="slider-label" id="word-freq-label"
-                                            style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_freq" class="slider-maxvalue"  name="max_word_freq" value="-1" />
-                                            <input type="hidden" id="id_min_word_freq" class="slider-minvalue"  name="min_word_freq" value="-1" />
-                                    </p>
-                                </div>
-                                <div class="form-group row slider-control">
-                                
-                                    <div id="word-bigram-slider" class="slider-drag" data-max="{{ maxminModel.max_chl_bigram_sum }}"
-                                    data-min="{{ maxminModel.min_chl_bigram_sum }}"></div>
-                                    <p>
-                                        <label for="word-bigram-label">summed bigram freq. :</label>
-                                        <input type="text" class="slider-label" id="word-bigram-label"
-                                            style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_bigram" class="slider-maxvalue"  name="max_word_bigram" value="-1" />
-                                            <input type="hidden" id="id_min_word_bigram" class="slider-minvalue"  name="min_word_bigram" value="-1" />
-                                    </p>
-                                </div>
-                                <div class="form-group row slider-control">
+                                        <div id="word-freq-slider" class="slider-drag"
+                                            data-max="{{ maxminModel.max_chl_type_norm }}"
+                                            data-min="{{ maxminModel.min_chl_type_norm }}"></div>
+                                        <p>
+                                            <label for="word-freq-label">freq per 1M:</label>
+                                            <input type="text" class="slider-label" id="word-freq-label"
+                                                style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max_word_freq" class="slider-maxvalue"
+                                                name="max_word_freq" value="-1" />
+                                            <input type="hidden" id="id_min_word_freq" class="slider-minvalue"
+                                                name="min_word_freq" value="-1" />
+                                        </p>
+                                    </div>
+                                    <div class="form-group row slider-control">
 
-                                    <div id="word-neighbors-slider" class="slider-drag" data-max="{{ maxminModel.max_chl_nei_n }}"
-                                    data-min="{{ maxminModel.min_chl_nei_n }}"></div>
-                                    <p>
-                                        <label for="word-neighbors-label">number of neighbors :</label>
-                                        <input type="text" class="slider-label" id="word-neighbors-label"
-                                            style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_neighbors" class="slider-maxvalue"  name="max_word_neighbors" value="-1" />
-                                            <input type="hidden" id="id_min_word_neighbors" class="slider-minvalue"  name="min_word_neighbors" value="-1" />
-                                    </p>
-                                </div>
-                                <div class="form-group row slider-control">
+                                        <div id="word-bigram-slider" class="slider-drag"
+                                            data-max="{{ maxminModel.max_chl_bigram_sum }}"
+                                            data-min="{{ maxminModel.min_chl_bigram_sum }}"></div>
+                                        <p>
+                                            <label for="word-bigram-label">summed bigram freq. :</label>
+                                            <input type="text" class="slider-label" id="word-bigram-label"
+                                                style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max_word_bigram" class="slider-maxvalue"
+                                                name="max_word_bigram" value="-1" />
+                                            <input type="hidden" id="id_min_word_bigram" class="slider-minvalue"
+                                                name="min_word_bigram" value="-1" />
+                                        </p>
+                                    </div>
+                                    <div class="form-group row slider-control">
 
-                                    <div id="word-OLD20-slider" class="slider-drag" data-max="{{ maxminModel.max_chl_nei_OLD20 }}"
-                                    data-min="{{ maxminModel.min_chl_nei_OLD20 }}"></div>
-                                    <p>
-                                        <label for="word-OLD20-label">OLD20 :</label>
-                                        <input type="text" class="slider-label" id="word-OLD20-label"
-                                            style="border:0; color:#b9cd6d; font-weight:bold;">
-                                            <input type="hidden" id="id_max_word_OLD20" class="slider-maxvalue"  name="max_word_OLD20" value="-1" />
-                                            <input type="hidden" id="id_min_word_OLD20" class="slider-minvalue"  name="min_word_OLD20" value="-1" />
-                                    </p>
-                                </div>  
+                                        <div id="word-neighbors-slider" class="slider-drag"
+                                            data-max="{{ maxminModel.max_chl_nei_n }}"
+                                            data-min="{{ maxminModel.min_chl_nei_n }}"></div>
+                                        <p>
+                                            <label for="word-neighbors-label">number of neighbors :</label>
+                                            <input type="text" class="slider-label" id="word-neighbors-label"
+                                                style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max_word_neighbors" class="slider-maxvalue"
+                                                name="max_word_neighbors" value="-1" />
+                                            <input type="hidden" id="id_min_word_neighbors" class="slider-minvalue"
+                                                name="min_word_neighbors" value="-1" />
+                                        </p>
+                                    </div>
+                                    <div class="form-group row slider-control">
+
+                                        <div id="word-OLD20-slider" class="slider-drag"
+                                            data-max="{{ maxminModel.max_chl_nei_OLD20 }}"
+                                            data-min="{{ maxminModel.min_chl_nei_OLD20 }}"></div>
+                                        <p>
+                                            <label for="word-OLD20-label">OLD20 :</label>
+                                            <input type="text" class="slider-label" id="word-OLD20-label"
+                                                style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max_word_OLD20" class="slider-maxvalue"
+                                                name="max_word_OLD20" value="-1" />
+                                            <input type="hidden" id="id_min_word_OLD20" class="slider-minvalue"
+                                                name="min_word_OLD20" value="-1" />
+                                        </p>
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                 </div>
@@ -341,33 +382,41 @@
                         <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
                             <div class="panel-body">
                                 <div class="form-group row slider-control">
-                                    <div id="Err-wordform-slider"  class="slider-drag" data-max="{{ maxminModel.max_Err_wordform }}"
-                                data-min="{{ maxminModel.min_Err_wordform }}"></div>
-                                <p>
-                                    <label for="Err-wordform-label">per wordform :</label>
-                                    <input type="text" class="slider-label" id="Err-wordform-label"
-                                        style="border:0; color:#b9cd6d; font-weight:bold;">
-                                        <input type="hidden" id="id_max_Err_wordform" class="slider-maxvalue"  name="max_Err_wordform" value="-1" />
-                                        <input type="hidden" id="id_min_Err_wordform" class="slider-minvalue"  name="min_Err_wordform" value="-1" />
-                                </p>
+                                    <div id="Err-wordform-slider" class="slider-drag"
+                                        data-max="{{ maxminModel.max_Err_wordform }}"
+                                        data-min="{{ maxminModel.min_Err_wordform }}"></div>
+                                    <p>
+                                        <label for="Err-wordform-label">per wordform :</label>
+                                        <input type="text" class="slider-label" id="Err-wordform-label"
+                                            style="border:0; color:#b9cd6d; font-weight:bold;">
+                                        <input type="hidden" id="id_max_Err_wordform" class="slider-maxvalue"
+                                            name="max_Err_wordform" value="-1" />
+                                        <input type="hidden" id="id_min_Err_wordform" class="slider-minvalue"
+                                            name="min_Err_wordform" value="-1" />
+                                    </p>
                                 </div>
                                 <div class="form-group row slider-control">
-                                    <div id="Err-child-slider"  class="slider-drag" data-max="{{ maxminModel.max_Err_child }}"
-                                data-min="{{ maxminModel.min_Err_child }}"></div>
-                                <p>
-                                    <label for="Err-child-label">per child :</label>
-                                    <input type="text" class="slider-label" id="Err-child-label"
-                                        style="border:0; color:#b9cd6d; font-weight:bold;">
-                                        <input type="hidden" id="id_max_Err_child" class="slider-maxvalue"  name="max_Err_child" value="-1" />
-                                        <input type="hidden" id="id_min_Err_child" class="slider-minvalue"  name="min_Err_child" value="-1" />
-                                </p>
+                                    <div id="Err-child-slider" class="slider-drag"
+                                        data-max="{{ maxminModel.max_Err_child }}"
+                                        data-min="{{ maxminModel.min_Err_child }}"></div>
+                                    <p>
+                                        <label for="Err-child-label">per child :</label>
+                                        <input type="text" class="slider-label" id="Err-child-label"
+                                            style="border:0; color:#b9cd6d; font-weight:bold;">
+                                        <input type="hidden" id="id_max_Err_child" class="slider-maxvalue"
+                                            name="max_Err_child" value="-1" />
+                                        <input type="hidden" id="id_min_Err_child" class="slider-minvalue"
+                                            name="min_Err_child" value="-1" />
+                                    </p>
                                 </div>
-                           
+
                                 <div class="form-group row">
 
                                     <label style="margin-top:10px;margin-bottom:10px;">Error Level:</label>
-                                    <input type="hidden" id="id_ErrorLevelSelected" name="ErrorLevelSelected" value="-1" />
-                                    <select class="selectpicker multi" id="id_ErrorLevel" name="ErrorLevel" multiple data-live-search="true">
+                                    <input type="hidden" id="id_ErrorLevelSelected" name="ErrorLevelSelected"
+                                        value="-1" />
+                                    <select class="selectpicker multi" id="id_ErrorLevel" name="ErrorLevel" multiple
+                                        data-live-search="true">
                                         <option value="0">phonographic mapping</option>
                                         <option value="1">syllabic principles</option>
                                         <option value="2">morphological principles</option>
@@ -385,8 +434,10 @@
                                 <div class="form-group row">
 
                                     <label style="margin-top:10px;margin-bottom:10px;">KOF :</label>
-                                    <input type="hidden" name="KOFSelected" id="id_KOFSelected" name="user" value="-1" />
-                                    <select  id="id_KOF" name="KOF" class="selectpicker multi" multiple data-live-search="true">
+                                    <input type="hidden" name="KOFSelected" id="id_KOFSelected" name="user"
+                                        value="-1" />
+                                    <select id="id_KOF" name="KOF" class="selectpicker multi" multiple
+                                        data-live-search="true">
                                         <option value="0">grapheme combinations</option>
                                         <option value="1">marked graphemes </option>
                                         <option value="2">ie</option>
@@ -411,7 +462,8 @@
                                 <div class="form-group row">
                                     <label style="margin-top:10px;margin-bottom:10px;">Error in KOF :</label>
                                     <input type="hidden" id="id_ErrorKOFSelected" name="ErrorKOFSelected" value="-1" />
-                                    <select id="id_ErrorKOF" class="selectpicker multi" name="ErrorKOF"  multiple data-live-search="true">
+                                    <select id="id_ErrorKOF" class="selectpicker multi" name="ErrorKOF" multiple
+                                        data-live-search="true">
                                         <option value="0">grapheme combinations</option>
                                         <option value="1">marked graphemes </option>
                                         <option value="2">ie</option>
@@ -441,128 +493,148 @@
                             <div class="panel-body">
                                 <div class="form-group row">
 
-                                    <label style="margin-top:10px;margin-bottom:10px;">Student ID:  </label>
+                                    <label style="margin-top:10px;margin-bottom:10px;">Student ID: </label>
                                     <input type="hidden" id="id_StudentID" name="StudentID" value="-1" />
-                                    <select class="selectpicker multi" id="id_StudentIDSelect" name="StudentIDSelect" multiple data-live-search="true">
+                                    <select class="selectpicker multi" id="id_StudentIDSelect" name="StudentIDSelect"
+                                        multiple data-live-search="true">
                                         {% for stdid in stdids%}
                                         <option value="{{stdid.number}}">{{stdid.number}} </option>
                                         {% endfor %}
-                                        
+
                                     </select>
                                 </div>
                                 <div class="form-group row">
                                     <label style="margin-top:10px;margin-bottom:10px;">Sex :</label>
-                                <select id="id_StudentSex" name="StudentSex" class="custom-select">
-                                    <option value="0" selected>Select</option>
-                                    <option value="1">Female</option>
-                                    <option value="2">Male</option>
-                                    <option value="3">Other</option>
-                                </select>
+                                    <select id="id_StudentSex" name="StudentSex" class="custom-select">
+                                        <option value="0" selected>Select</option>
+                                        <option value="1">Female</option>
+                                        <option value="2">Male</option>
+                                        <option value="3">Other</option>
+                                    </select>
                                 </div>
                                 <div class="form-group row">
-                                
-                                <label style="margin-top:10px;margin-bottom:10px;">Nativecountry :</label>
-                                <select id="id_StudentNativecountry" name="StudentNativecountry" class="custom-select">
-                                    <option value="0" selected>Select</option>
-                                    <option value="1">Yes</option>
-                                    <option value="2">No</option>
-                                </select>
-                                </div>  
-                                <div class="form-group row">
-                                
-                                <label style="margin-top:10px;margin-bottom:10px;">Multilingual :</label>
-                                <select id="id_Multilingual" name="Multilingual" class="custom-select">
-                                    <option value="0" selected>Select</option>
-                                    <option value="1">Yes</option>
-                                    <option value="2">No</option>
-                                </select>
-                              </div>    
-                              <div class="form-group row">
-                              
-                                <label style="margin-top:10px;margin-bottom:10px;">Preferred language for Reading :</label>
-                                <select id="id_StudentPreferredReading" name="StudentPreferredReading" class="custom-select">
-                                    <option value="0" selected>Select</option>
-                                    <option value="1">German</option>
-                                    <option value="2">Other</option>
-                                </select>
-                              </div>    
-                                <label style="margin-top:10px;margin-bottom:10px;">Preferred language for speaking   :</label>
-                                <select id="id_StudentPreferredSpeaking" name="StudentPreferredSpeaking" class="custom-select">
-                                    <option value="0" selected>Select</option>
-                                    <option value="1">German</option>
-                                    <option value="2">Other</option>
-                                </select>
-                                <div class="form-group row">
-                              
-                                <label style="margin-top:10px;margin-bottom:10px;">Teaching in German as second Language :</label>
-                                <select id="id_StudentTeachingGerman" name="StudentTeachingGerman" class="custom-select">
-                                    <option value="0" selected>Select</option>
-                                    <option value="1">Yes</option>
-                                    <option value="2">No</option>
-                                </select>
-                              </div>
-                              <div class="form-group row">
 
-                                <label style="margin-top:10px;margin-bottom:10px;">Teaching in native language :</label>
-                                <select id="id_StudentTeachingNative" name="StudentTeachingNative" class="custom-select">
-                                    <option value="0" selected>Select</option>
-                                    <option value="1">Yes</option>
-                                    <option value="2">No</option>
-                                </select>
-</div>  
-<div class="form-group row">
-    <label style="margin-top:10px;margin-bottom:10px;">Number of written texts :</label>
-                                <div class="form-group row slider-control">
-                                    <div id="student-writing-slider"  class="slider-drag" data-max="{{ maxminModel.max_student_writing }}"
-                                data-min="{{ maxminModel.min_student_writing }}"></div>
-                                <p>
-                                    <label for="student-writing-label">texts:</label>
-                                    <input type="text" class="slider-label" id="student-writing-label"
-                                        style="border:0; color:#b9cd6d; font-weight:bold;">
-                                        <input type="hidden" id="id_max_student_writing" class="slider-maxvalue"  name="max_student_writing" value="-1" />
-                                        <input type="hidden" id="id_min_student_writing" class="slider-minvalue"  name="min_student_writing" value="-1" />
-                                </p>
+                                    <label style="margin-top:10px;margin-bottom:10px;">Nativecountry :</label>
+                                    <select id="id_StudentNativecountry" name="StudentNativecountry"
+                                        class="custom-select">
+                                        <option value="0" selected>Select</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+                                    </select>
                                 </div>
-    </div>
-    <div class="form-group row">
-          
-    <label style="margin-top:10px;margin-bottom:10px;">Language of origin (father):</label>
-                                <select id="id_StudentOriginFather" name="StudentOriginFather" class="custom-select">
+                                <div class="form-group row">
+
+                                    <label style="margin-top:10px;margin-bottom:10px;">Multilingual :</label>
+                                    <select id="id_Multilingual" name="Multilingual" class="custom-select">
+                                        <option value="0" selected>Select</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+
+                                    <label style="margin-top:10px;margin-bottom:10px;">Preferred language for Reading
+                                        :</label>
+                                    <select id="id_StudentPreferredReading" name="StudentPreferredReading"
+                                        class="custom-select">
+                                        <option value="0" selected>Select</option>
+                                        <option value="1">German</option>
+                                        <option value="2">Other</option>
+                                    </select>
+                                </div>
+                                <label style="margin-top:10px;margin-bottom:10px;">Preferred language for speaking
+                                    :</label>
+                                <select id="id_StudentPreferredSpeaking" name="StudentPreferredSpeaking"
+                                    class="custom-select">
                                     <option value="0" selected>Select</option>
                                     <option value="1">German</option>
                                     <option value="2">Other</option>
                                 </select>
-    </div>
-    <div class="form-group row">
-          
-    <label style="margin-top:10px;margin-bottom:10px;">Language of origin (Mother):</label>
-                                <select id="id_StudentOriginMother" name="StudentOriginMother" class="custom-select">
-                                    <option value="0" selected>Select</option>
-                                    <option value="1">German</option>
-                                    <option value="2">Other</option>
-                                </select>
-    </div>
-    <div class="form-group row">
-        <label style="margin-top:10px;margin-bottom:10px;">Native country (father):</label>
-                                <select id="id_StudentcountryFather" name="StudentcountryFather" class="custom-select">
-                                    <option value="0" selected>Select</option>
-                                    <option value="1">German</option>
-                                    <option value="2">Other</option>
-                                </select>
-        </div>
-        <div class="form-group row">
-            <label style="margin-top:10px;margin-bottom:10px;">Native country (Mother):</label>
-                                <select id="id_StudentcountryMother" name="StudentcountryMother" class="custom-select">
-                                    <option value="0" selected>Select</option>
-                                    <option value="1">German</option>
-                                    <option value="2">Other</option>
-                                </select>
-        </div>
+                                <div class="form-group row">
+
+                                    <label style="margin-top:10px;margin-bottom:10px;">Teaching in German as second
+                                        Language :</label>
+                                    <select id="id_StudentTeachingGerman" name="StudentTeachingGerman"
+                                        class="custom-select">
+                                        <option value="0" selected>Select</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+
+                                    <label style="margin-top:10px;margin-bottom:10px;">Teaching in native language
+                                        :</label>
+                                    <select id="id_StudentTeachingNative" name="StudentTeachingNative"
+                                        class="custom-select">
+                                        <option value="0" selected>Select</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <label style="margin-top:10px;margin-bottom:10px;">Number of written texts :</label>
+                                    <div class="form-group row slider-control">
+                                        <div id="student-writing-slider" class="slider-drag"
+                                            data-max="{{ maxminModel.max_student_writing }}"
+                                            data-min="{{ maxminModel.min_student_writing }}"></div>
+                                        <p>
+                                            <label for="student-writing-label">texts:</label>
+                                            <input type="text" class="slider-label" id="student-writing-label"
+                                                style="border:0; color:#b9cd6d; font-weight:bold;">
+                                            <input type="hidden" id="id_max_student_writing" class="slider-maxvalue"
+                                                name="max_student_writing" value="-1" />
+                                            <input type="hidden" id="id_min_student_writing" class="slider-minvalue"
+                                                name="min_student_writing" value="-1" />
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+
+                                    <label style="margin-top:10px;margin-bottom:10px;">Language of origin
+                                        (father):</label>
+                                    <select id="id_StudentOriginFather" name="StudentOriginFather"
+                                        class="custom-select">
+                                        <option value="0" selected>Select</option>
+                                        <option value="1">German</option>
+                                        <option value="2">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+
+                                    <label style="margin-top:10px;margin-bottom:10px;">Language of origin
+                                        (Mother):</label>
+                                    <select id="id_StudentOriginMother" name="StudentOriginMother"
+                                        class="custom-select">
+                                        <option value="0" selected>Select</option>
+                                        <option value="1">German</option>
+                                        <option value="2">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <label style="margin-top:10px;margin-bottom:10px;">Native country (father):</label>
+                                    <select id="id_StudentcountryFather" name="StudentcountryFather"
+                                        class="custom-select">
+                                        <option value="0" selected>Select</option>
+                                        <option value="1">German</option>
+                                        <option value="2">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <label style="margin-top:10px;margin-bottom:10px;">Native country (Mother):</label>
+                                    <select id="id_StudentcountryMother" name="StudentcountryMother"
+                                        class="custom-select">
+                                        <option value="0" selected>Select</option>
+                                        <option value="1">German</option>
+                                        <option value="2">Other</option>
+                                    </select>
+                                </div>
                                 <div class="form-group row">
 
                                     <label style="margin-top:10px;margin-bottom:10px;">Individual testing times:</label>
                                     <input type="hidden" id="id_StudentTestTime" name="StudentTestTime" value="-1" />
-                                    <select class="selectpicker multi" id="id_StudentTestTimeSelect" name="StudentTestTimeSelect" multiple data-live-search="true">
+                                    <select class="selectpicker multi" id="id_StudentTestTimeSelect"
+                                        name="StudentTestTimeSelect" multiple data-live-search="true">
                                         <option value="0">200910-II</option>
                                         <option value="1">200910-II</option>
                                         <option value="2">201011-I</option>
@@ -576,11 +648,12 @@
                                 </div>
                                 <div class="form-group row">
 
-                                    <label style="margin-top:10px;margin-bottom:10px;">Stories:  </label>
+                                    <label style="margin-top:10px;margin-bottom:10px;">Stories: </label>
                                     <input type="hidden" id="id_StudentStory" name="StudentStory" value="-1" />
-                                    <select class="selectpicker multi" id="id_StudentStorySelect" name="StudentStorySelect" multiple data-live-search="true">
+                                    <select class="selectpicker multi" id="id_StudentStorySelect"
+                                        name="StudentStorySelect" multiple data-live-search="true">
                                         <option value="0">Eis</option>
-                                        <option value="1"> Weg_2	</option>
+                                        <option value="1"> Weg_2 </option>
                                         <option value="2"> Frosch</option>
                                         <option value="3"> Jenga</option>
                                         <option value="4"> Staubsauger</option>
@@ -651,22 +724,22 @@
                                                     <th>texts</th>
                                                     <th>children</th>
                                                     <th>average number of words (target tokens) per child</th>
-                                                   <th>average number of words (target types) per child	</th>	
+                                                    <th>average number of words (target types) per child </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <tr> 
-                                                <td>{{datacount.observations}}</td>
-                                                <td>{{datacount.wordforms}}</td>
-                                                <td>{{datacount.lemmas}}</td>
-                                                <td>{{datacount.texts}}</td>
-                                                <td>{{datacount.students}}</td>
-                                                <td>{{datacount.students}}</td>
-                                                <td>{{datacount.students}}</td>
-                                                <td>{{ item.morpheme_types}}</td>
-                                                
-                                            </tr>
-                                         
+                                                <tr>
+                                                    <td>{{datacount.observations}}</td>
+                                                    <td>{{datacount.wordforms}}</td>
+                                                    <td>{{datacount.lemmas}}</td>
+                                                    <td>{{datacount.texts}}</td>
+                                                    <td>{{datacount.students}}</td>
+                                                    <td>{{datacount.students}}</td>
+                                                    <td>{{datacount.students}}</td>
+                                                    <td>{{ item.morpheme_types}}</td>
+
+                                                </tr>
+
                                             </tbody>
                                         </table>
 
@@ -700,41 +773,49 @@
                                             <tbody>
                                                 <tr>
                                                     <td>lemma</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn "
-                                                            name="filter[]" value="12" checked />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn " name="filter[]"
+                                                            value="12" checked />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>freq per 1M</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>absolute freq</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" checked/>
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" checked />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>Zipf score</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" checked/>
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" checked />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" checked/>
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" checked />
                                                     </td>
 
                                                 </tr>
@@ -764,142 +845,170 @@
                                             <tbody>
                                                 <tr>
                                                     <td>wordform </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" checked/>
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" checked />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>original</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of phonemes</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" checked/>
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" checked />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of graphmes</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
 
                                                 <tr>
                                                     <td>number of syllables</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of morphemes</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>part-of-speech type</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" checked/>
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" checked />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>part of speech</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>syllable types</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>absolute freq</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>freq per 1M</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>summed bigram freq</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" checked />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" checked />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12"  />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of neighbors</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>OLD20 </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
@@ -921,21 +1030,25 @@
                                             <tbody>
                                                 <tr>
                                                     <td>Error level</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" checked />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" checked />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>Key orthographic feature</td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
-                                                    <td> <input type="checkbox" class="option-input checkbox jqshowcolumn"
-                                                            name="filter[]" value="12" />
+                                                    <td> <input type="checkbox"
+                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            value="12" />
                                                     </td>
 
                                                 </tr>
@@ -946,7 +1059,7 @@
 
                                     </div>
                                 </div>
-                                <button type="button" id="btnshowgroup" class="btn btn-info">Apply</button>
+                                <!-- <button type="button" id="btnshowgroup" class="btn btn-info">Apply</button> -->
 
                             </div>
                         </div>
@@ -981,48 +1094,48 @@
                                                     <th>Zipf score</th>
                                                     <th>wordform</th>
                                                     <th>original</th>
-                                                   <th>number of phonemes	</th>	
-                                                   <th>number of graphmes	</th>	
-                                                   <th>number of syllables	</th>	
-                                                   <th>number of morphemes	</th>	
-                                                   <th>part-of-speech type	</th>	
-                                                   <th>part of speech		</th>
-                                                   <th>syllable types		</th>
-                                                   <th>absolute freq		</th>
-                                                   <th>freq per 1M		</th>
-                                                   <th>summed bigram freq	</th>	
-                                                   <th>number of neighbors	</th>	
-                                                   <th>OLD20</th>
-                                                    <th>Error level		</th>
-                                                       <th> KOF</th>
+                                                    <th>number of phonemes </th>
+                                                    <th>number of graphmes </th>
+                                                    <th>number of syllables </th>
+                                                    <th>number of morphemes </th>
+                                                    <th>part-of-speech type </th>
+                                                    <th>part of speech </th>
+                                                    <th>syllable types </th>
+                                                    <th>absolute freq </th>
+                                                    <th>freq per 1M </th>
+                                                    <th>summed bigram freq </th>
+                                                    <th>number of neighbors </th>
+                                                    <th>OLD20</th>
+                                                    <th>Error level </th>
+                                                    <th> KOF</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {% for item in Token_Student %}
-                                            <tr> 
-                                                <td>{{ item.chl_lemma }} </td>
-                                                <td>{{ item.chl_lemma_norm }}</td>
-                                                <td>{{ item.chl_lemma_abs}}</td>
-                                                <td>{{ item.lemma_zipf }}</td>
-                                                <td>{{ item.target }}</td>
-                                                <td>{{ item.orig }}</td>
-                                                <td>{{ item.no_phonemes }}</td>
-                                                <td>{{ item.no_graphemes }}</td>
-                                                <td>{{ item.no_syllables }}</td>
-                                                <td>{{ item.no_morphemes }}</td>
-                                                <td>{{ item.pos }}</td>
-                                                <td>{{ item.pos }}</td>
-                                                <td>{{ item.syllable_types }}</td>
-                                                <td>{{ item.chl_type_abs }}</td>
-                                                <td>{{ item.chl_type_norm }}</td>
-                                                <td>{{ item.chl_bigram_sum }}</td>
-                                                <td>{{ item.chl_nein }}</td>
-                                                <td>{{ item.chl_nei_old20 }}</td>
-                                                <td>{{ item.error_level }}</td>
-                                                <td>{{ item.morpheme_types}}</td>
-                                                
-                                            </tr>
-                                            {% endfor %}
+                                                <tr>
+                                                    <td>{{ item.chl_lemma }} </td>
+                                                    <td>{{ item.chl_lemma_norm }}</td>
+                                                    <td>{{ item.chl_lemma_abs}}</td>
+                                                    <td>{{ item.lemma_zipf }}</td>
+                                                    <td>{{ item.target }}</td>
+                                                    <td>{{ item.orig }}</td>
+                                                    <td>{{ item.no_phonemes }}</td>
+                                                    <td>{{ item.no_graphemes }}</td>
+                                                    <td>{{ item.no_syllables }}</td>
+                                                    <td>{{ item.no_morphemes }}</td>
+                                                    <td>{{ item.pos }}</td>
+                                                    <td>{{ item.pos }}</td>
+                                                    <td>{{ item.syllable_types }}</td>
+                                                    <td>{{ item.chl_type_abs }}</td>
+                                                    <td>{{ item.chl_type_norm }}</td>
+                                                    <td>{{ item.chl_bigram_sum }}</td>
+                                                    <td>{{ item.chl_nein }}</td>
+                                                    <td>{{ item.chl_nei_old20 }}</td>
+                                                    <td>{{ item.error_level }}</td>
+                                                    <td>{{ item.morpheme_types}}</td>
+
+                                                </tr>
+                                                {% endfor %}
                                                 <!-- 
                                                 <tr>
                                                     <td>abgeschlossen</td>
@@ -1049,14 +1162,15 @@
                     </div>
                 </div>
             </div>
-         
-            
+
+
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                              number of words per story
-                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true" aria-controls="multiCollapseExample10">
+                            number of words per story
+                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true"
+                                aria-controls="multiCollapseExample10">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
                         </div>
@@ -1064,7 +1178,8 @@
                             <div class="row multi-collapse in" id="multiCollapseExample10" aria-expanded="true">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <canvas class="chart-litkey" id="Donat-chart" width="400" height="400" data-color='[
+                                        <canvas class="chart-litkey" id="Donat-chart" width="400" height="400"
+                                            data-color='[
                                         "rgba(255, 99, 132 )",
                                         "rgba(54, 162, 235 )",
                                         "rgba(255, 206, 86 )",
@@ -1075,17 +1190,13 @@
                                         "rgba(113, 255, 60 )",
                                         "rgba(12, 55, 60 )",
                                         "rgba(15, 10, 15 )"
-                                    ]'
-                                    data-type="doughnut"  data-title="Number of words (tokens) per story" data-label='["Eis","Weg_2" ,"Frosch","Jenga",
-                                    "Staubsauger",
-                                    "Weg_3",
-                                    "Schule",
-                                    "Fundbuero",
-                                    "Seilbahn",
-                                    "Weg_4"]' data-collection="{{DonchartModel.storytokenvalues}}"></canvas>
+                                    ]' data-type="doughnut" data-title="Number of words (tokens) per story"
+                                            data-label='{{DonchartModel.storytypecat}}'
+                                            data-collection="{{DonchartModel.storytokenvalues}}"></canvas>
                                     </div>
                                     <div class="col-md-6">
-                                        <canvas class="chart-litkey" id="Donat-chart" width="400" height="400" data-color='[
+                                        <canvas class="chart-litkey" id="Donat-chart" width="400" height="400"
+                                            data-color='[
                                         "rgba(255, 99, 132 )",
                                         "rgba(54, 162, 235 )",
                                         "rgba(255, 206, 86 )",
@@ -1096,17 +1207,11 @@
                                         "rgba(113, 255, 60 )",
                                         "rgba(12, 55, 60 )",
                                         "rgba(15, 10, 15 )"
-                                    ]'
-                                    data-type="doughnut"  data-title="Number of words" data-label='["Eis","Weg_2" ,"Frosch","Jenga",
-                                    "Staubsauger",
-                                    "Weg_3",
-                                    "Schule",
-                                    "Fundbuero",
-                                    "Seilbahn",
-                                    "Weg_4"]' 
-                                    data-collection="{{DonchartModel.storytypevalues}}"></canvas>
+                                    ]' data-type="doughnut" data-title="Number of words"
+                                            data-label='{{DonchartModel.storytypecat}}'
+                                            data-collection="{{DonchartModel.storytypevalues}}"></canvas>
                                     </div>
-                       
+
                                 </div>
 
                             </div>
@@ -1117,7 +1222,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             number of words per age
-                            <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true" aria-controls="multiCollapseExample11">
+                            <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true"
+                                aria-controls="multiCollapseExample11">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
                         </div>
@@ -1125,30 +1231,30 @@
                             <div class="row multi-collapse in" id="multiCollapseExample11" aria-expanded="true">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <canvas class="chart-litkey" id="Donat-chart" width="400" height="400" data-color='[
+                                        <canvas class="chart-litkey-age" id="Donat-chart" width="400" height="400"
+                                            data-color='[
                                         "rgba(255, 99, 132 )",
                                         "rgba(54, 162, 235 )",
                                         "rgba(255, 206, 86 )",
-                                        "rgba(75, 192, 192 )",
-                                        "rgba(126, 255, 60 )",
+                                        "rgba(25, 26, 186 )",
                                         "rgba(153, 102, 25 )"
-                                    ]'
-                                    data-type="doughnut"  data-title="Number of words" data-label='["7 ", "8-9 ", "10-11", "11-13"]'
-                                    data-collection="[12, 9, 3, 8]"></canvas>
+                                    ]' data-type="doughnut" data-title="Number of words"
+                                            data-label='["Under 9 ", "9 - 10 ", "10.01 - 11", "11.01 - 12","older than 12"]'
+                                            data-collection="{{DonchartModel.agetokenvalues}}"></canvas>
                                     </div>
                                     <div class="col-md-6">
-                                        <canvas class="chart-litkey" id="Donat-chart" width="400" height="400" data-color='[
+                                        <canvas class="chart-litkey-age" id="Donat-chart" width="400" height="400"
+                                            data-color='[
                                         "rgba(255, 99, 132 )",
                                         "rgba(54, 162, 235 )",
+                                        "rgba(25, 26, 186 )",
                                         "rgba(255, 206, 86 )",
-                                        "rgba(75, 192, 192 )",
-                                        "rgba(126, 255, 60 )",
                                         "rgba(153, 102, 25 )"
-                                    ]'
-                                    data-type="doughnut"  data-title="Number of words" data-label='["7 ", "8-9 ", "10-11", "11-13"]'
-                                    data-collection="[12, 9, 3, 8]"></canvas>
+                                    ]' data-type="doughnut" data-title="Number of words"
+                                            data-label='["Under 9 ", "9 - 10 ", "10.01 - 11", "11.01 - 12","older than 12"]'
+                                            data-collection="{{DonchartModel.agetypevalues}}"></canvas>
                                     </div>
-                                    
+
                                 </div>
 
                             </div>
@@ -1161,7 +1267,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Average number of words(Token) per Story
-                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true" aria-controls="multiCollapseExample10">
+                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true"
+                                aria-controls="multiCollapseExample10">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
                         </div>
@@ -1169,16 +1276,20 @@
                             <div class="row multi-collapse in" id="multiCollapseExample10" aria-expanded="true">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400" data-color='[
+                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400"
+                                            data-color='[
                                         "rgba(255, 99, 132 )",
                                         "rgba(54, 162, 235 )",
                                         "rgba(255, 206, 86 )"
-                                    ]'
-                                    data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]'
-                                    data-German="{{ChartStoryDeveloped.storytokenvaluesGER}}" data-Multi="{{ChartStoryDeveloped.storytokenvaluesML}}" data-NA="{{ChartStoryDeveloped.storytokenvaluesKA}}" data-category='{{ChartStoryDeveloped.StoryNameToken}}' >
-                                </canvas>
+                                    ]' data-type="line" data-title="Average number of words (types) per story"
+                                            data-label='["German only ", "multilingual ", "NA"]'
+                                            data-German="{{ChartStoryDeveloped.storytokenvaluesGER}}"
+                                            data-Multi="{{ChartStoryDeveloped.storytokenvaluesML}}"
+                                            data-NA="{{ChartStoryDeveloped.storytokenvaluesKA}}"
+                                            data-category='{{ChartStoryDeveloped.StoryNameToken}}'>
+                                        </canvas>
                                     </div>
-                                    
+
                                 </div>
 
                             </div>
@@ -1189,7 +1300,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Average number of words(Type) per Story
-                            <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true" aria-controls="multiCollapseExample11">
+                            <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true"
+                                aria-controls="multiCollapseExample11">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
                         </div>
@@ -1197,16 +1309,20 @@
                             <div class="row multi-collapse in" id="multiCollapseExample11" aria-expanded="true">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400" data-color='[
+                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400"
+                                            data-color='[
                                         "rgba(255, 99, 132 )",
                                         "rgba(54, 162, 235 )",
                                         "rgba(255, 206, 86 )"
-                                    ]'
-                                    data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]'
-                                    data-German="{{ChartStoryDeveloped.storytypevaluesGER}}" data-Multi="{{ChartStoryDeveloped.storytypevaluesML}}" data-NA="{{ChartStoryDeveloped.storytypevaluesKA}}" data-category='{{ChartStoryDeveloped.StoryNameToken}}' >
-                                </canvas>
+                                    ]' data-type="line" data-title="Average number of words (types) per story"
+                                            data-label='["German only ", "multilingual ", "NA"]'
+                                            data-German="{{ChartStoryDeveloped.storytypevaluesGER}}"
+                                            data-Multi="{{ChartStoryDeveloped.storytypevaluesML}}"
+                                            data-NA="{{ChartStoryDeveloped.storytypevaluesKA}}"
+                                            data-category='{{ChartStoryDeveloped.StoryNameType}}'>
+                                        </canvas>
                                     </div>
-                                    
+
                                 </div>
 
                             </div>
@@ -1214,13 +1330,14 @@
                     </div>
                 </div>
             </div>
-         
+
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Average number of all errors per story
-                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true" aria-controls="multiCollapseExample10">
+                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true"
+                                aria-controls="multiCollapseExample10">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
                         </div>
@@ -1228,17 +1345,21 @@
                             <div class="row multi-collapse in" id="multiCollapseExample10" aria-expanded="true">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400" data-color='[
+                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400"
+                                            data-color='[
                                         "rgba(255, 99, 132 )",
                                         "rgba(54, 162, 235 )",
                                         "rgba(255, 206, 86 )"
-                                    ]'
-                                    data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]' 
-                                    data-German="{{ChartStoryDeveloped.storyErrorvaluesGER}}" data-Multi="{{ChartStoryDeveloped.storyErrorvaluesML}}" data-NA="{{ChartStoryDeveloped.storyErrorvaluesKA}}" data-category="{{ChartStoryDeveloped.StoryNameError}}" >
-                                     
-                                </canvas>
+                                    ]' data-type="line" data-title="Average number of words (types) per story"
+                                            data-label='["German only ", "multilingual ", "NA"]'
+                                            data-German="{{ChartStoryDeveloped.storyErrorvaluesGER}}"
+                                            data-Multi="{{ChartStoryDeveloped.storyErrorvaluesML}}"
+                                            data-NA="{{ChartStoryDeveloped.storyErrorvaluesKA}}"
+                                            data-category="{{ChartStoryDeveloped.StoryNameError}}">
+
+                                        </canvas>
                                     </div>
-                                    
+
                                 </div>
 
                             </div>
@@ -1249,7 +1370,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Average number of part-of-speech type per story
-                            <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true" aria-controls="multiCollapseExample11">
+                            <a data-toggle="collapse" href="#multiCollapseExample11" role="button" aria-expanded="true"
+                                aria-controls="multiCollapseExample11">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
                         </div>
@@ -1257,17 +1379,21 @@
                             <div class="row multi-collapse in" id="multiCollapseExample11" aria-expanded="true">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400" data-color='[
+                                        <canvas class="chart-litkey-line" id="Line-chart1" width="400" height="400"
+                                            data-color='[
                                         "rgba(255, 99, 132 )",
                                         "rgba(54, 162, 235 )",
                                         "rgba(255, 206, 86 )"
-                                    ]'
-                                    data-type="line"  data-title="Average number of words (types) per story" data-label='["German only ", "multilingual ", "NA"]'
-                                    data-German="{{ChartStoryDeveloped.storyPosvaluesGER}}" data-Multi="{{ChartStoryDeveloped.storyPosvaluesML}}" data-NA="{{ChartStoryDeveloped.storyPosvaluesKA}}" data-category="{{ChartStoryDeveloped.StoryNamePos}}">
-                                
-                                </canvas>
+                                    ]' data-type="line" data-title="Average number of words (types) per story"
+                                            data-label='["German only ", "multilingual ", "NA"]'
+                                            data-German="{{ChartStoryDeveloped.storyPosvaluesGER}}"
+                                            data-Multi="{{ChartStoryDeveloped.storyPosvaluesML}}"
+                                            data-NA="{{ChartStoryDeveloped.storyPosvaluesKA}}"
+                                            data-category="{{ChartStoryDeveloped.StoryNamePos}}">
+
+                                        </canvas>
                                     </div>
-                                    
+
                                 </div>
 
                             </div>
@@ -1280,7 +1406,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Number of words.
-                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true" aria-controls="multiCollapseExample10">
+                            <a data-toggle="collapse" href="#multiCollapseExample10" role="button" aria-expanded="true"
+                                aria-controls="multiCollapseExample10">
                                 <span class="fa fa-angle-double-down " style="font-size: 20px;"></span>
                             </a>
                         </div>
@@ -1288,22 +1415,23 @@
                             <div class="row multi-collapse in" id="multiCollapseExample10" aria-expanded="true">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <canvas class="chart-litkey" id="bar-chart" width="400" height="400" data-color='[
+                                        <canvas class="chart-litkey-bar" id="bar-chart" width="400" height="400"
+                                            data-color='[
                                         "rgba(255, 99, 132 )",
                                         "rgba(54, 162, 235 )",
                                         "rgba(153, 102, 25 )"
-                                    ]'
-                                    data-type="bar"  data-title="Number of words" data-label='[" multilingual", "NA ", "German only"]'
-                                    data-collection="{{ChartBarNumberWord.WordCount}}"></canvas>
+                                    ]' data-type="bar" data-title="Number of words"
+                                            data-label='[" multilingual", "NA ", "German only"]'
+                                            data-collection="{{ChartBarNumberWord.WordCount}}"></canvas>
                                     </div>
-                                    
+
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
-               
+
             </div>
             <div class="row">
 
@@ -1327,18 +1455,21 @@
                                         <thead>
                                             <tr>
                                                 <th>Lemma </th>
-                                                <th>freq1 </th>
-                                                <th>freq2 </th>
+                                                <th> lemma freq per 1m </th>
+                                                <th>absolute freq </th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>asdf</td>
-                                                <td>9</td>
-                                                <td>9</td>
-                                            </tr>
-
+                                           
+                                            {% for item in AggregatedLema %}
+                                                <tr>
+                                                    <td>{{ item.chl_lemma  }}</td>
+                                                    <td>{{ item.freqper1M  }}</td>
+                                                    <td>{{item.freqabsolute }}</td>
+                                                    
+                                                </tr>
+                                            {% endfor %}
                                         </tbody>
                                     </table>
 
@@ -1370,18 +1501,21 @@
                                     <table class="table" id="global_config">
                                         <thead>
                                             <tr>
-                                                <th>global </th>
-                                                <th>freq1 </th>
-                                                <th>freq2 </th>
+                                                <th> global lemma freqper 1M </th>
+                                                <th>global lemma absolute freq </th>
+                                                <th>global Wordform absolute freq  </th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>88</td>
-                                                <td>88</td>
-                                                <td>9</td>
-                                            </tr>
+                                                {% for item in AggregatedGlobal %}
+                                                    <tr>
+                                                        <td>{{ item.freqper1M  }}</td>
+                                                        <td>{{item.freqabsolute }}</td>
+                                                        <td>{{item.Wordformfreqabsolute }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                
 
                                         </tbody>
                                     </table>
@@ -1414,22 +1548,22 @@
                                         <thead>
                                             <tr>
                                                 <th>TextId </th>
-                                                <th>freq1 </th>
-                                                <th>freq2 </th>
+                                                <th>lemma freqper 1M </th>
+                                                <th>lemma absolute freq </th>
+                                                <th>Wordform absolute freq  </th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>88</td>
-                                                <td>9</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>10</td>
-                                                <td>5</td>
-                                            </tr>
+                                            {% for item in AggregatedText %}
+                                                <tr>
+                                                    <td>{{ item.text_id  }}</td>
+                                                    <td>{{ item.freqper1M  }}</td>
+                                                    <td>{{item.freqabsolute }}</td>
+                                                    <td>{{item.Wordformfreqabsolute }}</td>
+                                                    
+                                                </tr>
+                                            {% endfor %}
                                         </tbody>
                                     </table>
 
@@ -1443,17 +1577,16 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
     </div>
 </div>
 
-{{ChartStoryDeveloped.storytokenvaluesKA}}
 
 
 <!-- {{str}}
-{{strcommand}} -->
-<!-- {% for item in storytokenvalues %}
+    {{strcommand}} 
+ {% for item in storytokenvalues %}
         {{ item  }}
 {% endfor %}  -->
 {% endblock %}
