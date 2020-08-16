@@ -1,0 +1,278 @@
+<!-- {% extends 'MasterPage.html'%} -->
+
+<!-- {% block Config%} -->
+    <form action="/ShowGroupSetting/" method="post">
+        {% csrf_token %}
+        <div class="panel-collapse collapse in" id="collapse1" aria-expanded="true">
+            <div class="row">
+                <div class="col-md-4">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Lemma-related variables</th>
+                                <th>Show </th>
+                                <th>Group by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>lemma</td>
+                                <td>
+                                    <input type="checkbox" id="id_Showlemma" name="Showlemma"
+                                        class="option-input checkbox jqshowcolumn" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>freq per 1M</td>
+                                <td>
+                                    <input type="checkbox" id="id_Showlemmafreqper1M" name="Showlemmafreqper1M"
+                                        class="option-input checkbox jqshowcolumn" />
+
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>absolute freq</td>
+                                <td>
+                                    <input type="checkbox" id="id_Showlemmaabsolutefreq" name="Showlemmaabsolutefreq"
+                                        class="option-input checkbox jqshowcolumn" />
+
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" checked />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>Zipf score</td>
+                                <td>
+                                    <input type="checkbox" id="id_ShowlemmaZipfscore" name="ShowlemmaZipfscore"
+                                        class="option-input checkbox jqshowcolumn" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" checked />
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <ul class="list-inline ">
+                                        <li class="list-group-item">
+                                            <p> wordform : </p>  <div class="checkbox"> <label> <input type="checkbox" class="option-input checkbox jqshowcolumn"
+                                                name="filter[]" value="12" /> <span class="ml-10">Show</span> </label>
+                                            </div>
+                                        
+                                        </li>
+                                        
+                                    </ul> -->
+
+                </div>
+
+                <div class="col-md-4">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Wordform-related variables</th>
+                                <th>Show </th>
+                                <th>Group by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>wordform </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" checked />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>original</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>number of phonemes</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" checked />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>number of graphmes</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td>number of syllables</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>number of morphemes</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>part-of-speech type</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" checked />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>part of speech</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>syllable types</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>absolute freq</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>freq per 1M</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>summed bigram freq</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" checked />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>number of neighbors</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>OLD20 </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="col-md-4">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Error-related variables</th>
+                                <th>Show </th>
+                                <th>Group by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Error level</td>
+                                <td>
+                                    <input type="checkbox" id="id_IsFunktion" name="IsFunktion"
+                                        class="option-input checkbox jqshowcolumn" value="12">
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>Key orthographic feature</td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+                                <td> <input type="checkbox" class="option-input checkbox jqshowcolumn" name="filter[]"
+                                        value="12" />
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+            <button type="submit" id="btnshowgroup" class="btn btn-info">Apply</button>
+
+        </div>
+    </form>
+
+<!-- {% endblock%} -->

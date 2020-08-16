@@ -240,12 +240,12 @@
                                 <div class="form-group row">
                                     <label>Part-of-speech type :</label>
                                     <div class="checkbox"> <label> <input type="checkbox" id="id_IsFunktion"
-                                                name="IsFunktion" class="option-input checkbox jqshowcolumn"
+                                                name="IsFunktion" class="option-input checkbox "
                                                 name="filter[]" value="12" /> <span class="ml-10">Funktion</span>
                                         </label>
                                     </div>
                                     <div class="checkbox"> <label> <input type="checkbox" id="id_IsLexion"
-                                                name="IsLexion" class="option-input checkbox jqshowcolumn"
+                                                name="IsLexion" class="option-input checkbox "
                                                 name="filter[]" value="12" /> <span class="ml-10">Lexion</span> </label>
                                     </div>
                                 </div>
@@ -759,6 +759,8 @@
                             </a>
                         </div>
                         <div class="panel-body">
+        <form action="/ShowGroupSetting/" method="post">
+
                             <div class="panel-collapse collapse in" id="collapse1" aria-expanded="true">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -773,48 +775,46 @@
                                             <tbody>
                                                 <tr>
                                                     <td>lemma</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn " name="filter[]"
-                                                            value="12" checked />
+                                                    <td> 
+                                                        <input type="checkbox"  id="id_chl_lemma"  data-fieldlabel="Lemma"  data-field="chl_lemma"    name="chl_lemma" class="option-input checkbox jqshowcolumn" checked/>
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>freq per 1M</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td> 
+                                                        <input type="checkbox"  id="id_chl_lemma_norm"  data-fieldlabel="Lemma freq per 1M"  data-field="chl_lemma_norm"    data-fieldlabel="Lemma freq per 1M" name="chl_lemma_norm" class="option-input checkbox jqshowcolumn" checked/>
+
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>absolute freq</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td>  
+                                                        <input type="checkbox"  id="id_chl_lemma_abs"  data-fieldlabel="Lemma absolute freq"  data-field="chl_lemma_abs"    data-fieldlabel="Lemma absolute freq" name="chl_lemma_abs " class="option-input checkbox jqshowcolumn" checked/>
+
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" checked />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>Zipf score</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" checked />
+                                                    <td>
+                                                        <input type="checkbox"  id="id_lemma_zipf"  data-fieldlabel="Lemma Zipf"  data-field="lemma_zipf" name="lemma_zipf" class="option-input checkbox jqshowcolumn" checked/>
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" checked />
                                                     </td>
 
@@ -845,48 +845,47 @@
                                             <tbody>
                                                 <tr>
                                                     <td>wordform </td>
+                                                    <td> 
+                                                       
+                                                            <input type="checkbox"  id="id_Target"  data-fieldlabel="word form"  data-field="target" name="target" class="option-input checkbox jqshowcolumn" checked />
+                                                        </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
-                                                    </td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" checked />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>original</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td>  
+                                                            <input type="checkbox"  id="id_orig"  data-fieldlabel="original"  data-field="orig" name="orig" class="option-input checkbox jqshowcolumn" checked />
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of phonemes</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td>  
+                                                            <input type="checkbox"  id="id_no_phonemes"  data-fieldlabel="No. phonemes"  data-field="no_phonemes" name="no_phonemes" class="option-input checkbox jqshowcolumn" checked />
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" checked />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of graphmes</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td> 
+                                                        
+                                                        <input type="checkbox"  id="id_no_graphemes"  data-fieldlabel="No. graphmes"  data-field="no_graphemes" name="no_graphemes" class="option-input checkbox jqshowcolumn" checked/>
+                                                  
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
@@ -894,120 +893,116 @@
 
                                                 <tr>
                                                     <td>number of syllables</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td> 
+                                                        <input type="checkbox"  id="id_no_syllables"  data-fieldlabel="No. syllables"  data-field="no_syllables" name="no_syllables" class="option-input checkbox jqshowcolumn"  checked/>
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of morphemes</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td> 
+                                                        <input type="checkbox"  id="id_no_morphemes"  data-fieldlabel="No. morphemes"  data-field="no_morphemes" name="no_morphemes" class="option-input checkbox jqshowcolumn" checked/>
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td>part-of-speech type</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" checked />
+                                                    <td> 
+                                                        <input type="checkbox"  id="id_syllable_types"  data-fieldlabel="Pos Type"  data-field="no_syllable_types" name="no_syllable_types" class="option-input checkbox jqshowcolumn" checked/>
+
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
-                                                </tr>
+                                                </tr> -->
                                                 <tr>
                                                     <td>part of speech</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td>  
+                                                        <input type="checkbox"  id="id_POS"  data-fieldlabel="Pos"  data-field="POS" name="POS" class="option-input checkbox jqshowcolumn" checked/>
+
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>syllable types</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td> 
+                                                        <input type="checkbox"  id="id_syllable_types"  data-fieldlabel="syllable types"  data-field="syllable_types" name="syllable_types" class="option-input checkbox jqshowcolumn" checked/>
+
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>absolute freq</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td> 
+                                                        <input type="checkbox"  id="id_chl_type_abs"  data-fieldlabel="absolute freq"  data-field="chl_type_abs" name="chl_type_abs" class="option-input checkbox jqshowcolumn"checked />
+
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>freq per 1M</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td>  
+                                                        <input type="checkbox"  id="id_chl_type_norm"  data-fieldlabel="word freq 1M"  data-field="chl_type_norm" name="chl_type_norm" class="option-input checkbox jqshowcolumn"checked/>
+
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>summed bigram freq</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" checked />
+                                                    <td>  
+                                                        <input type="checkbox"  id="id_chl_bigram_sum"  data-fieldlabel="bigram freq"  data-field="chl_bigram_sum" name="chl_bigram_sum" class="option-input checkbox jqshowcolumn" checked/>
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>number of neighbors</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td>  
+                                                        <input type="checkbox"  id="id_chl_nein"  data-fieldlabel="No neighbors"  data-field="chl_nein" name="chl_nein" class="option-input checkbox jqshowcolumn" checked />
+
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>OLD20 </td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td> 
+                                                        <input type="checkbox"  id="id_chl_nei_old20"  data-fieldlabel="OLD20"  data-field="chl_nei_old20" name="chl_nei_old20" class="option-input checkbox jqshowcolumn" checked/>
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
@@ -1030,28 +1025,27 @@
                                             <tbody>
                                                 <tr>
                                                     <td>Error level</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" checked />
+                                                    <td>  
+                                                        <input type="checkbox"  id="id_error_level"  data-fieldlabel="Error level"  data-field="error_level" name="error_level" class="option-input checkbox jqshowcolumn"  checked/>
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td>Key orthographic feature</td>
-                                                    <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
-                                                            value="12" />
+                                                    <td> 
+                                                        <input type="checkbox"  id="id_Kof"  data-fieldlabel="Lemma"  data-field="Kof" name="Kof" class="option-input checkbox jqshowcolumn" checked/>
+
                                                     </td>
                                                     <td> <input type="checkbox"
-                                                            class="option-input checkbox jqshowcolumn" name="filter[]"
+                                                            class="option-input checkbox  " name="filter[]"
                                                             value="12" />
                                                     </td>
 
-                                                </tr>
+                                                </tr> -->
 
                                             </tbody>
                                         </table>
@@ -1059,9 +1053,10 @@
 
                                     </div>
                                 </div>
-                                <!-- <button type="button" id="btnshowgroup" class="btn btn-info">Apply</button> -->
+                                <button type="submit" id="btnshowgroup" class="btn btn-info">Apply</button>
 
                             </div>
+                            </form> 
                         </div>
                     </div>
                 </div>
@@ -1088,7 +1083,11 @@
                                         <table class="table" id="Word_zero_config">
                                             <thead>
                                                 <tr>
-                                                    <th>lemma</th>
+                                                    {% for item in fieldsLabel %}
+                                                    <th>{{item}}</th>
+                                                    {% endfor %}
+
+                                                    <!-- <th>lemma</th>
                                                     <th>freq per 1M</th>
                                                     <th>absolute freq</th>
                                                     <th>Zipf score</th>
@@ -1107,32 +1106,72 @@
                                                     <th>number of neighbors </th>
                                                     <th>OLD20</th>
                                                     <th>Error level </th>
-                                                    <th> KOF</th>
+                                                    <th> KOF</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {% for item in Token_Student %}
                                                 <tr>
-                                                    <td>{{ item.chl_lemma }} </td>
-                                                    <td>{{ item.chl_lemma_norm }}</td>
-                                                    <td>{{ item.chl_lemma_abs}}</td>
-                                                    <td>{{ item.lemma_zipf }}</td>
-                                                    <td>{{ item.target }}</td>
-                                                    <td>{{ item.orig }}</td>
-                                                    <td>{{ item.no_phonemes }}</td>
-                                                    <td>{{ item.no_graphemes }}</td>
-                                                    <td>{{ item.no_syllables }}</td>
-                                                    <td>{{ item.no_morphemes }}</td>
+                                                    {% if "chl_lemma" in fields %}
+                                                        <td>{{ item.chl_lemma }} </td>
+                                                    {% endif %}
+                                                    {% if 'chl_lemma_norm' in fields  %}
+                                                        <td>{{ item.chl_lemma_norm }}</td>
+                                                    {% endif %}
+                                                    {% if 'chl_lemma_abs' in fields  %}
+                                                        <td>{{ item.chl_lemma_abs}}</td>
+                                                        {% endif %}
+                                                    {% if 'lemma_zipf' in fields  %}
+                                                        <td>{{ item.lemma_zipf }}</td>
+                                                    {% endif %}
+                                                    {% if 'target' in fields  %}
+                                                        <td>{{ item.target }}</td>
+                                                    {% endif %}
+                                                    {% if 'orig' in fields  %}
+                                                        <td>{{ item.orig }}</td>
+                                                    {% endif %}
+                                                    {% if 'no_phonemes' in fields  %}
+                                                        <td>{{ item.no_phonemes }}</td>
+                                                    {% endif %}
+                                                    {% if 'no_graphemes' in fields  %}
+                                                        <td>{{ item.no_graphemes }}</td>
+                                                    {% endif %}
+                                                    {% if 'no_syllables' in fields  %}
+                                                        <td>{{ item.no_syllables }}</td>
+                                                    {% endif %}
+                                                    {% if 'no_morphemes' in fields  %}
+                                                        <td>{{ item.no_morphemes }}</td>
+                                                    {% endif %}
+                                                    {% if 'POS' in fields %}
+                                                        <td>{{ item.pos }}</td>
+                                                    {% endif %}
+                                                    <!-- {% if 'chl_lemma' in fields %}
                                                     <td>{{ item.pos }}</td>
-                                                    <td>{{ item.pos }}</td>
+                                                    {% endif %} -->
+                                                    {% if 'syllable_types' in fields  %}
                                                     <td>{{ item.syllable_types }}</td>
+                                                    {% endif %}
+                                                    {% if 'chl_type_abs' in fields  %}
                                                     <td>{{ item.chl_type_abs }}</td>
+                                                    {% endif %}
+                                                    {% if 'chl_type_norm' in fields  %}
                                                     <td>{{ item.chl_type_norm }}</td>
+                                                    {% endif %}
+                                                    {% if 'chl_bigram_sum' in fields %}
                                                     <td>{{ item.chl_bigram_sum }}</td>
+                                                    {% endif %}
+                                                    {% if 'chl_nein' in fields %}
                                                     <td>{{ item.chl_nein }}</td>
+                                                    {% endif %}
+                                                    {% if 'chl_nei_old20' in fields %}
                                                     <td>{{ item.chl_nei_old20 }}</td>
+                                                    {% endif %}
+                                                    {% if 'error_level' in fields %}
                                                     <td>{{ item.error_level }}</td>
+                                                    {% endif %}
+                                                    <!-- {% if 'morpheme_types' in fields %}
                                                     <td>{{ item.morpheme_types}}</td>
+                                                    {% endif %} -->
 
                                                 </tr>
                                                 {% endfor %}
@@ -1582,7 +1621,7 @@
     </div>
 </div>
 
-
+{{fields}}
 
 <!-- {{str}}
     {{strcommand}} 

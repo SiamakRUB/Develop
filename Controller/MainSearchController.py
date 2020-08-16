@@ -8,6 +8,8 @@ from django.db.models import Q
 from functools import reduce
 from RubLitKeyService.models import Tbltokenbase
 from django.db import connection
+from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 import operator
 # def getindexOfString(strvalue,mylist):
 #     indices = [i for i, s in enumerate(mylist) if strvalue in s]
@@ -114,9 +116,23 @@ def MaxMinSliderLoad(minmaxmodel):
     minmaxmodel.min_student_writing=0
     return minmaxmodel
 
+@csrf_exempt
+def ShowGroupSetting(request ):
+    if request.method == 'POST':
+        showCols1 = request.POST.getlist('showcols[]', None) 
+        showfieldsLabel1 = request.POST.getlist('showfieldsLabel[]', None) 
+    
+        request.session['Showing'] = showCols1
+        request.session['showfieldsLabel'] = showfieldsLabel1
+    
+    return JsonResponse({'success':False, 'errorMsg':"test",'data':showCols1,'datalbl':showfieldsLabel1})
+
+
 def MainSearch (request) :
+   
+
     inp_target=""
-    storyTypevalues=[]
+    storyTypevalues=[] 
     storyTypeLabel=[]
 
 
@@ -130,12 +146,28 @@ def MainSearch (request) :
     storyOrigLabel=[] 
 
 
-
+    ShowCols=["chl_lemma","chl_lemma_norm","chl_lemma_abs","lemma_zipf","target","orig","no_phonemes",
+    "no_graphemes","no_syllables","no_morphemes","POS",
+    "syllable_types","chl_type_abs","chl_type_norm","chl_bigram_sum",
+    "chl_nein","chl_nei_old20","error_level"]#default grid col names
+    ShowfieldsLabel=["Lemma","Lemma freq per 1M","Lemma absolute freq","Zipf score","wordform","original","no phonemes",
+    "no graphemes","no syllables","no morphemes", "POS",
+    "syllable types " ,
+    "absolute freq","word freq per 1M","summed bigram freq","no. neighbors","OLD20","Error level"]
+    if 'Showing' in request.session:
+        fieldsselected=request.session['Showing']
+        if fieldsselected :
+            ShowCols = request.session['Showing']# default query set fields
+    if 'showfieldsLabel' in request.session:
+        fieldsselected=request.session['showfieldsLabel']
+        if fieldsselected :
+            ShowfieldsLabel= request.session['showfieldsLabel'] 
 
     resultmodel=models.Tbltokenbase.objects.filter(id__lte=0)
     DonchartModel= SearchViewModel.ChartDonat()
     ChartBarNumberWord= SearchViewModel.ChartBarNumberWord()
     ChartStoryDeveloped= SearchViewModel.ChartStoryDeveloped()
+    # ShowColumnsModel= SearchViewModel.ShowColumnGrid()
     tbltoken=models.Tbltokenbase.objects
     tbltype=models.Tbltypebase.objects
     my_string=""
@@ -148,11 +180,13 @@ def MainSearch (request) :
     AggregatedGlobal=[]
     ChartAge=[]
     ChartAgeType=[]
+    ListOfShowFields=[]
 
 
     AverageTokenStoryMultilanguage=[]
     AverageTokenStoryGerman=[]
     AverageTokenStoryNA=[]
+
     q_list_type =[]
     q_list_token=[]
     q_list_Student=[]
@@ -161,6 +195,19 @@ def MainSearch (request) :
         if form.is_valid():
             LemmaSelect= int(form.cleaned_data['LemmaSelect'])
             Lemma= form.cleaned_data['Lemma']
+            # ShowColumnsModel.Showlemma=bool(form.cleaned_data['Showlemma'])
+            # if ShowColumnsModel.Showlemma:
+            #     ListOfShowFields.append("chl_lemma")
+
+            # ShowColumnsModel.Showlemmaabsolutefreq=bool(form.cleaned_data['Showlemmaabsolutefreq'])
+            # if ShowColumnsModel.Showlemmaabsolutefreq:
+            #     ListOfShowFields.append("chl_lemma_abs")
+            # ShowColumnsModel.Showlemmafreqper1M=bool(form.cleaned_data['Showlemmafreqper1M'])
+            # if ShowColumnsModel.Showlemmafreqper1M:
+            #     ListOfShowFields.append("chl_lemma_norm")
+            # ShowColumnsModel.ShowlemmaZipfscore=bool(form.cleaned_data['ShowlemmaZipfscore'])
+            # if ShowColumnsModel.ShowlemmaZipfscore:
+            #     ListOfShowFields.append("lemma_zipf")
             
             if Lemma:
                 if LemmaSelect>-1:
@@ -523,7 +570,8 @@ def MainSearch (request) :
             # if StudentTestTimeSelect>0:
             #     q_list_token.append( Q(erroneous__gte=StudentTestTimeSelect))
             # DonchartModel.storycat.append() 
-            
+            groupfields=request.session['grouping']
+            Showing=request.session['grouping']
             resultmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token))
 
             testmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token)).values_list("id", flat=True) 
@@ -960,7 +1008,10 @@ def MainSearch (request) :
     context={'form': form,
     'result':resultmodel,
     'maxminModel':minmaxmodel,
-    'fields' :Tbltokenbase._meta.get_fields(),
+    'fields' :ShowCols,
+    'fieldsLabel' :ShowfieldsLabel,
+    
+    # Token_Student._meta.get_fields(),
     'datacount':datacount,
     'stdids':stdids,
     'DonchartModel':DonchartModel,

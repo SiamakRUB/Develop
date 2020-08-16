@@ -64,21 +64,31 @@ $(function () {
 
     // Checkbox Show Columns
 
-    $('input.option-input.checkbox.jqshowcolumn').click(function (e) {
+    $('#btnshowgroup').click(function (e) {
         e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: "{% url 'home:favoriteAjax' %}",
-            data: {
-                userbooks: userbooks,
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-            },
-            datatype: 'json',
-            success: function (data) {
-                if (data['success'])
-                    alert("successfully added to favorites")
+        var showfields=[];
+        var showfieldsLabel=[];
+        $('.jqshowcolumn').each(function(){
+            if($(this).is(":checked")){      
+            fieldsname=$(this).data('field');
+            fieldsnameshow=$(this).data('fieldlabel');
+            showfields.push(fieldsname);
+            showfieldsLabel.push(fieldsnameshow);
             }
-        });
+        }); 
+        $.ajax({
+            url: '/ajax/ShowGroupSetting/',
+            method : "post",
+            data: {
+              'showcols': showfields,'showfieldsLabel':showfieldsLabel,
+              'csrfmiddlewaretoken': window.CSRF_TOKEN
+            },
+            success: function (data) {
+              if (data.is_taken) {
+                alert("A user with this username already exists.");
+              }
+            }
+          });
     });
     /****************************************
   Multiselect
@@ -127,7 +137,7 @@ $(function () {
         var dataset = ctx.data("collection");
         var labels = ctx.data("label");//["7 ", "8-9 ", "10-11", "11-13"]
         var datasetcategory ="";
-        if(labels != ''||labels != null){  
+        if(labels != ''&&labels != null){  
         datasetcategory=ctx.data("label").replace('[', '').replace(']','')
         var arrayxbase=datasetcategory.split(",");;
              }; 
@@ -180,7 +190,7 @@ $(function () {
         var dataset = ctx.data("collection");
         var cats=ctx.data("category")
         var datasetcategory ="";
-        if(cats != ''||cats != null){  
+        if(cats != '' && cats != null){  
         datasetcategory=ctx.data("category").replace('[', '').replace(']','')
         var arrayxbase=datasetcategory.split(",");;
              };  

@@ -79,7 +79,26 @@ class SearchItem(forms.Form):
     StudentStory= forms.CharField(required=False, label="StudentStory" ,max_length=200)
 
     StudentTestTimeSelect= forms.IntegerField(required=False, label="StudentTestTimeSelect")
-
+    Showlemma:bool
+    Showlemmafreqper1M=bool
+    Showlemmaabsolutefreq=bool
+    ShowlemmaZipfscore=bool
+    Showwordform=bool
+    Showwordiginal=bool
+    Showwordnumberofphonemes=bool
+    Showwordnumberofgraphmes=bool
+    Showwordnumberofsyllables=bool
+    Showwordnumberofmorphemes=bool
+    Showwordpartofspeechtype=bool
+    Showwordpartofspeech=bool
+    Showwordsyllabletypes=bool
+    Showwordabsolutefreq=bool
+    Showwordfreqper1M=bool
+    Showwordsummedbigramfreq=bool
+    Showwordnumberofneighbors=bool
+    ShowwordOLD20=bool
+    ShowwordErrorlevel=bool
+    ShowwordErrorKOF=bool   
 
     
     # Age: forms.IntegerField(50) 
