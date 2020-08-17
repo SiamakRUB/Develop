@@ -1,4 +1,13 @@
 ﻿// https://www.tutorialspoint.com/jqueryui/jqueryui_slider.htm
+
+$(document).ajaxStart(function(){
+    $("#wait").css("display", "block");
+  });
+  
+  $(document).ajaxComplete(function(){
+    $("#wait").css("display", "none");
+  });
+
 $(function () {
 
     $(".form-group.row.slider-control").each(function () {
@@ -95,11 +104,27 @@ $(function () {
   /****************************************/
 
 
-    $('select.multi').selectpicker({
+    var x= $('select.multi').selectpicker({
         onChange: function (element, checked) {
             console.log(selected);
         }
     });
+    $('#searchform').submit(function (event) {
+        $("#wait").css("display", "block");
+          
+            var x= $(".btn.dropdown-toggle");
+            x.each(function (){
+                var selected=$(this).attr('title');
+                var hdnfield=$(this).closest( ".form-group.row" ).find("input[type=hidden]").val(selected);
+            })
+          return true; //<---- move it here
+        });
+      
+
+    /****************************************
+  Chart
+  /****************************************/
+
 
     var ctx = $("canvas.chart-litkey-line");
     var dataset = ctx.data("collection");
@@ -178,13 +203,7 @@ $(function () {
     });
     $("canvas.chart-litkey-line").each(function () {
         var ctx = $(this);
-        // var MONTHS = ["Eis","Weg_2" ,"Frosch","Jenga",
-        // "Staubsauger",
-        // "Weg_3",
-        // "Schule",
-        // "Fundbuero",
-        // "Seilbahn",
-        // "Weg_4"];
+        
 
        
         var dataset = ctx.data("collection");

@@ -9,7 +9,7 @@ from functools import reduce
 from RubLitKeyService.models import Tbltokenbase
 from django.db import connection
 from django.http.response import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt 
 import operator
 # def getindexOfString(strvalue,mylist):
 #     indices = [i for i, s in enumerate(mylist) if strvalue in s]
@@ -29,6 +29,9 @@ import operator
 #     }
 #     func= switcher.get(selectedvalue, "Invalid")
 #     return func()
+def multiselectAsList(strval):
+        return strval.split(',')
+
 def switchStringSelect(selectedvalue):  
     switcher = {
         1: "startswith",
@@ -130,7 +133,7 @@ def ShowGroupSetting(request ):
 
 def MainSearch (request) :
    
-
+    StudentIDSelected=""
     inp_target=""
     storyTypevalues=[] 
     storyTypeLabel=[]
@@ -144,6 +147,7 @@ def MainSearch (request) :
 
     storyOrigvalues=[] 
     storyOrigLabel=[] 
+    showpanel='hide'
 
 
     ShowCols=["chl_lemma","chl_lemma_norm","chl_lemma_abs","lemma_zipf","target","orig","no_phonemes",
@@ -155,7 +159,7 @@ def MainSearch (request) :
     "syllable types " ,
     "absolute freq","word freq per 1M","summed bigram freq","no. neighbors","OLD20","Error level"]
     if 'Showing' in request.session:
-        fieldsselected=request.session['Showing']
+        fieldsselected=request.session['Showing'] 
         if fieldsselected :
             ShowCols = request.session['Showing']# default query set fields
     if 'showfieldsLabel' in request.session:
@@ -164,6 +168,8 @@ def MainSearch (request) :
             ShowfieldsLabel= request.session['showfieldsLabel'] 
 
     resultmodel=models.Tbltokenbase.objects.filter(id__lte=0)
+    testmodel=models.Tbltokenbase.objects.filter(id__lte=0)
+
     DonchartModel= SearchViewModel.ChartDonat()
     ChartBarNumberWord= SearchViewModel.ChartBarNumberWord()
     ChartStoryDeveloped= SearchViewModel.ChartStoryDeveloped()
@@ -188,11 +194,13 @@ def MainSearch (request) :
     AverageTokenStoryNA=[]
 
     q_list_type =[]
-    q_list_token=[]
+    q_list_token=[] 
     q_list_Student=[]
     if  request.method == "POST":
         form = SearchViewModel.SearchItem(request.POST)
         if form.is_valid():
+            showpanel=''
+
             LemmaSelect= int(form.cleaned_data['LemmaSelect'])
             Lemma= form.cleaned_data['Lemma']
             # ShowColumnsModel.Showlemma=bool(form.cleaned_data['Showlemma'])
@@ -246,8 +254,8 @@ def MainSearch (request) :
                     }
                     q_list_token.append( switcher.get(TargetSelect, "Invalid"))
 
-            IsFunktion= form.cleaned_data['IsFunktion']
-            IsLexion= form.cleaned_data['IsLexion']
+            # IsFunktion= form.cleaned_data['IsFunktion']
+            # IsLexion= form.cleaned_data['IsLexion']
 
             POSSelect= int(form.cleaned_data['POSSelect'])
             POS= form.cleaned_data['POS']
@@ -374,11 +382,7 @@ def MainSearch (request) :
             if min_Err_child>0:
                 q_list_token.append( Q(erroneous__gte=min_Err_child))  
 
-            ErrorLevel= form.cleaned_data['ErrorLevel']
-            ErrorLevelSelected= form.cleaned_data['ErrorLevelSelected']
-            KOF= form.cleaned_data['KOF']
-            ErrorKOFSelected= form.cleaned_data['ErrorKOFSelected']
-            ErrorKOF= form.cleaned_data['ErrorKOF']
+
 
             StudentSex= form.cleaned_data['StudentSex']
             if StudentSex>0:
@@ -572,419 +576,510 @@ def MainSearch (request) :
             # DonchartModel.storycat.append() 
             groupfields=request.session['grouping']
             Showing=request.session['grouping']
-            resultmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token))
-
-            testmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token)).values_list("id", flat=True) 
+            if q_list_token and len(q_list_token)>0 :
+                resultmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token))
+                testmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token)).values_list("id", flat=True) 
             
             # testmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token)).values('id') 
             #textids=list(testmodel) 
             
             data = []
-
+            student_where_string=" "
             for item in testmodel: #list is your initial datas format as python list 
                 data.append(item)
-
-            token_where_string = ",".join(str(v) for v in data)  
-            student_where_string = " and ".join(q_list_Student)  
+            token_where_string=" "
+            if data and len(data):
+                token_where_string = ",".join(str(v) for v in data)  
+                student_where_string = " and ".join(q_list_Student)  
             if len(q_list_Student)>0:
                 student_where_string=" and " +student_where_string
+            stropr=" and "                
             if len(data)>0:
                 token_where_string=" tk.id IN({}) ".format(token_where_string)
             else:
                 token_where_string= "  "
-            if len(data)<1 and len(q_list_Student) <1:
-                token_where_string= " tk.id < 1 "
+                stropr=""
+            
+
+            # if len(data)<1 and len(q_list_Student) <1:
+            #     token_where_string= " tk.id < 1 "
+            ErrorLevelSelected= form.cleaned_data['ErrorLevelSelected']
+            if ErrorLevelSelected and ErrorLevelSelected!='Nothing selected' and ErrorLevelSelected!='-1'  :
+                ErrorLevelSelected=ErrorLevelSelected.replace("phonographic mapping","PG")
+                ErrorLevelSelected=ErrorLevelSelected.replace("syllabic principles","SL")
+                ErrorLevelSelected=ErrorLevelSelected.replace("morpheme constancy","MO")
+                ErrorLevelSelected=ErrorLevelSelected.replace("morphosyntactic principles","SN")
+                strlist=multiselectAsList(ErrorLevelSelected)
+                subqstr="0=1" 
+                for strval in  strlist:
+                    subqstr=subqstr + " or error_level like '%%{}%%' ".format(strval.strip()) 
+                token_where_string=token_where_string + " {} ({}) ".format(stropr,subqstr) 
+                stropr="and"
+                # my_string = "','".join(strlist) 
+                # token_where_string=token_where_string + "and error_level in ('{}') ".format(my_string)
+             
+            StudentIDSelected= form.cleaned_data['StudentIDSelected']
+            if StudentIDSelected and StudentIDSelected!='Nothing selected' and StudentIDSelected!='-1' :
+                strlist=multiselectAsList(StudentIDSelected)
+                my_string = "','".join(str(v).strip() for v in strlist) 
+                token_where_string=token_where_string + "{} st.number in ('{}') ".format(stropr,my_string)
+                stropr="and"
+
+
+            StudentStorySelected= form.cleaned_data['StudentStorySelected']
+            if StudentStorySelected and StudentStorySelected!='Nothing selected' and StudentStorySelected!='-1' : 
+                strlist=multiselectAsList(StudentStorySelected)
+                my_string = "','".join(str(v).strip() for v in strlist) 
+                token_where_string=token_where_string + " {} story in ('{}')".format(stropr,my_string)
+                stropr="and"
+
+
+            ErrorKOFSelected= form.cleaned_data['ErrorKOFSelected']
+           
+            if ErrorKOFSelected and ErrorKOFSelected!='Nothing selected' and ErrorKOFSelected!='-1': 
+                ErrorKOFSelected=ErrorKOFSelected.replace("grapheme combinations","err_graph_comb")
+                ErrorKOFSelected=ErrorKOFSelected.replace("marked graphemes","err_graph_marked")
+                ErrorKOFSelected=ErrorKOFSelected.replace("ie","err_ie")
+                ErrorKOFSelected=ErrorKOFSelected.replace("silent schwa","err_schwa_silent")
+                ErrorKOFSelected=ErrorKOFSelected.replace("double vowels","err_doubleV")
+                ErrorKOFSelected=ErrorKOFSelected.replace("other double consonants","err_doubleC_other")
+                ErrorKOFSelected=ErrorKOFSelected.replace("double consonant spellings","err_doubleC_syl")
+                ErrorKOFSelected=ErrorKOFSelected.replace("vowel-lengthening","err_h_length")
+                ErrorKOFSelected=ErrorKOFSelected.replace("syllable-separating","err_h_sep")
+                ErrorKOFSelected=ErrorKOFSelected.replace("vocalic","err_r_voc")
+                ErrorKOFSelected=ErrorKOFSelected.replace("final devoicing","err_devoice_final")
+                ErrorKOFSelected=ErrorKOFSelected.replace("g-spirantization","err_g_spirant")
+                ErrorKOFSelected=ErrorKOFSelected.replace("morpheme boundary","err_morph_bound")
+                strlist=multiselectAsList(ErrorKOFSelected)
+                subqstr="0=1" 
+                for strval in  strlist:
+                    subqstr=subqstr + " or {}=1  ".format(strval.strip())
+                token_where_string=token_where_string + " {} ({})".format(stropr,subqstr)
+                stropr="and"
+
+                     
+                    
+
+                
+            
+            KOFSelected= form.cleaned_data['KOFSelected']
+            if KOFSelected and KOFSelected!='Nothing selected' and KOFSelected!='-1':
+                KOFSelected=KOFSelected.replace("grapheme combinations","graph_comb")
+                KOFSelected=KOFSelected.replace("marked graphemes","graph_marked")
+                KOFSelected=KOFSelected.replace("ie","ie")
+                KOFSelected=KOFSelected.replace("silent schwa","schwa_silent")
+                KOFSelected=KOFSelected.replace("double vowels","doubleV")
+                KOFSelected=KOFSelected.replace("other double consonants","doubleC_other")
+                KOFSelected=KOFSelected.replace("double consonant spellings","doubleC_syl")
+                KOFSelected=KOFSelected.replace("vowel-lengthening","h_length")
+                KOFSelected=KOFSelected.replace("syllable-separating","h_sep")
+                KOFSelected=KOFSelected.replace("vocalic","err_r_voc")
+                KOFSelected=KOFSelected.replace("final devoicing","devoice_final")
+                KOFSelected=KOFSelected.replace("g-spirantization","g_spirant")
+                KOFSelected=KOFSelected.replace("morpheme boundary","morph_bound")
+                strlist=multiselectAsList(KOFSelected)
+                subqstr="0=1"
+                for strval in  strlist:
+                    subqstr=subqstr + " or {}=1  ".format(strval.strip())
+                token_where_string=token_where_string + " {} ({})  ".format(stropr,subqstr)
+                stropr="and"
+
+
+            # KOF= form.cleaned_data['KOF'] 
+            # ErrorKOF= form.cleaned_data['ErrorKOF']      
 
 
             strcommand="""SELECT * FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
             where 
              {}
              {} 
-             """.format(token_where_string,student_where_string).replace("\n","")
+             """.format(token_where_string,student_where_string).replace("\n","") 
             Token_Student=list(models.Tbltokenbase.objects.raw(strcommand))
-            
-            #Average Token Pro story
+            if Token_Student and len(Token_Student)>0:      
+            #Average Token Pro story 
 
-            strcommandML="""  select tt.Id, count(orig) as origcount ,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual  ,orig, target, story FROM tbltokenbase as tk
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='ja' GROUP by story,orig) as tt GROUP by story
-             """.format(token_where_string,student_where_string).replace("\n","")
-            strcommandGerman="""select tt.Id, count(orig) as origcount,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual  ,orig, target, story FROM tbltokenbase as tk
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='nein' GROUP by story,orig) as tt GROUP by story
-             """.format(token_where_string,student_where_string).replace("\n","")
-            strcommandKA=""" select tt.Id, count(orig) as origcount,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual ,orig, target, story FROM tbltokenbase as tk
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='k.A.' GROUP by story,orig) as tt GROUP by story 
-             """.format(token_where_string,student_where_string).replace("\n","")
-            
-            AverageStoryMultilanguage=list(models.Tbltokenbase.objects.raw(strcommandML))
-            AverageStoryGerman=list(models.Tbltokenbase.objects.raw(strcommandGerman))
-            AverageStoryNA=list(models.Tbltokenbase.objects.raw(strcommandKA))
+                strcommandML="""  select tt.Id, count(orig) as origcount ,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual  ,orig, target, story FROM tbltokenbase as tk
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='ja' GROUP by story,orig) as tt GROUP by story
+                """.format(token_where_string,student_where_string).replace("\n","")
+                strcommandGerman="""select tt.Id, count(orig) as origcount,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual  ,orig, target, story FROM tbltokenbase as tk
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='nein' GROUP by story,orig) as tt GROUP by story
+                """.format(token_where_string,student_where_string).replace("\n","")
+                strcommandKA=""" select tt.Id, count(orig) as origcount,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual ,orig, target, story FROM tbltokenbase as tk
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='k.A.' GROUP by story,orig) as tt GROUP by story 
+                """.format(token_where_string,student_where_string).replace("\n","")
+                
+                AverageStoryMultilanguage=list(models.Tbltokenbase.objects.raw(strcommandML))
+                AverageStoryGerman=list(models.Tbltokenbase.objects.raw(strcommandGerman))
+                AverageStoryNA=list(models.Tbltokenbase.objects.raw(strcommandKA))
 
-            #Average Type Per Story
+                #Average Type Per Story
+        
+                
+                strcommandtypeML="""  select tt.Id, count(target) as targetcount ,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual , target, story FROM tbltokenbase as tk
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='ja' GROUP by story,target) as tt GROUP by story
+                """.format(token_where_string,student_where_string).replace("\n","")
+                strcommandtypeGerman="""select tt.Id, count(target) as targetcount,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual , target, story FROM tbltokenbase as tk
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='nein' GROUP by story,target) as tt GROUP by story
+                """.format(token_where_string,student_where_string).replace("\n","")
+                strcommandtypeKA=""" select tt.Id, count(target) as targetcount,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual , target, story FROM tbltokenbase as tk
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='k.A.' GROUP by story,target) as tt GROUP by story 
+                """.format(token_where_string,student_where_string).replace("\n","")
+                
+                AverageStoryTypeMultilanguage=list(models.Tbltokenbase.objects.raw(strcommandtypeML))
+                AverageStoryTypeGerman=list(models.Tbltokenbase.objects.raw(strcommandtypeGerman))
+                AverageStoryTypeNA=list(models.Tbltokenbase.objects.raw(strcommandtypeKA))
+
+                # Error Level
+                strcommandErrorML=""" select tt.Id, count(error_level) as errcount ,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual , error_level, target, story FROM tbltokenbase as tk 
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='ja'  and  error_level<>'' GROUP by story,tk.error_level) as tt GROUP by story order by story
+                """.format(token_where_string,student_where_string).replace("\n","")
+                AverageStoryERRML=list(models.Tbltokenbase.objects.raw(strcommandErrorML))
+
+                strcommandErrorGer="""  select tt.Id, count(error_level) as errcount ,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual , error_level, target, story FROM tbltokenbase as tk 
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='nein'  and  error_level<>'' GROUP by story,tk.error_level) as tt GROUP by story order by story
+                """.format(token_where_string,student_where_string).replace("\n","")
+
+                AverageStoryERRGerman=list(models.Tbltokenbase.objects.raw(strcommandErrorGer))
+
+                strcommandErrorKA=""" select tt.Id, count(error_level) as errcount ,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual ,error_level, target, story FROM tbltokenbase as tk 
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='k.a.' and  error_level<>'' GROUP by story,tk.error_level) as tt GROUP by story order by story
+                """.format(token_where_string,student_where_string).replace("\n","")
+                AverageStoryERRKA=list(models.Tbltokenbase.objects.raw(strcommandErrorKA))
+                
+                # POS
+                strcommandPosKA=""" select tt.Id, count(pos) as poscount ,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual ,pos,error_level, target, story FROM tbltokenbase as tk 
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='ja' and  pos<>'' GROUP by story,tk.pos) as tt GROUP by story order by story
+                """.format(token_where_string,student_where_string).replace("\n","")
+                AverageStoryPosML=list(models.Tbltokenbase.objects.raw(strcommandPosKA))
+
+                strcommandPosKA=""" select tt.Id, count(pos) as poscount ,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual ,pos,error_level, target, story FROM tbltokenbase as tk 
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='nein' and  pos<>'' GROUP by story,tk.pos) as tt GROUP by story order by story
+                """.format(token_where_string,student_where_string).replace("\n","")
+
+                AverageStoryPosGerman=list(models.Tbltokenbase.objects.raw(strcommandPosKA))
+
+                strcommandPosKA=""" select tt.Id, count(pos) as poscount ,story from 
+                (SELECT tk.Id as Id,st.multilingual as multilingual ,pos,error_level, target, story FROM tbltokenbase as tk 
+                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where {}{} and multilingual='k.a.' and  pos<>'' GROUP by story,tk.pos) as tt GROUP by story order by story
+                """.format(token_where_string,student_where_string).replace("\n","")
+                AverageStoryPosKA=list(models.Tbltokenbase.objects.raw(strcommandPosKA))
+                
+            
+                listOfStory=["Eis","Weg_2","Frosch","Jenga","Staubsauger","Weg_3","Schule","Fundbuero","Seilbahn","Weg_4"]
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+                #Token add data to model
+                arrtoken=[]  
+                names=[]
+                for p in AverageStoryMultilanguage:
+                    names.append(str(p.story))
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.origcount
+                    arrtoken.append(p.origcount)    
+
+                
+                    
+
+                ChartStoryDeveloped.storytokenvaluesML=listOfStoryValue
+                ChartStoryDeveloped.StoryNameToken=listOfStory
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+                arrtoken=[] 
+                arrtype=[]
+                for p in AverageStoryGerman:
+                    arrtoken.append(p.origcount)    
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.origcount
+
+                ChartStoryDeveloped.storytokenvaluesGER=listOfStoryValue
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+                arrtoken=[] 
+                arrtype=[]
+                for p in AverageStoryNA:
+                    arrtoken.append(p.origcount)  
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.origcount  
+                
+                ChartStoryDeveloped.storytokenvaluesKA=listOfStoryValue
+                #Target add data to model 
+
+                arrtype=[]
+                names=[]
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+                for p in AverageStoryTypeMultilanguage:
+                    arrtype.append(p.targetcount)   
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.targetcount
+                    names.append(str(p.story))
+
+                ChartStoryDeveloped.storytypevaluesML=listOfStoryValue
+                ChartStoryDeveloped.StoryNameType=listOfStory
+                
+                arrtype=[]
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+                for p in AverageStoryTypeGerman:
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.targetcount
+                    arrtype.append(p.targetcount) 
+
+                ChartStoryDeveloped.storytypevaluesGER=listOfStoryValue
+
+                arrtype=[]
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+                for p in AverageStoryTypeNA:
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.targetcount
+                    arrtype.append(p.targetcount)   
+                
+                ChartStoryDeveloped.storytypevaluesKA =listOfStoryValue
+
+
+                #Error Level add data to model
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+                arrErr=[] 
+                names=[]
+                for p in AverageStoryERRML:
+                    arrErr.append(p.errcount)   
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.errcount
+
+                ChartStoryDeveloped.storyErrorvaluesML=listOfStoryValue
+                ChartStoryDeveloped.StoryNameError=listOfStory
+                arrErr=[] 
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+
+                for p in AverageStoryERRGerman:
+                    arrErr.append(p.errcount) 
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.errcount  
+                ChartStoryDeveloped.storyErrorvaluesGER=listOfStoryValue
+                arrErr=[] 
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+                
+                for p in AverageStoryERRKA:
+                    arrErr.append(p.errcount)   
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.errcount
+                ChartStoryDeveloped.storyErrorvaluesKA=listOfStoryValue
+                #POS add data to model
+                    
+                arrpos=[] 
+                names=[]
+                
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+                for p in AverageStoryPosML:
+                    names.append(str(p.story))    
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.poscount
+
+                ChartStoryDeveloped.storyPosvaluesML=listOfStoryValue   
+                ChartStoryDeveloped.StoryNamePos= listOfStory
+
+                arrpos=[] 
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+                for p in AverageStoryPosGerman:
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.poscount
+                ChartStoryDeveloped.storyPosvaluesGER=listOfStoryValue   
+                
+                arrpos=[] 
+                listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
+                for p in AverageStoryPosKA:
+                    indexval=listOfStory.index(str(p.story))
+                    listOfStoryValue[indexval]=p.poscount
+                ChartStoryDeveloped.storyPosvaluesKA=listOfStoryValue   
+                
+                
+                #donat chart
+
+                getstrstorycat=""" SELECT tk.Id, story,count(orig) as tokencount  FROM tbltokenbase as tk INNER JOIN
+                students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or 
+                st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where 
+                {}
+                {} group by story 
+                """.format(token_where_string,student_where_string).replace("\n","")
+                getcountbyStory=list(models.Tbltokenbase.objects.raw(getstrstorycat))
+                labels=[] 
+                values=[] 
+                for p in getcountbyStory:
+                    labels.append(str(p.story))   
+                    values.append(p.tokencount)
+                DonchartModel.agecat=labels
+                DonchartModel.storytokenvalues=values
+                
+                getstrstorytype=""" 
+                select tt.Id, count(target) as targetcount ,story from (SELECT tk.Id as Id, target, story FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id
+                where 
+                {}
+                {} 
+                GROUP by story,target) as tt GROUP by story
+                """.format(token_where_string,student_where_string).replace("\n","")
+                getcountbyStoryType=list(models.Tbltokenbase.objects.raw(getstrstorytype))
+
+                labels=[] 
+                values=[] 
+                for p in getcountbyStoryType:
+                    labels.append(str(p.story))   
+                    values.append(p.targetcount)                              
+                DonchartModel.storytypecat=  labels
+                DonchartModel.storytypevalues=  values
+
+
+                StrWordNumber=""" SELECT  tk.Id,   st.multilingual as multilingual, count(multilingual) as spcount FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where 
+                {}
+                {} group by st.multilingual ORDER by st.multilingual
+                """.format(token_where_string,student_where_string).replace("\n","")
+                ChartWord=list(models.Tbltokenbase.objects.raw(StrWordNumber))
+
+                labels=[] 
+                values=[] 
+                for p in ChartWord:
+                    labels.append(str(p.multilingual))   
+                    values.append(p.spcount)
+                
+                ChartBarNumberWord.Wordcat=labels    
+                ChartBarNumberWord.WordCount=values
+
+                StrAggregatedLemma=""" SELECT  tk.Id,   chl_lemma,
+                cast(avg(chl_lemma_norm) as decimal(10,2)) as freqper1M,
+                cast(avg(chl_lemma_abs) as decimal(10,2)) as freqabsolute,
+                cast(avg(chl_type_norm) as decimal(10,2)) as Wordformfreqabsolute
+                
+                FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where 
+                {}
+                {} group by chl_lemma  ORDER by chl_lemma
+                """.format(token_where_string,student_where_string).replace("\n","")
+
+                
+                AggregatedLema=list(models.Tbltokenbase.objects.raw(StrAggregatedLemma))
+
+                StrAggregatedText=""" SELECT  tk.Id,   text_id ,
+                cast(avg(chl_lemma_norm) as decimal(10,2)) as freqper1M,
+                cast(avg(chl_lemma_abs) as decimal(10,2)) as freqabsolute,
+                cast(avg(chl_type_norm) as decimal(10,2)) as Wordformfreqabsolute
+                
+                FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where 
+                {}
+                {} group by text_id   ORDER by text_id 
+                """.format(token_where_string,student_where_string).replace("\n","")
+                AggregatedText=list(models.Tbltokenbase.objects.raw(StrAggregatedText))
+            
+                StrAggregatedGlobal=""" SELECT  tk.Id,   text_id ,
+                cast(avg(chl_lemma_norm) as decimal(10,2)) as freqper1M,
+                cast(avg(chl_lemma_abs) as decimal(10,2)) as freqabsolute,
+                cast(avg(chl_type_norm) as decimal(10,2)) as Wordformfreqabsolute
+                
+                FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                where 
+                {}
+                {} 
+                """.format(token_where_string,student_where_string).replace("\n","")
+                AggregatedGlobal=list(models.Tbltokenbase.objects.raw(StrAggregatedGlobal))
+                
+                strcommandChartAge="""
+                select tt.Id  ,
+                SUM(IF(lt_9 > 0,1,0)) as cntlt_9 ,
+                SUM(IF(btw_9_10 > 0,1,0)) as cntbtw_9_10,
+                SUM(IF(btw_10_11 > 0,1,0)) as cntbtw_10_11,
+                SUM(IF(btw_11_12 > 0,1,0)) as cntbtw_11_12,
+                SUM(IF(gt_12 > 0,1,0)) as cntgt_12
+                from (SELECT tk.Id as Id,   SUM(IF(((alt1+alt10)/2) < 9,1,0)) as lt_9,
+                                SUM(IF( ((alt1+alt10)/2) BETWEEN 9 and 10,1,0) ) as btw_9_10,
+                                SUM(IF(((alt1+alt10)/2) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
+                                SUM(IF(((alt1+alt10)/2) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
+                                SUM(IF(((alt1+alt10)/2) >12,1,0)) as gt_12 ,target 
+                                FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                                        where 
+                                            {}
+                                            {} 
+                                            GROUP by orig) as tt
+                """.format(token_where_string,student_where_string).replace("\n","")
+                # strcommandChartAge=""" SELECT tk.Id,    SUM(IF(((alt1+alt10)/2) < 9,1,0)) as lt_9,
+                #                 SUM(IF( ((alt1+alt10)/2) BETWEEN 9 and 10,1,0) ) as btw_9_10,
+                #                 SUM(IF(((alt1+alt10)/2) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
+                #                 SUM(IF(((alt1+alt10)/2) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
+                #                 SUM(IF(((alt1+alt10)/2) >12,1,0)) as 'gt_12'  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                #                         where 
+                #                             {}
+                #                             {} 
+                #  """.format(token_where_string,student_where_string).replace("\n","")
+                ChartAge=list(models.Tbltokenbase.objects.raw(strcommandChartAge))
+                values=[] 
+                for p in ChartAge:
+                    values.append( int(p.cntlt_9))   
+                    values.append( int(p.cntbtw_9_10))   
+                    values.append( int(p.cntbtw_10_11))   
+                    values.append( int(p.cntbtw_11_12))   
+                    values.append( int(p.cntgt_12))   
+                
+
+                DonchartModel.agetokenvalues=values
+
+                #Age Type 
+                
+                strcommandChartAgeType="""
+                select Id  ,SUM(IF(lt_9 > 0,1,0)) as cntlt_9 ,
+                SUM(IF(btw_9_10 > 0,1,0)) as cntbtw_9_10,
+                SUM(IF(btw_10_11 > 0,1,0)) as cntbtw_10_11,
+                SUM(IF(btw_11_12 > 0,1,0)) as cntbtw_11_12,
+                SUM(IF(gt_12 >0,1,0)) as cntgt_12
+                from (SELECT tk.Id as Id,SUM(IF(((alt1+alt10)/2) < 9,1,0)) as lt_9,
+                                SUM(IF( ((alt1+alt10)/2) BETWEEN 9 and 10,1,0) ) as btw_9_10,
+                                SUM(IF(((alt1+alt10)/2) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
+                                SUM(IF(((alt1+alt10)/2) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
+                                SUM(IF(((alt1+alt10)/2) >12,1,0)) as gt_12 ,target 
+                                FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                                        where 
+                                            {}
+                                            {} 
+                                            GROUP by target) as tt
+                """.format(token_where_string,student_where_string).replace("\n","")
     
-            
-            strcommandtypeML="""  select tt.Id, count(target) as targetcount ,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual , target, story FROM tbltokenbase as tk
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='ja' GROUP by story,target) as tt GROUP by story
-             """.format(token_where_string,student_where_string).replace("\n","")
-            strcommandtypeGerman="""select tt.Id, count(target) as targetcount,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual , target, story FROM tbltokenbase as tk
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='nein' GROUP by story,target) as tt GROUP by story
-             """.format(token_where_string,student_where_string).replace("\n","")
-            strcommandtypeKA=""" select tt.Id, count(target) as targetcount,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual , target, story FROM tbltokenbase as tk
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='k.A.' GROUP by story,target) as tt GROUP by story 
-             """.format(token_where_string,student_where_string).replace("\n","")
-            
-            AverageStoryTypeMultilanguage=list(models.Tbltokenbase.objects.raw(strcommandtypeML))
-            AverageStoryTypeGerman=list(models.Tbltokenbase.objects.raw(strcommandtypeGerman))
-            AverageStoryTypeNA=list(models.Tbltokenbase.objects.raw(strcommandtypeKA))
-
-            # Error Level
-            strcommandErrorML=""" select tt.Id, count(error_level) as errcount ,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual , error_level, target, story FROM tbltokenbase as tk 
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-            st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='ja'  and  error_level<>'' GROUP by story,tk.error_level) as tt GROUP by story order by story
-             """.format(token_where_string,student_where_string).replace("\n","")
-            AverageStoryERRML=list(models.Tbltokenbase.objects.raw(strcommandErrorML))
-
-            strcommandErrorGer="""  select tt.Id, count(error_level) as errcount ,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual , error_level, target, story FROM tbltokenbase as tk 
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-            st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='nein'  and  error_level<>'' GROUP by story,tk.error_level) as tt GROUP by story order by story
-             """.format(token_where_string,student_where_string).replace("\n","")
-
-            AverageStoryERRGerman=list(models.Tbltokenbase.objects.raw(strcommandErrorGer))
-
-            strcommandErrorKA=""" select tt.Id, count(error_level) as errcount ,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual ,error_level, target, story FROM tbltokenbase as tk 
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-            st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='k.a.' and  error_level<>'' GROUP by story,tk.error_level) as tt GROUP by story order by story
-             """.format(token_where_string,student_where_string).replace("\n","")
-            AverageStoryERRKA=list(models.Tbltokenbase.objects.raw(strcommandErrorKA))
-            
-            # POS
-            strcommandPosKA=""" select tt.Id, count(pos) as poscount ,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual ,pos,error_level, target, story FROM tbltokenbase as tk 
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-            st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='ja' and  pos<>'' GROUP by story,tk.pos) as tt GROUP by story order by story
-             """.format(token_where_string,student_where_string).replace("\n","")
-            AverageStoryPosML=list(models.Tbltokenbase.objects.raw(strcommandPosKA))
-
-            strcommandPosKA=""" select tt.Id, count(pos) as poscount ,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual ,pos,error_level, target, story FROM tbltokenbase as tk 
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-            st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='nein' and  pos<>'' GROUP by story,tk.pos) as tt GROUP by story order by story
-             """.format(token_where_string,student_where_string).replace("\n","")
-
-            AverageStoryPosGerman=list(models.Tbltokenbase.objects.raw(strcommandPosKA))
-
-            strcommandPosKA=""" select tt.Id, count(pos) as poscount ,story from 
-            (SELECT tk.Id as Id,st.multilingual as multilingual ,pos,error_level, target, story FROM tbltokenbase as tk 
-            INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-            st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where {}{} and multilingual='k.a.' and  pos<>'' GROUP by story,tk.pos) as tt GROUP by story order by story
-            """.format(token_where_string,student_where_string).replace("\n","")
-            AverageStoryPosKA=list(models.Tbltokenbase.objects.raw(strcommandPosKA))
-            
-           
-            listOfStory=["Eis","Weg_2","Frosch","Jenga","Staubsauger","Weg_3","Schule","Fundbuero","Seilbahn","Weg_4"]
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-            #Token add data to model
-            arrtoken=[]  
-            names=[]
-            for p in AverageStoryMultilanguage:
-                names.append(str(p.story))
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.origcount
-                arrtoken.append(p.origcount)    
-
-            
-                
-
-            ChartStoryDeveloped.storytokenvaluesML=listOfStoryValue
-            ChartStoryDeveloped.StoryNameToken=listOfStory
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-            arrtoken=[] 
-            arrtype=[]
-            for p in AverageStoryGerman:
-                arrtoken.append(p.origcount)    
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.origcount
-
-            ChartStoryDeveloped.storytokenvaluesGER=listOfStoryValue
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-            arrtoken=[] 
-            arrtype=[]
-            for p in AverageStoryNA:
-                arrtoken.append(p.origcount)  
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.origcount  
-            
-            ChartStoryDeveloped.storytokenvaluesKA=listOfStoryValue
-            #Target add data to model 
-
-            arrtype=[]
-            names=[]
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-            for p in AverageStoryTypeMultilanguage:
-                arrtype.append(p.targetcount)   
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.targetcount
-                names.append(str(p.story))
-
-            ChartStoryDeveloped.storytypevaluesML=listOfStoryValue
-            ChartStoryDeveloped.StoryNameType=listOfStory
-            
-            arrtype=[]
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-            for p in AverageStoryTypeGerman:
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.targetcount
-                arrtype.append(p.targetcount) 
-
-            ChartStoryDeveloped.storytypevaluesGER=listOfStoryValue
-
-            arrtype=[]
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-            for p in AverageStoryTypeNA:
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.targetcount
-                arrtype.append(p.targetcount)   
-            
-            ChartStoryDeveloped.storytypevaluesKA =listOfStoryValue
-
-
-            #Error Level add data to model
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-            arrErr=[] 
-            names=[]
-            for p in AverageStoryERRML:
-                arrErr.append(p.errcount)   
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.errcount
-
-            ChartStoryDeveloped.storyErrorvaluesML=listOfStoryValue
-            ChartStoryDeveloped.StoryNameError=listOfStory
-            arrErr=[] 
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-
-            for p in AverageStoryERRGerman:
-                arrErr.append(p.errcount) 
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.errcount  
-            ChartStoryDeveloped.storyErrorvaluesGER=listOfStoryValue
-            arrErr=[] 
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-            
-            for p in AverageStoryERRKA:
-                arrErr.append(p.errcount)   
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.errcount
-            ChartStoryDeveloped.storyErrorvaluesKA=listOfStoryValue
-            #POS add data to model
-                
-            arrpos=[] 
-            names=[]
-            
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-            for p in AverageStoryPosML:
-                names.append(str(p.story))    
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.poscount
-
-            ChartStoryDeveloped.storyPosvaluesML=listOfStoryValue   
-            ChartStoryDeveloped.StoryNamePos= listOfStory
-
-            arrpos=[] 
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-            for p in AverageStoryPosGerman:
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.poscount
-            ChartStoryDeveloped.storyPosvaluesGER=listOfStoryValue   
-            
-            arrpos=[] 
-            listOfStoryValue=[0,0,0,0,0,0,0,0,0,0]
-            for p in AverageStoryPosKA:
-                indexval=listOfStory.index(str(p.story))
-                listOfStoryValue[indexval]=p.poscount
-            ChartStoryDeveloped.storyPosvaluesKA=listOfStoryValue   
-            
-            
-            #donat chart
-
-            getstrstorycat=""" SELECT tk.Id, story,count(orig) as tokencount  FROM tbltokenbase as tk INNER JOIN
-            students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or 
-            st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where 
-             {}
-             {} group by story 
-             """.format(token_where_string,student_where_string).replace("\n","")
-            getcountbyStory=list(models.Tbltokenbase.objects.raw(getstrstorycat))
-            labels=[] 
-            values=[] 
-            for p in getcountbyStory:
-                labels.append(str(p.story))   
-                values.append(p.tokencount)
-            DonchartModel.agecat=labels
-            DonchartModel.storytokenvalues=values
-            
-            getstrstorytype=""" 
-            select tt.Id, count(target) as targetcount ,story from (SELECT tk.Id as Id, target, story FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id
-             where 
-             {}
-             {} 
-              GROUP by story,target) as tt GROUP by story
-            """.format(token_where_string,student_where_string).replace("\n","")
-            getcountbyStoryType=list(models.Tbltokenbase.objects.raw(getstrstorytype))
-
-            labels=[] 
-            values=[] 
-            for p in getcountbyStoryType:
-                labels.append(str(p.story))   
-                values.append(p.targetcount)                              
-            DonchartModel.storytypecat=  labels
-            DonchartModel.storytypevalues=  values
-
-
-            StrWordNumber=""" SELECT  tk.Id,   st.multilingual as multilingual, count(multilingual) as spcount FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where 
-             {}
-             {} group by st.multilingual ORDER by st.multilingual
-             """.format(token_where_string,student_where_string).replace("\n","")
-            ChartWord=list(models.Tbltokenbase.objects.raw(StrWordNumber))
-
-            labels=[] 
-            values=[] 
-            for p in ChartWord:
-                labels.append(str(p.multilingual))   
-                values.append(p.spcount)
-            
-            ChartBarNumberWord.Wordcat=labels    
-            ChartBarNumberWord.WordCount=values
-
-            StrAggregatedLemma=""" SELECT  tk.Id,   chl_lemma,
-            cast(avg(chl_lemma_norm) as decimal(10,2)) as freqper1M,
-            cast(avg(chl_lemma_abs) as decimal(10,2)) as freqabsolute,
-            cast(avg(chl_type_norm) as decimal(10,2)) as Wordformfreqabsolute
-            
-              FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where 
-             {}
-             {} group by chl_lemma  ORDER by chl_lemma
-             """.format(token_where_string,student_where_string).replace("\n","")
-
-             
-            AggregatedLema=list(models.Tbltokenbase.objects.raw(StrAggregatedLemma))
-
-            StrAggregatedText=""" SELECT  tk.Id,   text_id ,
-            cast(avg(chl_lemma_norm) as decimal(10,2)) as freqper1M,
-            cast(avg(chl_lemma_abs) as decimal(10,2)) as freqabsolute,
-            cast(avg(chl_type_norm) as decimal(10,2)) as Wordformfreqabsolute
-            
-            FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where 
-             {}
-             {} group by text_id   ORDER by text_id 
-             """.format(token_where_string,student_where_string).replace("\n","")
-            AggregatedText=list(models.Tbltokenbase.objects.raw(StrAggregatedText))
-           
-            StrAggregatedGlobal=""" SELECT  tk.Id,   text_id ,
-            cast(avg(chl_lemma_norm) as decimal(10,2)) as freqper1M,
-            cast(avg(chl_lemma_abs) as decimal(10,2)) as freqabsolute,
-            cast(avg(chl_type_norm) as decimal(10,2)) as Wordformfreqabsolute
-            
-            FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            where 
-             {}
-             {} 
-             """.format(token_where_string,student_where_string).replace("\n","")
-            AggregatedGlobal=list(models.Tbltokenbase.objects.raw(StrAggregatedGlobal))
-            
-            strcommandChartAge="""
-            select tt.Id  ,
-            SUM(IF(lt_9 > 0,1,0)) as cntlt_9 ,
-            SUM(IF(btw_9_10 > 0,1,0)) as cntbtw_9_10,
-            SUM(IF(btw_10_11 > 0,1,0)) as cntbtw_10_11,
-            SUM(IF(btw_11_12 > 0,1,0)) as cntbtw_11_12,
-            SUM(IF(gt_12 > 0,1,0)) as cntgt_12
-            from (SELECT tk.Id as Id,   SUM(IF(((alt1+alt10)/2) < 9,1,0)) as lt_9,
-                            SUM(IF( ((alt1+alt10)/2) BETWEEN 9 and 10,1,0) ) as btw_9_10,
-                            SUM(IF(((alt1+alt10)/2) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
-                            SUM(IF(((alt1+alt10)/2) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
-                            SUM(IF(((alt1+alt10)/2) >12,1,0)) as gt_12 ,target 
-                            FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-                                    where 
-                                        {}
-                                        {} 
-                                         GROUP by orig) as tt
-            """.format(token_where_string,student_where_string).replace("\n","")
-            # strcommandChartAge=""" SELECT tk.Id,    SUM(IF(((alt1+alt10)/2) < 9,1,0)) as lt_9,
-            #                 SUM(IF( ((alt1+alt10)/2) BETWEEN 9 and 10,1,0) ) as btw_9_10,
-            #                 SUM(IF(((alt1+alt10)/2) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
-            #                 SUM(IF(((alt1+alt10)/2) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
-            #                 SUM(IF(((alt1+alt10)/2) >12,1,0)) as 'gt_12'  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-            #                         where 
-            #                             {}
-            #                             {} 
-            #  """.format(token_where_string,student_where_string).replace("\n","")
-            ChartAge=list(models.Tbltokenbase.objects.raw(strcommandChartAge))
-            values=[] 
-            for p in ChartAge:
-                values.append( int(p.cntlt_9))   
-                values.append( int(p.cntbtw_9_10))   
-                values.append( int(p.cntbtw_10_11))   
-                values.append( int(p.cntbtw_11_12))   
-                values.append( int(p.cntgt_12))   
-            
-
-            DonchartModel.agetokenvalues=values
-
-            #Age Type 
-            
-            strcommandChartAgeType="""
-            select Id  ,SUM(IF(lt_9 > 0,1,0)) as cntlt_9 ,
-            SUM(IF(btw_9_10 > 0,1,0)) as cntbtw_9_10,
-            SUM(IF(btw_10_11 > 0,1,0)) as cntbtw_10_11,
-            SUM(IF(btw_11_12 > 0,1,0)) as cntbtw_11_12,
-            SUM(IF(gt_12 >0,1,0)) as cntgt_12
-            from (SELECT tk.Id as Id,SUM(IF(((alt1+alt10)/2) < 9,1,0)) as lt_9,
-                            SUM(IF( ((alt1+alt10)/2) BETWEEN 9 and 10,1,0) ) as btw_9_10,
-                            SUM(IF(((alt1+alt10)/2) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
-                            SUM(IF(((alt1+alt10)/2) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
-                            SUM(IF(((alt1+alt10)/2) >12,1,0)) as gt_12 ,target 
-                            FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
-                                    where 
-                                        {}
-                                        {} 
-                                         GROUP by target) as tt
-            """.format(token_where_string,student_where_string).replace("\n","")
-  
-            ChartAgeType=list(models.Tbltokenbase.objects.raw(strcommandChartAgeType))
-            values=[] 
-            for p in ChartAgeType:
-                values.append( int(p.cntlt_9))   
-                values.append( int(p.cntbtw_9_10))   
-                values.append( int(p.cntbtw_10_11))   
-                values.append( int(p.cntbtw_11_12))   
-                values.append( int(p.cntgt_12))   
-            DonchartModel.agetypevalues=values
+                ChartAgeType=list(models.Tbltokenbase.objects.raw(strcommandChartAgeType))
+                values=[] 
+                for p in ChartAgeType:
+                    values.append( int(p.cntlt_9))   
+                    values.append( int(p.cntbtw_9_10))   
+                    values.append( int(p.cntbtw_10_11))   
+                    values.append( int(p.cntbtw_11_12))   
+                    values.append( int(p.cntgt_12))   
+                DonchartModel.agetypevalues=values
 
     else:
         form=SearchViewModel.SearchItem()
+        showpanel='hide'
+
      
 
             
@@ -1000,7 +1095,7 @@ def MainSearch (request) :
     datacount.wordforms  = tbltype.count()
     datacount.texts  = tbltoken.values('text_id').distinct().count()
     datacount.lemmas  = tbltoken.exclude(chl_lemma__isnull=True).values('chl_lemma').distinct().count()
-    stdids=models.Students.objects.only('number')
+    stdids=models.Students.objects.only('number') 
  
     
     
@@ -1010,7 +1105,7 @@ def MainSearch (request) :
     'maxminModel':minmaxmodel,
     'fields' :ShowCols,
     'fieldsLabel' :ShowfieldsLabel,
-    
+    'showpanel':showpanel,
     # Token_Student._meta.get_fields(),
     'datacount':datacount,
     'stdids':stdids,
@@ -1023,6 +1118,7 @@ def MainSearch (request) :
     'AggregatedGlobal':AggregatedGlobal,
     'AggregatedText':AggregatedText,
     'AggregatedLema':AggregatedLema,
+    'StudentIDSelected':StudentIDSelected
     
     }
     return render(request, "MainSearch.Html", context)

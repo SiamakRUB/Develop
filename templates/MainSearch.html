@@ -45,7 +45,7 @@
 
     <div class="col-md-3">
 
-        <form action="/MainSearch/" method="post">
+        <form action="/MainSearch/" method="post" id="searchform">
             {% csrf_token %}
             <div class="d-flex justify-content-center">
                 <div class="wrapper center-block">
@@ -237,7 +237,7 @@
 
                                 </div>
 
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <label>Part-of-speech type :</label>
                                     <div class="checkbox"> <label> <input type="checkbox" id="id_IsFunktion"
                                                 name="IsFunktion" class="option-input checkbox "
@@ -248,7 +248,7 @@
                                                 name="IsLexion" class="option-input checkbox "
                                                 name="filter[]" value="12" /> <span class="ml-10">Lexion</span> </label>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group row">
                                     <label for="lname" class="col-sm-3 text-left control-label col-form-label">Part of
                                         speech
@@ -410,7 +410,7 @@
                                     </p>
                                 </div>
 
-                                <div class="form-group row">
+                                <div class="form-group row multiselected">
 
                                     <label style="margin-top:10px;margin-bottom:10px;">Error Level:</label>
                                     <input type="hidden" id="id_ErrorLevelSelected" name="ErrorLevelSelected"
@@ -419,9 +419,8 @@
                                         data-live-search="true">
                                         <option value="0">phonographic mapping</option>
                                         <option value="1">syllabic principles</option>
-                                        <option value="2">morphological principles</option>
-                                        <option value="3">morpho-syntactic principles</option>
-                                        <option value="4">punctuation </option>
+                                        <option value="2">morpheme constancy</option>
+                                        <option value="3">morphosyntactic principles</option>
                                     </select>
                                 </div>
 
@@ -431,7 +430,7 @@
                         <!-- <label style="margin-top:10px;margin-bottom:10px;">Key orthographic feature (KOF):</label> -->
                         <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
                             <div class="panel-body">
-                                <div class="form-group row">
+                                <div class="form-group row multiselected">
 
                                     <label style="margin-top:10px;margin-bottom:10px;">KOF :</label>
                                     <input type="hidden" name="KOFSelected" id="id_KOFSelected" name="user"
@@ -459,7 +458,7 @@
 
                         <div id="collapse2" class="panel-collapse  " role="tabpanel" aria-labelledby="heading2">
                             <div class="panel-body">
-                                <div class="form-group row">
+                                <div class="form-group row multiselected">
                                     <label style="margin-top:10px;margin-bottom:10px;">Error in KOF :</label>
                                     <input type="hidden" id="id_ErrorKOFSelected" name="ErrorKOFSelected" value="-1" />
                                     <select id="id_ErrorKOF" class="selectpicker multi" name="ErrorKOF" multiple
@@ -491,14 +490,16 @@
                         </div>
                         <div id="collapse3" class="panel-collapse  " role="tabpanel" aria-labelledby="heading3">
                             <div class="panel-body">
-                                <div class="form-group row">
+                                <div class="form-group row multiselected">
 
                                     <label style="margin-top:10px;margin-bottom:10px;">Student ID: </label>
-                                    <input type="hidden" id="id_StudentID" name="StudentID" value="-1" />
-                                    <select class="selectpicker multi" id="id_StudentIDSelect" name="StudentIDSelect"
+                                    <input type="hidden" id="id_StudentIDSelected" name="StudentIDSelected" value="-1" />
+                                    <select class="selectpicker multi" id="id_StudentID" name="StudentID"
                                         multiple data-live-search="true">
                                         {% for stdid in stdids%}
-                                        <option value="{{stdid.number}}">{{stdid.number}} </option>
+                                            {% if not forloop.first %}
+                                                <option value="{{stdid.number}}">{{stdid.number}} </option>
+                                            {% endif %}
                                         {% endfor %}
 
                                     </select>
@@ -629,7 +630,7 @@
                                         <option value="2">Other</option>
                                     </select>
                                 </div>
-                                <div class="form-group row">
+                                <!-- <div class="form-group row multiselected">
 
                                     <label style="margin-top:10px;margin-bottom:10px;">Individual testing times:</label>
                                     <input type="hidden" id="id_StudentTestTime" name="StudentTestTime" value="-1" />
@@ -645,11 +646,11 @@
                                         <option value="7">201112-III</option>
                                         <option value="8">201112-IV</option>
                                     </select>
-                                </div>
-                                <div class="form-group row">
+                                </div> -->
+                                <div class="form-group row multiselected">
 
                                     <label style="margin-top:10px;margin-bottom:10px;">Stories: </label>
-                                    <input type="hidden" id="id_StudentStory" name="StudentStory" value="-1" />
+                                    <input type="hidden" id="id_StudentStorySelected" name="StudentStorySelected" value="-1" />
                                     <select class="selectpicker multi" id="id_StudentStorySelect"
                                         name="StudentStorySelect" multiple data-live-search="true">
                                         <option value="0">Eis</option>
@@ -753,7 +754,7 @@
                 <div class="col-sm-12 panel-group" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Show and/or group by
+                            Show Columms
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
                                 <span class="fa fa-angle-double-down collapse" style="font-size: 20px;"></span>
                             </a>
@@ -769,7 +770,7 @@
                                                 <tr>
                                                     <th>Lemma-related variables</th>
                                                     <th>Show </th>
-                                                    <th>Group by</th>
+                                                    <!-- <th>Group by</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -778,10 +779,10 @@
                                                     <td> 
                                                         <input type="checkbox"  id="id_chl_lemma"  data-fieldlabel="Lemma"  data-field="chl_lemma"    name="chl_lemma" class="option-input checkbox jqshowcolumn" checked/>
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -790,10 +791,10 @@
                                                         <input type="checkbox"  id="id_chl_lemma_norm"  data-fieldlabel="Lemma freq per 1M"  data-field="chl_lemma_norm"    data-fieldlabel="Lemma freq per 1M" name="chl_lemma_norm" class="option-input checkbox jqshowcolumn" checked/>
 
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -802,10 +803,10 @@
                                                         <input type="checkbox"  id="id_chl_lemma_abs"  data-fieldlabel="Lemma absolute freq"  data-field="chl_lemma_abs"    data-fieldlabel="Lemma absolute freq" name="chl_lemma_abs " class="option-input checkbox jqshowcolumn" checked/>
 
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" checked />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -813,10 +814,10 @@
                                                     <td>
                                                         <input type="checkbox"  id="id_lemma_zipf"  data-fieldlabel="Lemma Zipf"  data-field="lemma_zipf" name="lemma_zipf" class="option-input checkbox jqshowcolumn" checked/>
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" checked />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                             </tbody>
@@ -839,7 +840,7 @@
                                                 <tr>
                                                     <th>Wordform-related variables</th>
                                                     <th>Show </th>
-                                                    <th>Group by</th>
+                                                    <!-- <th>Group by</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -849,10 +850,10 @@
                                                        
                                                             <input type="checkbox"  id="id_Target"  data-fieldlabel="word form"  data-field="target" name="target" class="option-input checkbox jqshowcolumn" checked />
                                                         </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" checked />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -860,10 +861,10 @@
                                                     <td>  
                                                             <input type="checkbox"  id="id_orig"  data-fieldlabel="original"  data-field="orig" name="orig" class="option-input checkbox jqshowcolumn" checked />
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -871,10 +872,10 @@
                                                     <td>  
                                                             <input type="checkbox"  id="id_no_phonemes"  data-fieldlabel="No. phonemes"  data-field="no_phonemes" name="no_phonemes" class="option-input checkbox jqshowcolumn" checked />
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" checked />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -884,10 +885,10 @@
                                                         <input type="checkbox"  id="id_no_graphemes"  data-fieldlabel="No. graphmes"  data-field="no_graphemes" name="no_graphemes" class="option-input checkbox jqshowcolumn" checked/>
                                                   
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
 
@@ -896,10 +897,10 @@
                                                     <td> 
                                                         <input type="checkbox"  id="id_no_syllables"  data-fieldlabel="No. syllables"  data-field="no_syllables" name="no_syllables" class="option-input checkbox jqshowcolumn"  checked/>
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -907,10 +908,10 @@
                                                     <td> 
                                                         <input type="checkbox"  id="id_no_morphemes"  data-fieldlabel="No. morphemes"  data-field="no_morphemes" name="no_morphemes" class="option-input checkbox jqshowcolumn" checked/>
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <!-- <tr>
@@ -931,10 +932,10 @@
                                                         <input type="checkbox"  id="id_POS"  data-fieldlabel="Pos"  data-field="POS" name="POS" class="option-input checkbox jqshowcolumn" checked/>
 
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -943,10 +944,10 @@
                                                         <input type="checkbox"  id="id_syllable_types"  data-fieldlabel="syllable types"  data-field="syllable_types" name="syllable_types" class="option-input checkbox jqshowcolumn" checked/>
 
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -955,10 +956,10 @@
                                                         <input type="checkbox"  id="id_chl_type_abs"  data-fieldlabel="absolute freq"  data-field="chl_type_abs" name="chl_type_abs" class="option-input checkbox jqshowcolumn"checked />
 
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -967,10 +968,10 @@
                                                         <input type="checkbox"  id="id_chl_type_norm"  data-fieldlabel="word freq 1M"  data-field="chl_type_norm" name="chl_type_norm" class="option-input checkbox jqshowcolumn"checked/>
 
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -978,10 +979,10 @@
                                                     <td>  
                                                         <input type="checkbox"  id="id_chl_bigram_sum"  data-fieldlabel="bigram freq"  data-field="chl_bigram_sum" name="chl_bigram_sum" class="option-input checkbox jqshowcolumn" checked/>
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -990,10 +991,10 @@
                                                         <input type="checkbox"  id="id_chl_nein"  data-fieldlabel="No neighbors"  data-field="chl_nein" name="chl_nein" class="option-input checkbox jqshowcolumn" checked />
 
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <tr>
@@ -1001,10 +1002,10 @@
                                                     <td> 
                                                         <input type="checkbox"  id="id_chl_nei_old20"  data-fieldlabel="OLD20"  data-field="chl_nei_old20" name="chl_nei_old20" class="option-input checkbox jqshowcolumn" checked/>
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
 
@@ -1019,7 +1020,7 @@
                                                 <tr>
                                                     <th>Error-related variables</th>
                                                     <th>Show </th>
-                                                    <th>Group by</th>
+                                                    <!-- <th>Group by</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1028,10 +1029,10 @@
                                                     <td>  
                                                         <input type="checkbox"  id="id_error_level"  data-fieldlabel="Error level"  data-field="error_level" name="error_level" class="option-input checkbox jqshowcolumn"  checked/>
                                                     </td>
-                                                    <td> <input type="checkbox"
+                                                    <!-- <td> <input type="checkbox"
                                                             class="option-input checkbox  " name="filter[]"
                                                             value="12" />
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                                 <!-- <tr>
@@ -1203,8 +1204,8 @@
             </div>
 
 
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
+            <div class="row {{showpanel}}">
+                <div class="col-sm-12 col-md-12 col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             number of words per story
@@ -1257,7 +1258,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12  col-md-12 col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             number of words per age
@@ -1301,8 +1302,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
+            <div class="row {{showpanel}}">
+                <div class="col-sm-12  col-md-12 col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Average number of words(Token) per Story
@@ -1370,8 +1371,8 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
+            <div class="row {{showpanel}}">
+                <div class="col-sm-12  col-md-12 col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Average number of all errors per story
@@ -1440,7 +1441,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row {{showpanel}}">
                 <div class="col-sm-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -1472,9 +1473,9 @@
                 </div>
 
             </div>
-            <div class="row">
+            <div class="row {{showpanel}}">
 
-                <div class="col-sm-4  ">
+                <div class="col-sm-12  col-md-12 col-lg-4  ">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             AGGREGATED RESULTS
@@ -1520,7 +1521,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4  ">
+                <div class="col-sm-12  col-md-12 col-lg-4 ">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             AGGREGATED RESULTS
@@ -1567,7 +1568,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4  ">
+                <div class="col-sm-12  col-md-12 col-lg-4  ">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             AGGREGATED RESULTS
@@ -1621,7 +1622,7 @@
     </div>
 </div>
 
-{{fields}}
+{{StudentIDSelected}}
 
 <!-- {{str}}
     {{strcommand}} 

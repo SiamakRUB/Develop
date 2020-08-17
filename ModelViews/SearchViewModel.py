@@ -43,9 +43,12 @@ class SearchItem(forms.Form):
     max_word_OLD20= forms.FloatField(required=False, label="max_word_phonemes" )
     min_word_OLD20= forms.FloatField(required=False, label="max_word_phonemes" )
     ErrorLevel= forms.CharField(required=False, label="max_word_phonemes" ,max_length=200)
-    ErrorLevelSelected= forms.IntegerField(required=False, label="max_word_phonemes")
+    ErrorLevelSelected= forms.CharField(required=False, label="max_word_phonemes" ,max_length=200)
+    # ErrorLevelSelected= forms.IntegerField(required=False, label="max_word_phonemes")
     KOF= forms.CharField(required=False, label="max_word_phonemes" ,max_length=200)
-    ErrorKOFSelected= forms.IntegerField(required=False, label="max_word_phonemes")
+    # ErrorKOFSelected= forms.IntegerField(required=False, label="max_word_phonemes")
+    KOFSelected= forms.CharField(required=False, label="max_word_phonemes" ,max_length=200)
+    ErrorKOFSelected= forms.CharField(required=False, label="max_word_phonemes" ,max_length=200)
     ErrorKOF= forms.CharField(required=False, label="max_word_phonemes" ,max_length=200)
      
     max_Err_wordform= forms.FloatField(required=False, label="max_Err_wordform" )
@@ -55,6 +58,7 @@ class SearchItem(forms.Form):
     min_Err_child= forms.FloatField(required=False, label="max_Err_child" )
     
     StudentIDSelect= forms.IntegerField(required=False, label="StudentIDSelect")
+    StudentIDSelected= forms.CharField(required=False, label="StudentIDSelected",max_length=200)
     StudentID= forms.CharField(required=False, label="StudentID" ,max_length=200)
     StudentSex= forms.IntegerField(required=False, label="StudentSex")
     StudentNativecountry= forms.IntegerField(required=False, label="StudentNativecountry")
@@ -74,7 +78,7 @@ class SearchItem(forms.Form):
     StudentcountryMother= forms.IntegerField(required=False, label="StudentcountryMother")
     
     StudentTestTimeSelect= forms.IntegerField(required=False, label="StudentTestTimeSelect")
-    StudentStorySelect= forms.IntegerField(required=False, label="StudentStorySelect")
+    StudentStorySelected= forms.CharField(required=False, label="StudentStory" ,max_length=200)
     
     StudentStory= forms.CharField(required=False, label="StudentStory" ,max_length=200)
 
