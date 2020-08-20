@@ -110,7 +110,7 @@ $(function () {
         }
     });
     $('#searchform').submit(function (event) {
-        $("#wait").css("display", "block");
+        $("#cover-spin").css("display", "block");
           
             var x= $(".btn.dropdown-toggle");
             x.each(function (){

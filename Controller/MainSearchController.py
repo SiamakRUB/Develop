@@ -167,8 +167,10 @@ def MainSearch (request) :
         if fieldsselected :
             ShowfieldsLabel= request.session['showfieldsLabel'] 
 
-    resultmodel=models.Tbltokenbase.objects.filter(id__lte=0)
-    testmodel=models.Tbltokenbase.objects.filter(id__lte=0)
+    resultmodel=[]
+    #models.Tbltokenbase.objects.filter(id__lte=0)
+    testmodel=[]
+    #models.Tbltokenbase.objects.filter(id__lte=0)
 
     DonchartModel= SearchViewModel.ChartDonat()
     ChartBarNumberWord= SearchViewModel.ChartBarNumberWord()
@@ -193,6 +195,7 @@ def MainSearch (request) :
     AverageTokenStoryGerman=[]
     AverageTokenStoryNA=[]
 
+    ListFilterItems =[]
     q_list_type =[]
     q_list_token=[] 
     q_list_Student=[]
@@ -225,6 +228,8 @@ def MainSearch (request) :
                     2: Q(chl_lemma__contains=Lemma),
                     3: Q(chl_lemma__endswith=Lemma),
                     }
+                    ListFilterItems.append("Lema :{} ".format(Lemma))
+
                     q_list_token.append( switcher.get(LemmaSelect, "Invalid"))
                  
 
@@ -239,6 +244,7 @@ def MainSearch (request) :
                     2: Q(orig__contains=Orig),
                     3: Q(orig__endswith=Orig),
                     }
+                    ListFilterItems.append("Orig:{} ".format(Orig))
                     q_list_token.append( switcher.get(OrigSelect, "Invalid"))
 
   
@@ -252,6 +258,7 @@ def MainSearch (request) :
                     2: Q(target__contains=Target),
                     3: Q(target__endswith=Target),
                     }
+                    ListFilterItems.append("Target: {}".format(Target))
                     q_list_token.append( switcher.get(TargetSelect, "Invalid"))
 
             # IsFunktion= form.cleaned_data['IsFunktion']
@@ -268,59 +275,74 @@ def MainSearch (request) :
                     3: Q(pos__endswith=POS),
                     }
                     q_list_token.append( switcher.get(POSSelect, "Invalid"))
+                    ListFilterItems.append("POS: {}".format(POS))
 
             max_lemma_freq= form.cleaned_data['max_lemma_freq']
             if max_lemma_freq>0:
                 q_list_token.append( Q(chl_lemma_norm__lte=max_lemma_freq))
+                ListFilterItems.append(" max lemma freq: {}".format(max_lemma_freq))
             min_lemma_freq= form.cleaned_data['min_lemma_freq']
             if min_lemma_freq>0:
+                ListFilterItems.append(" min lemma_freq: {}".format(min_lemma_freq))
                 q_list_token.append( Q(chl_lemma_norm__gte=min_lemma_freq))
             
 
             max_lemma_absolute= form.cleaned_data['max_lemma_absolute']
             if max_lemma_absolute>0:
+                ListFilterItems.append(" max lemma freq abs: {}".format(max_lemma_absolute))
                 q_list_token.append( Q(chl_lemma_abs__lte=max_lemma_absolute))
 
             min_lemma_absolute= form.cleaned_data['min_lemma_absolute']
             if min_lemma_absolute>0:
+                ListFilterItems.append(" min lemma freq abs: {}".format(min_lemma_absolute))
                 q_list_token.append( Q(chl_lemma_abs__gte=min_lemma_freq))
 
             max_lemma_Zipf= form.cleaned_data['max_lemma_Zipf']
             if max_lemma_Zipf>0:
+                ListFilterItems.append(" max lemma Zipf: {}".format(max_lemma_Zipf))
                 q_list_token.append( Q(lemma_zipf__lte=max_lemma_Zipf))
 
             min_lemma_Zipf= form.cleaned_data['min_lemma_Zipf']
             if min_lemma_Zipf>0:
+                ListFilterItems.append(" min lemma Zipf: {}".format(min_lemma_Zipf))
                 q_list_token.append( Q(lemma_zipf__gte=min_lemma_Zipf))
 
             max_word_phonemes= form.cleaned_data['max_word_phonemes']
             if max_word_phonemes>0:
+                ListFilterItems.append(" max word phonemes: {}".format(max_word_phonemes))
                 q_list_token.append( Q(no_phonemes__lte=max_word_phonemes))
             
         #    ///
             min_word_phonemes= form.cleaned_data['min_word_phonemes']
             if min_word_phonemes>0:
+                ListFilterItems.append(" min word phonemes: {}".format(min_word_phonemes))
                 q_list_token.append( Q(no_phonemes__gte=min_word_phonemes))
             
             max_word_graphemes= form.cleaned_data['max_word_graphemes']
             if max_word_graphemes>0:
+                ListFilterItems.append(" max word graphemes: {}".format(max_word_graphemes))
                 q_list_token.append( Q(no_graphemes__lte=max_word_graphemes))
             min_word_graphemes= form.cleaned_data['min_word_graphemes']
             if min_word_graphemes>0:
+                ListFilterItems.append("min word graphemes: {}".format(min_word_graphemes))
                 q_list_token.append( Q(no_graphemes__gte=min_word_graphemes))
 
             max_word_syllables= form.cleaned_data['max_word_syllables']
             if max_word_syllables>0:
+                ListFilterItems.append("max word syllables: {}".format(max_word_syllables))
                 q_list_token.append( Q(no_syllables__lte=max_word_syllables))
             min_word_syllables= form.cleaned_data['min_word_syllables']
             if min_word_syllables>0:
+                ListFilterItems.append("min word syllables: {}".format(min_word_syllables))
                 q_list_token.append( Q(no_syllables__gte=min_word_syllables))
 
             max_word_morphemes= form.cleaned_data['max_word_morphemes']
             if max_word_morphemes>0:
+                ListFilterItems.append(" max word morphemes: {}".format(max_word_morphemes))
                 q_list_token.append( Q(no_morphemes__lte=max_word_morphemes))
             min_word_morphemes= form.cleaned_data['min_word_morphemes']
             if min_word_morphemes>0:
+                ListFilterItems.append("min word morphemes: {}".format(min_word_morphemes))
                 q_list_token.append( Q(no_morphemes__gte=min_word_morphemes))
            
             SyllableTypeSelect= form.cleaned_data['SyllableTypeSelect']
@@ -333,39 +355,50 @@ def MainSearch (request) :
                     2: Q(syllable_types__contains=SyllableType),
                     3: Q(syllable_types__endswith=SyllableType),
                     }
+                    ListFilterItems.append("SyllableType: {}".format(SyllableType))
                     q_list_token.append( switcher.get(SyllableTypeSelect, "Invalid"))
             max_word_absolute= form.cleaned_data['max_word_absolute']
             if max_word_absolute>0:
+                ListFilterItems.append("max word absolute: {}".format(max_word_absolute))
                 q_list_token.append( Q(chl_type_abs__lte=max_word_absolute))
             min_word_absolute= form.cleaned_data['min_word_absolute']
             if min_word_absolute>0:
+                ListFilterItems.append("min word absolute: {}".format(min_word_absolute))
                 q_list_token.append( Q(chl_type_abs__gte=min_word_absolute))
             max_word_freq= form.cleaned_data['max_word_freq']
             if max_word_freq>0:
+                ListFilterItems.append("max word freq: {}".format(max_word_freq))
                 q_list_token.append( Q(chl_type_norm__lte=max_word_freq))
             min_word_freq= form.cleaned_data['min_word_freq']
             if min_word_freq>0:
+                ListFilterItems.append("min word freq: {}".format(min_word_freq))
                 q_list_token.append( Q(chl_type_norm__gte=min_word_freq))
 
             max_word_bigram= form.cleaned_data['max_word_bigram']
             if max_word_bigram>0:
+                ListFilterItems.append("max word bigram: {}".format(max_word_bigram))
                 q_list_token.append( Q(chl_bigram_sum__lte=max_word_bigram))
             min_word_bigram= form.cleaned_data['min_word_bigram']
             if min_word_bigram>0:
+                ListFilterItems.append("min word bigram: {}".format(min_word_bigram))
                 q_list_token.append( Q(chl_bigram_sum__gte=min_word_bigram))
             
             max_word_neighbors= form.cleaned_data['max_word_neighbors']
             if max_word_neighbors>0:
+                ListFilterItems.append("max word neighbors: {}".format(max_word_neighbors))
                 q_list_token.append( Q(chl_nein__lte=max_word_neighbors))
             min_word_neighbors= form.cleaned_data['min_word_neighbors']
             if min_word_neighbors>0:
+                ListFilterItems.append("min word neighbors: {}".format(min_word_neighbors))
                 q_list_token.append( Q(chl_nein__gte=min_word_neighbors))
 
             max_word_OLD20= form.cleaned_data['max_word_OLD20']
             if max_word_OLD20>0:
+                ListFilterItems.append("max word OLD20: {}".format(max_word_OLD20))
                 q_list_token.append( Q(chl_nei_old20__lte=max_word_OLD20))
             min_word_OLD20= form.cleaned_data['min_word_OLD20']
             if min_word_OLD20>0:
+                ListFilterItems.append("min word OLD20: {}".format(min_word_OLD20))
                 q_list_token.append( Q(chl_nei_old20__gte=min_word_OLD20))
 
             # max_Err_wordform= form.cleaned_data['max_Err_wordform']
@@ -398,6 +431,7 @@ def MainSearch (request) :
 
                 }
                 # q_list_Student.append(switcher.get(StudentSex, "Invalid") )  
+                ListFilterItems.append("Student Sex: {}".format(StudentSex))
                 q_list_Student.append(switcher.get(StudentSex, "Invalid") )  
 
             StudentNativecountry= form.cleaned_data['StudentNativecountry']
@@ -412,6 +446,7 @@ def MainSearch (request) :
                     2: "HLKLI='nicht Deutschland' ",
                     3: "HLKLI='k.A.' "
                 }
+                ListFilterItems.append("Nativecountry: {}".format(StudentNativecountry))
                 q_list_Student.append(switcher.get(StudentNativecountry, " ") )  
 
             Multilingual= form.cleaned_data['Multilingual']
@@ -426,6 +461,7 @@ def MainSearch (request) :
                     2: " multilingual='nein' ",
                     3: " multilingual='k.A.' "
                 }
+                ListFilterItems.append("Multilingual: {}".format(StudentNativecountry))
                 q_list_Student.append(switcher.get(Multilingual, " ") )
 
             StudentPreferredReading= form.cleaned_data['StudentPreferredReading']
@@ -442,6 +478,7 @@ def MainSearch (request) :
                     3: "LesS='Muttersprache' ",
                     4: "LesS='k.A.' "
                 }
+                ListFilterItems.append("Preferred Reading: {}".format(StudentPreferredReading))
                 q_list_Student.append(switcher.get(StudentPreferredReading, "") )
 
             StudentPreferredSpeaking= form.cleaned_data['StudentPreferredSpeaking']
@@ -456,6 +493,7 @@ def MainSearch (request) :
                     2: "SprechS<>'Deutsch' ",
                     3: "SprechS='k.A.' "
                 }
+                ListFilterItems.append("Preferred Speaking: {}".format(StudentPreferredSpeaking))
                 q_list_Student.append(switcher.get(StudentPreferredSpeaking, "") )
             
             StudentTeachingGerman= form.cleaned_data['StudentTeachingGerman']
@@ -471,6 +509,7 @@ def MainSearch (request) :
                     3: "DaZu='k.A.' "
                 }
 
+                ListFilterItems.append("Teaching German: {}".format(StudentTeachingGerman))
                 q_list_Student.append(switcher.get(StudentTeachingGerman, " ") )  
             
             StudentTeachingNative= form.cleaned_data['StudentTeachingNative']
@@ -485,16 +524,19 @@ def MainSearch (request) :
                     2:  " MU_HSU ='nein' ",
                     3:  " MU_HSU ='k.A.' "
                 }
+                ListFilterItems.append("Teaching Native: {}".format(StudentTeachingNative))
                 q_list_Student.append(switcher.get(StudentTeachingNative, " ") )  
             
             max_student_writing= form.cleaned_data['max_student_writing']
             if max_student_writing>0:
                 # q_list_Student.append( Q(anzahl__lte=max_student_writing))  
+                ListFilterItems.append("max student writing: {}".format(max_student_writing))
                 q_list_Student.append( " anzahl<={} ".format(max_student_writing))
             
             min_student_writing= form.cleaned_data['min_student_writing']
             if min_student_writing>0:
                 # q_list_Student.append( Q(anzahl__gte=min_student_writing))  
+                ListFilterItems.append("min student writing: {}".format(min_student_writing))
                 q_list_Student.append( " anzahl>={} ".format(min_student_writing)) 
 
 
@@ -511,6 +553,11 @@ def MainSearch (request) :
                     2: "hsprvli<>'Deutsch' ",
                     3: "hsprvli='k.A.' "
                 }
+                if StudentOriginFather==1:
+                    strgetval= "German" 
+                else:
+                    strgetval="not German"
+                ListFilterItems.append("Origin Father: {}".format(strgetval))
                 q_list_Student.append(switcher.get(StudentOriginFather, " ") )    
             
             
@@ -526,6 +573,11 @@ def MainSearch (request) :
                     2: "hsprmli<>'Deutsch' ",
                     3: "hsprmli='k.A.' "
                 }
+                if StudentOriginMother==1:
+                    strgetval= "German" 
+                else:
+                    strgetval="not German" 
+                ListFilterItems.append("Origin Mother: {}".format(strgetval))
                 q_list_Student.append(switcher.get(StudentOriginMother, " ") )  
 
             
@@ -541,6 +593,11 @@ def MainSearch (request) :
                     2: "hlvli<>'Deutschland' ",
                     3: "hlvli='k.A.' "
                 }
+                if StudentcountryFather==1:
+                    strgetval= "German" 
+                else:
+                    strgetval="not German" 
+                ListFilterItems.append("country Father: {}".format(strgetval))
                 q_list_Student.append(switcher.get(StudentcountryFather, " ") )  
 
             
@@ -556,6 +613,12 @@ def MainSearch (request) :
                     2: "hlmli<>'Deutschland' ",
                     3: "hlmli='k.A.' "
                 }
+                strgetval=""
+                if StudentcountryMother==1:
+                    strgetval= "German" 
+                else:
+                    strgetval="not German" 
+                ListFilterItems.append("country Father: {}".format( strgetval ))
                 q_list_Student.append(switcher.get(StudentcountryMother, " ") ) 
 
             # StudentTestTimeSelect= form.cleaned_data['StudentTestTimeSelect']
@@ -583,22 +646,32 @@ def MainSearch (request) :
             # testmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token)).values('id') 
             #textids=list(testmodel) 
             
+            stropr=""
             data = []
-            student_where_string=" "
-            for item in testmodel: #list is your initial datas format as python list 
+            student_where_string=" " 
+            for item in testmodel: #list is your initial datas format as python list  
                 data.append(item)
             token_where_string=" "
             if data and len(data):
                 token_where_string = ",".join(str(v) for v in data)  
-                student_where_string = " and ".join(q_list_Student)  
-            if len(q_list_Student)>0:
-                student_where_string=" and " +student_where_string
-            stropr=" and "                
             if len(data)>0:
+                stropr=" and "
                 token_where_string=" tk.id IN({}) ".format(token_where_string)
             else:
-                token_where_string= "  "
-                stropr=""
+                if len (q_list_token)>0 :
+                    token_where_string= "1=0 "
+                    stropr=" and "
+
+                else :
+                    token_where_string= " "
+                    stropr=""
+            if len(q_list_Student)>0:
+                student_where_string = " and ".join(q_list_Student)  
+                student_where_string=" {} {}" .format(stropr,student_where_string) 
+                
+                    
+                
+            
             
 
             # if len(data)<1 and len(q_list_Student) <1:
@@ -616,7 +689,7 @@ def MainSearch (request) :
                 token_where_string=token_where_string + " {} ({}) ".format(stropr,subqstr) 
                 stropr="and"
                 # my_string = "','".join(strlist) 
-                # token_where_string=token_where_string + "and error_level in ('{}') ".format(my_string)
+                # token_where_string=token_where_string + "and error_level in ('{}') ".format(my_string) 
              
             StudentIDSelected= form.cleaned_data['StudentIDSelected']
             if StudentIDSelected and StudentIDSelected!='Nothing selected' and StudentIDSelected!='-1' :
@@ -686,16 +759,14 @@ def MainSearch (request) :
 
 
             # KOF= form.cleaned_data['KOF'] 
-            # ErrorKOF= form.cleaned_data['ErrorKOF']      
-
-
+            # ErrorKOF= form.cleaned_data['ErrorKOF']       
             strcommand="""SELECT * FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
             where 
              {}
              {} 
              """.format(token_where_string,student_where_string).replace("\n","") 
             Token_Student=list(models.Tbltokenbase.objects.raw(strcommand))
-            if Token_Student and len(Token_Student)>0:      
+            if Token_Student and len(Token_Student)>0 :      
             #Average Token Pro story 
 
                 strcommandML="""  select tt.Id, count(orig) as origcount ,story from 
@@ -1014,22 +1085,22 @@ def MainSearch (request) :
                 SUM(IF(btw_10_11 > 0,1,0)) as cntbtw_10_11,
                 SUM(IF(btw_11_12 > 0,1,0)) as cntbtw_11_12,
                 SUM(IF(gt_12 > 0,1,0)) as cntgt_12
-                from (SELECT tk.Id as Id,   SUM(IF(((alt1+alt10)/2) < 9,1,0)) as lt_9,
-                                SUM(IF( ((alt1+alt10)/2) BETWEEN 9 and 10,1,0) ) as btw_9_10,
-                                SUM(IF(((alt1+alt10)/2) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
-                                SUM(IF(((alt1+alt10)/2) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
-                                SUM(IF(((alt1+alt10)/2) >12,1,0)) as gt_12 ,target 
+                from (SELECT tk.Id as Id,   SUM(IF((alt1) < 9,1,0)) as lt_9,
+                                SUM(IF( (alt1) BETWEEN 9 and 10,1,0) ) as btw_9_10,
+                                SUM(IF((alt1) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
+                                SUM(IF((alt1) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
+                                SUM(IF((alt1) >12,1,0)) as gt_12 ,target 
                                 FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
                                         where 
                                             {}
                                             {} 
                                             GROUP by orig) as tt
                 """.format(token_where_string,student_where_string).replace("\n","")
-                # strcommandChartAge=""" SELECT tk.Id,    SUM(IF(((alt1+alt10)/2) < 9,1,0)) as lt_9,
-                #                 SUM(IF( ((alt1+alt10)/2) BETWEEN 9 and 10,1,0) ) as btw_9_10,
-                #                 SUM(IF(((alt1+alt10)/2) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
-                #                 SUM(IF(((alt1+alt10)/2) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
-                #                 SUM(IF(((alt1+alt10)/2) >12,1,0)) as 'gt_12'  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                # strcommandChartAge=""" SELECT tk.Id,    SUM(IF((alt1) < 9,1,0)) as lt_9,
+                #                 SUM(IF( (alt1) BETWEEN 9 and 10,1,0) ) as btw_9_10,
+                #                 SUM(IF((alt1) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
+                #                 SUM(IF((alt1) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
+                #                 SUM(IF((alt1) >12,1,0)) as 'gt_12'  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
                 #                         where 
                 #                             {}
                 #                             {} 
@@ -1054,11 +1125,11 @@ def MainSearch (request) :
                 SUM(IF(btw_10_11 > 0,1,0)) as cntbtw_10_11,
                 SUM(IF(btw_11_12 > 0,1,0)) as cntbtw_11_12,
                 SUM(IF(gt_12 >0,1,0)) as cntgt_12
-                from (SELECT tk.Id as Id,SUM(IF(((alt1+alt10)/2) < 9,1,0)) as lt_9,
-                                SUM(IF( ((alt1+alt10)/2) BETWEEN 9 and 10,1,0) ) as btw_9_10,
-                                SUM(IF(((alt1+alt10)/2) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
-                                SUM(IF(((alt1+alt10)/2) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
-                                SUM(IF(((alt1+alt10)/2) >12,1,0)) as gt_12 ,target 
+                from (SELECT tk.Id as Id,SUM(IF((alt1) < 9,1,0)) as lt_9,
+                                SUM(IF( (alt1) BETWEEN 9 and 10,1,0) ) as btw_9_10,
+                                SUM(IF((alt1) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
+                                SUM(IF((alt1) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
+                                SUM(IF((alt1) >12,1,0)) as gt_12 ,target 
                                 FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
                                         where 
                                             {}
@@ -1118,8 +1189,8 @@ def MainSearch (request) :
     'AggregatedGlobal':AggregatedGlobal,
     'AggregatedText':AggregatedText,
     'AggregatedLema':AggregatedLema,
-    'StudentIDSelected':StudentIDSelected
-    
+    'StudentIDSelected':StudentIDSelected,
+    'ListFilterItems':', '.join(str(v) for v in  ListFilterItems  )
     }
     return render(request, "MainSearch.Html", context)
 
