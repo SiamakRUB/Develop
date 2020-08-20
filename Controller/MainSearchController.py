@@ -1115,9 +1115,9 @@ def MainSearch (request) :
                     values.append( int(p.cntgt_12))   
                 
 
-                DonchartModel.agetokenvalues=values
+                DonchartModel.agetokenvalues=values 
 
-                #Age Type 
+                #Age Type  
                 
                 strcommandChartAgeType="""
                 select Id  ,SUM(IF(lt_9 > 0,1,0)) as cntlt_9 ,
