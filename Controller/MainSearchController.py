@@ -43,7 +43,7 @@ def switchStringSelect(selectedvalue):
 def get_Token_Student_sql(textids ):
     my_string = "','".join(textids) 
     cursor = connection.cursor()    
-    strcommand="SELECT * FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id where tk.text_id IN ('"+my_string+"')"
+    strcommand="SELECT * FROM tbltokenbase as tk left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id   where tk.text_id IN ('"+my_string+"')"
     cursor.execute(strcommand )
     row = cursor.fetchone()
     return row
@@ -203,7 +203,6 @@ def MainSearch (request) :
         form = SearchViewModel.SearchItem(request.POST)
         if form.is_valid():
             showpanel=''
-
             LemmaSelect= int(form.cleaned_data['LemmaSelect'])
             Lemma= form.cleaned_data['Lemma']
             # ShowColumnsModel.Showlemma=bool(form.cleaned_data['Showlemma'])
@@ -218,7 +217,7 @@ def MainSearch (request) :
             #     ListOfShowFields.append("chl_lemma_norm")
             # ShowColumnsModel.ShowlemmaZipfscore=bool(form.cleaned_data['ShowlemmaZipfscore'])
             # if ShowColumnsModel.ShowlemmaZipfscore:
-            #     ListOfShowFields.append("lemma_zipf")
+            #     ListOfShowFields.append("lemma_zipf") 
             
             if Lemma:
                 if LemmaSelect>-1:
@@ -264,18 +263,20 @@ def MainSearch (request) :
             # IsFunktion= form.cleaned_data['IsFunktion']
             # IsLexion= form.cleaned_data['IsLexion']
 
-            POSSelect= int(form.cleaned_data['POSSelect'])
-            POS= form.cleaned_data['POS']
+            POSSelect= int(form.cleaned_data['POSSelect'])  
+            POS=str( form.cleaned_data['POS'])
             if POS:
                 if POSSelect>-1:
                     switcher = {
                     0: Q(pos=POS),
-                    1: Q(pos__startswith=POS),
-                    2: Q(pos__contains=POS),
-                    3: Q(pos__endswith=POS),
+                    1: Q(pos__istartswith=POS),
+                    2: Q(pos__icontains=POS),
+                    3: Q(pos__iendswith=POS),
                     }
                     q_list_token.append( switcher.get(POSSelect, "Invalid"))
                     ListFilterItems.append("POS: {}".format(POS))
+            
+           
 
             max_lemma_freq= form.cleaned_data['max_lemma_freq']
             if max_lemma_freq>0:
@@ -351,9 +352,9 @@ def MainSearch (request) :
                 if SyllableTypeSelect>-1:
                     switcher = {
                     0: Q(syllable_types=SyllableType),
-                    1: Q(syllable_types__startswith=SyllableType),
-                    2: Q(syllable_types__contains=SyllableType),
-                    3: Q(syllable_types__endswith=SyllableType),
+                    1: Q(syllable_types__istartswith=SyllableType),
+                    2: Q(syllable_types__icontains=SyllableType),
+                    3: Q(syllable_types__iendswith=SyllableType),
                     }
                     ListFilterItems.append("SyllableType: {}".format(SyllableType))
                     q_list_token.append( switcher.get(SyllableTypeSelect, "Invalid"))
@@ -637,8 +638,8 @@ def MainSearch (request) :
             # if StudentTestTimeSelect>0:
             #     q_list_token.append( Q(erroneous__gte=StudentTestTimeSelect))
             # DonchartModel.storycat.append() 
-            groupfields=request.session['grouping']
-            Showing=request.session['grouping']
+            # groupfields=request.session['grouping']
+            # Showing=request.session['grouping']
             if q_list_token and len(q_list_token)>0 :
                 resultmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token))
                 testmodel=models.Tbltokenbase.objects.filter(reduce(operator.and_, q_list_token)).values_list("id", flat=True) 
@@ -760,7 +761,7 @@ def MainSearch (request) :
 
             # KOF= form.cleaned_data['KOF'] 
             # ErrorKOF= form.cleaned_data['ErrorKOF']       
-            strcommand="""SELECT * FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+            strcommand="""SELECT * FROM tbltokenbase as tk left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id  
             where 
              {}
              {} 
@@ -771,17 +772,17 @@ def MainSearch (request) :
 
                 strcommandML="""  select tt.Id, count(orig) as origcount ,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual  ,orig, target, story FROM tbltokenbase as tk
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id  
                 where {}{} and multilingual='ja' GROUP by story,orig) as tt GROUP by story
                 """.format(token_where_string,student_where_string).replace("\n","")
                 strcommandGerman="""select tt.Id, count(orig) as origcount,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual  ,orig, target, story FROM tbltokenbase as tk
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id  
                 where {}{} and multilingual='nein' GROUP by story,orig) as tt GROUP by story
                 """.format(token_where_string,student_where_string).replace("\n","")
                 strcommandKA=""" select tt.Id, count(orig) as origcount,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual ,orig, target, story FROM tbltokenbase as tk
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id 
                 where {}{} and multilingual='k.A.' GROUP by story,orig) as tt GROUP by story 
                 """.format(token_where_string,student_where_string).replace("\n","")
                 
@@ -794,17 +795,17 @@ def MainSearch (request) :
                 
                 strcommandtypeML="""  select tt.Id, count(target) as targetcount ,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual , target, story FROM tbltokenbase as tk
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id 
                 where {}{} and multilingual='ja' GROUP by story,target) as tt GROUP by story
                 """.format(token_where_string,student_where_string).replace("\n","")
                 strcommandtypeGerman="""select tt.Id, count(target) as targetcount,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual , target, story FROM tbltokenbase as tk
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id 
                 where {}{} and multilingual='nein' GROUP by story,target) as tt GROUP by story
                 """.format(token_where_string,student_where_string).replace("\n","")
                 strcommandtypeKA=""" select tt.Id, count(target) as targetcount,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual , target, story FROM tbltokenbase as tk
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id 
                 where {}{} and multilingual='k.A.' GROUP by story,target) as tt GROUP by story 
                 """.format(token_where_string,student_where_string).replace("\n","")
                 
@@ -815,16 +816,16 @@ def MainSearch (request) :
                 # Error Level
                 strcommandErrorML=""" select tt.Id, count(error_level) as errcount ,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual , error_level, target, story FROM tbltokenbase as tk 
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id 
                 where {}{} and multilingual='ja'  and  error_level<>'' GROUP by story,tk.error_level) as tt GROUP by story order by story
                 """.format(token_where_string,student_where_string).replace("\n","")
                 AverageStoryERRML=list(models.Tbltokenbase.objects.raw(strcommandErrorML))
 
                 strcommandErrorGer="""  select tt.Id, count(error_level) as errcount ,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual , error_level, target, story FROM tbltokenbase as tk 
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id 
                 where {}{} and multilingual='nein'  and  error_level<>'' GROUP by story,tk.error_level) as tt GROUP by story order by story
                 """.format(token_where_string,student_where_string).replace("\n","")
 
@@ -832,8 +833,8 @@ def MainSearch (request) :
 
                 strcommandErrorKA=""" select tt.Id, count(error_level) as errcount ,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual ,error_level, target, story FROM tbltokenbase as tk 
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id  
                 where {}{} and multilingual='k.a.' and  error_level<>'' GROUP by story,tk.error_level) as tt GROUP by story order by story
                 """.format(token_where_string,student_where_string).replace("\n","")
                 AverageStoryERRKA=list(models.Tbltokenbase.objects.raw(strcommandErrorKA))
@@ -841,16 +842,16 @@ def MainSearch (request) :
                 # POS
                 strcommandPosKA=""" select tt.Id, count(pos) as poscount ,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual ,pos,error_level, target, story FROM tbltokenbase as tk 
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id  
                 where {}{} and multilingual='ja' and  pos<>'' GROUP by story,tk.pos) as tt GROUP by story order by story
                 """.format(token_where_string,student_where_string).replace("\n","")
                 AverageStoryPosML=list(models.Tbltokenbase.objects.raw(strcommandPosKA))
 
                 strcommandPosKA=""" select tt.Id, count(pos) as poscount ,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual ,pos,error_level, target, story FROM tbltokenbase as tk 
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id  
                 where {}{} and multilingual='nein' and  pos<>'' GROUP by story,tk.pos) as tt GROUP by story order by story
                 """.format(token_where_string,student_where_string).replace("\n","")
 
@@ -858,8 +859,8 @@ def MainSearch (request) :
 
                 strcommandPosKA=""" select tt.Id, count(pos) as poscount ,story from 
                 (SELECT tk.Id as Id,st.multilingual as multilingual ,pos,error_level, target, story FROM tbltokenbase as tk 
-                INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
-                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or 
+                st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id or st.T9=tk.text_id or st.T10=tk.text_id  
                 where {}{} and multilingual='k.a.' and  pos<>'' GROUP by story,tk.pos) as tt GROUP by story order by story
                 """.format(token_where_string,student_where_string).replace("\n","")
                 AverageStoryPosKA=list(models.Tbltokenbase.objects.raw(strcommandPosKA))
@@ -992,7 +993,7 @@ def MainSearch (request) :
 
                 getstrstorycat=""" SELECT tk.Id, story,count(orig) as tokencount  FROM tbltokenbase as tk INNER JOIN
                 students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or 
-                st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id  or st.T9=tk.text_id or st.T10=tk.text_id  
                 where 
                 {}
                 {} group by story 
@@ -1007,7 +1008,7 @@ def MainSearch (request) :
                 DonchartModel.storytokenvalues=values
                 
                 getstrstorytype=""" 
-                select tt.Id, count(target) as targetcount ,story from (SELECT tk.Id as Id, target, story FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id
+                select tt.Id, count(target) as targetcount ,story from (SELECT tk.Id as Id, target, story FROM tbltokenbase as tk left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id  or st.T9=tk.text_id or st.T10=tk.text_id  
                 where 
                 {}
                 {} 
@@ -1024,7 +1025,7 @@ def MainSearch (request) :
                 DonchartModel.storytypevalues=  values
 
 
-                StrWordNumber=""" SELECT  tk.Id,   st.multilingual as multilingual, count(multilingual) as spcount FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                StrWordNumber=""" SELECT  tk.Id,   st.multilingual as multilingual, count(multilingual) as spcount FROM tbltokenbase as tk left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id  or st.T9=tk.text_id or st.T10=tk.text_id  
                 where 
                 {}
                 {} group by st.multilingual ORDER by st.multilingual
@@ -1045,7 +1046,7 @@ def MainSearch (request) :
                 cast(avg(chl_lemma_abs) as decimal(10,2)) as freqabsolute,
                 cast(avg(chl_type_norm) as decimal(10,2)) as Wordformfreqabsolute
                 
-                FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                FROM tbltokenbase as tk left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id  or st.T9=tk.text_id or st.T10=tk.text_id  
                 where 
                 {}
                 {} group by chl_lemma  ORDER by chl_lemma
@@ -1059,7 +1060,7 @@ def MainSearch (request) :
                 cast(avg(chl_lemma_abs) as decimal(10,2)) as freqabsolute,
                 cast(avg(chl_type_norm) as decimal(10,2)) as Wordformfreqabsolute
                 
-                FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                FROM tbltokenbase as tk left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id  or st.T9=tk.text_id or st.T10=tk.text_id  
                 where 
                 {}
                 {} group by text_id   ORDER by text_id 
@@ -1071,7 +1072,7 @@ def MainSearch (request) :
                 cast(avg(chl_lemma_abs) as decimal(10,2)) as freqabsolute,
                 cast(avg(chl_type_norm) as decimal(10,2)) as Wordformfreqabsolute
                 
-                FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                FROM tbltokenbase as tk left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id  or st.T9=tk.text_id or st.T10=tk.text_id  
                 where 
                 {}
                 {} 
@@ -1090,7 +1091,7 @@ def MainSearch (request) :
                                 SUM(IF((alt1) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
                                 SUM(IF((alt1) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
                                 SUM(IF((alt1) >12,1,0)) as gt_12 ,target 
-                                FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                                FROM tbltokenbase as tk left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id  or st.T9=tk.text_id or st.T10=tk.text_id  
                                         where 
                                             {}
                                             {} 
@@ -1100,7 +1101,7 @@ def MainSearch (request) :
                 #                 SUM(IF( (alt1) BETWEEN 9 and 10,1,0) ) as btw_9_10,
                 #                 SUM(IF((alt1) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
                 #                 SUM(IF((alt1) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
-                #                 SUM(IF((alt1) >12,1,0)) as 'gt_12'  FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                #                 SUM(IF((alt1) >12,1,0)) as 'gt_12'  FROM tbltokenbase as tk left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id  or st.T9=tk.text_id or st.T10=tk.text_id  
                 #                         where 
                 #                             {}
                 #                             {} 
@@ -1130,7 +1131,7 @@ def MainSearch (request) :
                                 SUM(IF((alt1) BETWEEN 10.01 and 11,1,0)) as btw_10_11,
                                 SUM(IF((alt1) BETWEEN 11.01 and 12,1,0)) as btw_11_12,
                                 SUM(IF((alt1) >12,1,0)) as gt_12 ,target 
-                                FROM tbltokenbase as tk INNER JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id 
+                                FROM tbltokenbase as tk left JOIN students as st on st.t1=tk.text_id or st.T2=tk.text_id or st.T3=tk.text_id or st.T4=tk.text_id or st.T5=tk.text_id or st.T6=tk.text_id or st.T7=tk.text_id or st.T8=tk.text_id  or st.T9=tk.text_id or st.T10=tk.text_id  
                                         where 
                                             {}
                                             {} 
