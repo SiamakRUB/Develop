@@ -21,6 +21,7 @@ services:
 
   webserver:
     build: .
+    command: python manage.py runserver 0.0.0.0:8000
     image: litkeyweb:1.0
     ports:
       - "${LITKEY_PORT}:80"
