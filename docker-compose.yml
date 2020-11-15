@@ -1,11 +1,39 @@
 version: '3.4'
 
+
 services:
-  litkey:
-    image: litkey
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+  mysqlserver:
+    image: mariadb:10
+    environment:
+      # diese Variablen aktualisieren
+      - MYSQL_DATABASE='litkey'
+      - MYSQL_PORT='3306'
+      - MYSQL_USER='root'
+      - MYSQL_PASSWORD=''
+    command: ["--character-set-server=utf8", "--collation-server=utf8_bin"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_PASSWORD}", "-u${MYSQL_USER}"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+    networks:
+      litkey-net:
+
+  webserver:
+    build: .
+    image: litkeyweb:1.0
     ports:
-      - 8000:8000
+      - "${LITKEY_PORT}:80"
+    volumes:
+      - .:/litkey/RubLitkeyCorpusWeb
+      # z.B. falls Daten von außerhalb vom Container zugänglich sein sollten
+      # - ${LITKEY_HOME}/server-data/export:/export
+    depends_on:
+      mysqlserver:
+        condition: service_healthy
+    mem_limit: 1g
+    memswap_limit: 1g
+    restart: unless-stopped
+    networks:
+      litkey-net:
+              
