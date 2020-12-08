@@ -138,11 +138,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'litkey',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'litkeyuser',
+        'PASSWORD': os.getenv("DBPASS"),
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
-ALLOWED_HOSTS=['0.0.0.0']
- 
+ALLOWED_HOSTS=['0.0.0.0', "127.0.0.1"]
