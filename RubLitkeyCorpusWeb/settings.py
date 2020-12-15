@@ -140,6 +140,22 @@ TEMPLATE_DIRS = [
 ]
 
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'litkey',
+
+        'USER': 'litkeyuser',
+        # 'PASSWORD': os.getenv("DBPASS"),
+        'PASSWORD': "DBPASS",
+        'HOST': 'localhost',
+        'PORT': '3306',
+
+    }
+}
+
+
+# Copy:
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',

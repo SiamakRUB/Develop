@@ -6,17 +6,17 @@ from .models import sample
 #  views are equal Controller in MVC
 
 
-def home (request) :
+def home(request):
     # model= MenuItem()
     # model.Name="SampleName"
     # model.text="SampleText"
     # model.link="http://google.com"
-    return render(request, "MainPage.Html",{'name':'  Siamak  ','model':'model'})
+    return render(request, "MainPage.html", {'name': '  Siamak  ', 'model': 'model'})
 
 
-def menu (request) :
-    return render(request, "Menu.Html",{'name':'  Click to View   '})
-    
+def menu(request):
+    return render(request, "Menu.html", {'name': '  Click to View   '})
+
 # def Sample_getItems (request) :
     # model= drivers.objects.all()
 
@@ -25,5 +25,5 @@ def menu (request) :
     # model.UserName="http://google.com"
     # model.RecordCreated="http://google.com"
     # model.Address="http://google.com"
-  
+
     # return render(request, "ShowData.Html",{'model':model})

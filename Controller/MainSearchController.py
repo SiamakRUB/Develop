@@ -1193,6 +1193,6 @@ def MainSearch (request) :
     'StudentIDSelected':StudentIDSelected,
     'ListFilterItems':', '.join(str(v) for v in  ListFilterItems  )
     }
-    return render(request, "MainSearch.Html", context)
+    return render(request, "MainSearch.html", context)
 
     
