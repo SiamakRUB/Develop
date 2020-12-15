@@ -144,7 +144,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'litkey',
-
         'USER': 'litkeyuser',
         # 'PASSWORD': os.getenv("DBPASS"),
         'PASSWORD': "DBPASS",

@@ -26,4 +26,4 @@ def menu(request):
     # model.RecordCreated="http://google.com"
     # model.Address="http://google.com"
 
-    # return render(request, "ShowData.Html",{'model':model})
+    # return render(request, "ShowData.html",{'model':model})

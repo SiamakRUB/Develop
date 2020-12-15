@@ -4,23 +4,32 @@ networks:
   litkey-net:
 
 services:
-  # mysqlserver:
-  #   image: mariadb:10
-  #   environment:
-  #     # diese Variablen aktualisieren
-  #     - MYSQL_DATABASE='litkey'
-  #     - MYSQL_PORT='3306'
-  #     - MYSQL_USER='litkeyuser'
-  #     - MYSQL_PASSWORD=${DBPASS}
-  #     - MYSQL_RANDOM_ROOT_PASSWORD=true
-  #   command: ["--character-set-server=utf8", "--collation-server=utf8_bin"]
-  #   healthcheck:
-  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_PASSWORD}", "-u${MYSQL_USER}"]
-  #     interval: 20s
-  #     timeout: 10s
-  #     retries: 10
-  #   networks:
-  #     litkey-net:
+  mysqlserver:
+    image: mariadb:10
+    environment:
+      # diese Variablen aktualisieren
+      - MYSQL_DATABASE='litkey'
+      - MYSQL_PORT='3306'
+      - MYSQL_USER='litkeyuser'
+      - MYSQL_PASSWORD=${DBPASS}
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+    command: ["--character-set-server=utf8", "--collation-server=utf8_bin"]
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-p${MYSQL_PASSWORD}",
+          "-u${MYSQL_USER}",
+        ]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+    networks:
+      litkey-net:
 
   webserver:
     build: .
