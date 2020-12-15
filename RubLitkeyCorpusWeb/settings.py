@@ -13,8 +13,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+from pathlib import Path
+BASE_DIR = Path(os.path.abspath(__file__)).parent.parent
+# BASE_DIR = "/home/amir/Desktop/Siamak/Develop/"
+
+# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -25,7 +30,8 @@ SECRET_KEY = 'qb&fv&mhxjv^@!8(j39cq296!a(plul8eq#c8a!h(rtw=cuv_k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -55,7 +61,9 @@ ROOT_URLCONF = 'RubLitkeyCorpusWeb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,11 +128,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS =[
-    os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
 ]
 
-STATIC_ROOT=os.path.join(BASE_DIR,'assets')
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
+TEMPLATE_DIRS = [
+    os.path.join(BASE_DIR, 'templates')
+
+]
+
 
 # DATABASES = {
 #     'default': {
@@ -134,14 +148,18 @@ STATIC_ROOT=os.path.join(BASE_DIR,'assets')
 #         'Name': 'Test',
 #     }
 # }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'litkey',
         'USER': 'litkeyuser',
-        'PASSWORD': os.getenv("DBPASS"),
+        'PASSWORD': 'DBPASS',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
-ALLOWED_HOSTS=['0.0.0.0', "127.0.0.1"]
+
+# ALLOWED_HOSTS = ['0.0.0.0', "127.0.0.1"]
+# ALLOWED_HOSTS = ['*', ]
