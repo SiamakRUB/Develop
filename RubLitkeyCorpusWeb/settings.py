@@ -150,16 +150,16 @@ TEMPLATE_DIRS = [
 # }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'litkey',
-        'USER': 'litkeyuser',
-        'PASSWORD': 'DBPASS',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'litkey',
+#         'USER': 'litkeyuser',
+#         'PASSWORD': 'DBPASS',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 # ALLOWED_HOSTS = ['0.0.0.0', "127.0.0.1"]
 # ALLOWED_HOSTS = ['*', ]
